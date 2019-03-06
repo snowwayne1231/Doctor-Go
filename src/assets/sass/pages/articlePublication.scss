@@ -1,0 +1,28 @@
+@import '../variable.scss';
+
+#article-publication {
+
+	.inner-content {
+		background-color: #fff;
+		padding: 10px;
+
+		.image-link {
+			min-width: 80px;
+			margin-top: 5px;
+			margin-right: 10px;
+		}
+
+		.line-info {
+
+			>dd {
+				display: block;
+			}
+			
+			.info-content {
+				color: $grey;
+			}
+		}
+	}
+
+	
+}

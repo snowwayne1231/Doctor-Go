@@ -1,0 +1,49 @@
+.registration {
+	
+	.page-content {
+		background-color: #fff;
+	}
+
+	.logo {
+		padding: 10% 0px 0px;
+		margin: 0px auto;
+		display: block;
+	}
+
+	.get-token {
+		.btn {
+			color: $color-link;
+			outline: none;
+			background: none;
+			border: none;
+			width: 100%;
+		}
+	}
+
+	.input-form {
+		padding-bottom: 80px;
+	}
+
+	.red {
+		position: absolute;
+		top: 15px;
+		left: 10px;
+		color: $red;
+	}
+
+	.doctor-file-upload {
+		color: $grey;
+	}
+
+	.hasFile {
+		color: #000;
+	}
+
+	select {
+		width: 100%;
+	}
+
+	.term >i {
+		font-size: 1em;
+	}
+}

@@ -1,0 +1,88 @@
+@import '../variable.scss';
+
+.header-nav-bar {
+    height: 48px;
+    text-align: center;
+    line-height: 46px;
+    white-space: nowrap;
+    color: #fff;
+    background-color: #019d8b;
+    background-image: url('~static/images/background/nav_bg.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    clear: both;
+
+    .header-content {
+        height: 46px;
+    }
+
+    .header-below {
+        height: 2px;
+    }
+
+    .title {
+        display: inline-block;
+        width: 70%;
+        font-size: 1.2em;
+        overflow:hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    .left {
+        float: left;
+        text-align: left;
+        height: calc(100% - 2px);
+        width: 15%;
+    }
+
+    .right {
+        float: right;
+        text-align: right;
+        width: 15%;
+        height: calc(100% - 2px);
+    }
+
+    .link {
+        opacity: 0.6;
+        transition: opacity 0.5s ease;
+
+        &.tab-link-active {
+            opacity: 1;
+            @include before(){
+                height: 1px;
+                width: 100%;
+                bottom: 10%;
+                left: 0px;
+                background-color: #fff;
+            };
+        }
+
+        .icon {
+            padding: 0px 12px;
+            font-size: 2em;
+            color: #fff;
+            line-height: inherit;
+        }
+
+        .i18n {
+            color: #fff;
+        }
+    }
+
+    .search-bar {
+        .search-bar-input-wrap {
+            font-size: inherit;
+        }
+    }
+}
+
+@media only screen and (min-width: 720px) {
+	.header-nav-bar {
+        height: 60px;
+        line-height: 58px;
+    }
+}

@@ -1,0 +1,79 @@
+@import '../../variable.scss';
+
+.basic-favorite-page {
+	position: relative;
+
+	.inner-content {
+		background-color: #fff;
+		margin: 10px;
+		@include card;
+	}
+
+	.tool-bar {
+		text-align: right;
+		
+		.i18n {
+			display: inline-block;
+			color: $orange;
+			padding: 10px;
+		}
+	}
+
+	.flex-list {
+
+		.flex-row {
+			padding: 5px;
+		}
+
+		.line-checkbox {
+			width: 15%;
+			min-width: 36px;
+			text-align: center;
+		}
+
+		.line-image {
+			width: 20%;
+			min-width: 60px;
+		}
+
+		.specification {
+			color: $grey;
+		}
+
+		.is-price {
+			font-size: 1.1em;
+		}
+
+		.line-info {
+			width: 65%;
+
+			>span {
+				display: block;
+				text-align: left;
+			}
+		}
+
+		.info-content {
+			font-size: 0.8em;
+		}
+	}
+
+	.image-link {
+		background-size: contain;
+		min-height: 60px;
+		min-width: 60px;
+		width: 100%;
+	}
+
+	.editor-bar {
+		padding: 10px;
+		text-align: right;
+		border-top: 1px solid $color-line-grey;
+
+		.btn {
+			display: inline-block;
+			width: 102px;
+			border-radius: 5px;
+		}
+	}
+}

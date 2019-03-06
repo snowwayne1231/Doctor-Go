@@ -1,0 +1,66 @@
+@import '../variable.scss';
+
+.product-item {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding-right: 8px;
+
+    .item-inner {
+        border-radius: 5px;
+        overflow: hidden;
+        @include card;
+    }
+    
+    .container-above {
+        position: relative;
+        background-color: $color-light-grey;
+        
+
+        .product-image {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center center;
+            min-height: 60px;
+            min-width: 45px;
+        }
+
+        .reduced {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            color: #fff;
+            background-color: $red;
+            border-radius: 10px;
+            overflow: hidden;
+            padding:0px 5px;
+        }
+    }
+
+    .container-below {
+        position: relative;
+        background-color: #fff;
+        padding: 10px;
+
+        .name {
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .price {
+            line-height: 1.5;
+
+            >.word {
+                font-size: 0.8em;
+                color: $color-line-grey;
+            }
+
+            >.num {
+                float: right;
+                color: #ff4b11;
+                font-size: 1.2em;
+            }
+        }
+    }
+}

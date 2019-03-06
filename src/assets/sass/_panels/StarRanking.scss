@@ -1,0 +1,13 @@
+@import '../variable.scss';
+
+.star-ranking {
+    display: inline-block;
+    position: relative;
+    color: $grey-drak;
+    
+    .fa {
+        font-size: 1.2em;
+        padding: 0px 1px;
+    }
+    
+}

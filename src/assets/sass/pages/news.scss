@@ -1,0 +1,18 @@
+@import '../variable.scss';
+
+#news {
+
+	.inner-content {
+		background-color: #fff;
+		padding: 10px;
+	}
+
+	.type {
+		color: $red;
+	}
+
+	.collapse-header {
+		height: 45px;
+		font-size: 1.2em;
+	}
+}

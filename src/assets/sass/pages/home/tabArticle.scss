@@ -1,0 +1,83 @@
+@import 'assets/sass/variable.scss';
+
+.tab-article-content {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
+    >.inner {
+        position: relative;
+        max-height: calc(100% - 50px);
+        overflow: auto;
+    }
+}
+
+
+#tab-article {
+    .list {
+        .item {
+            padding: 8px;
+        }
+
+        .inner {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            @include card;
+        }
+
+        .item-image {
+            height: 40vw;
+            min-height: 140px;
+            max-height: 280px;
+            width: 100%;
+        }
+
+        .item-title {
+            white-space: normal;
+            text-align: left;
+            padding: 3px 7px;
+            color: $black;
+            min-height: 38px;
+            
+        }
+
+        .item-after {
+            display: flex;
+            justify-content: space-between;
+
+            .info {
+                align-self: flex-end;
+                margin-bottom: 10px;
+                padding: 1px 5px;
+                font-size: 0.9em;
+                flex: 5;
+                white-space: nowrap;
+                text-align: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .date-time {
+                margin-right: 10px;
+            }
+
+            .i18n {
+                display: inline-block;
+            }
+
+            .link {
+                flex: 2;
+                
+            }
+
+            .btn {
+                border-radius: 10px;
+                height: 32px;
+                width: 90px;
+                margin: 0px 10px 10px 0px;
+            }
+        }
+    }
+    
+}

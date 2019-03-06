@@ -1,0 +1,40 @@
+@import 'assets/sass/variable.scss';
+
+#product-brand {
+
+	.inner-content {
+		position: relative;
+		padding: 8px;
+
+		.brand-banner {
+			padding-bottom: 8px;
+			position: relative;
+		}
+
+		.image-link.banner {
+			width: 100%;
+			min-height: 200px;
+		}
+
+		.brand-list {
+			position: relative;
+			
+		}
+
+		.brand-item {
+			position: relative;
+			display: inline-block;
+			background-color: #fff;
+			width: 30%;
+			margin: 0px 1% 5px;
+			@include card;
+		}
+
+		.brand-image {
+			min-height: 60px;
+			min-width: 100%;
+			background-size: contain;
+		}
+	}
+}
+

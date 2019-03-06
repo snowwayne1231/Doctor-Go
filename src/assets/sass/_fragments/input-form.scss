@@ -1,0 +1,93 @@
+@import '../variable.scss';
+
+.input-form {
+    position: relative;
+    font-size: 1em;
+    
+    .input-form-row {
+        position: relative;
+        display: flex;
+        margin: 0px;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: nowrap;
+        padding: 5px 5%;
+        min-height: 50px;
+        border-bottom: 1px solid $color-line-grey;
+
+        &:last-child {
+            // border-bottom: none;
+        }
+
+        input[type=text], input[type=password], input[type=number], input[type=email] {
+            min-height: 48px;
+            width: 100%;
+
+            &::placeholder {
+                color: $color-line-grey;
+            }
+        }
+
+        input[type=checkbox] {
+            height: 24px;
+            width: 24px;
+            background-color: #fff;
+        }
+    }
+
+    .input-form-col {
+        border-right: 1px solid $color-line-grey;
+
+        &:last-child {
+            border-right: none;
+        }
+
+        >span {
+            min-height: 48px;
+            line-height: 48px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+    }
+
+    .term {
+        font-size: 0.85em;
+        min-height: 40px;
+        color: #999;
+
+        .checkbox {
+
+            input[type="checkbox"]:checked ~ i {
+                background-color: $color-link;
+                // color: #000;
+            }
+
+            .icon-checkbox {
+                border-radius: 0px;
+                border-width: 2px;
+            }
+        }
+    }
+    
+    .password {
+        position: relative;
+
+        >input {
+            padding-right: 45px;
+        }
+
+        .eye {
+            position: absolute;
+            z-index: 2;
+            top: 10px;
+            right: 10px;
+            font-size: 1.8em;
+            color: $color-link;
+
+            &.open {
+                color: $color-link-active;
+            }
+        }
+    }
+}

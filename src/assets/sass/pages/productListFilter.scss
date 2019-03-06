@@ -1,0 +1,46 @@
+@import 'assets/sass/variable.scss';
+
+#product-list-filter {
+
+	.inner-content {
+		position: relative;
+		background-color: #fff;
+
+		.infomation {
+			padding: 5px 10px;
+			color: $grey-drak;
+
+			.image-link {
+				float: left;
+				margin: 8px 15px 6px 5px;
+				@include card;
+			}
+		}
+
+		.banner {
+			position: relative;
+			padding: 5px 0px;
+
+			.image-link {
+				width: 100%;
+				min-height: 200px;
+			}
+		}
+
+		.product-list {
+			position: relative;
+			padding-left: 8px;
+		}
+
+		.product-item {
+			width: 50%;
+			margin-bottom: 8px;
+		}
+
+		.product-image {
+			min-height: 180px;
+			height: 30vh;
+		}
+	}
+}
+

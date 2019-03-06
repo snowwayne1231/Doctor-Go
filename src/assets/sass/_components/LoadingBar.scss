@@ -1,0 +1,12 @@
+.loading-bar {
+    display: block;
+    height: 2px;
+    background-color: #ccc;
+
+    .percentage-bar {
+        width: 10%;
+        background-color: #00b9ff;
+        height: 1px;
+        transition: 0.5s width linear;
+    }
+}

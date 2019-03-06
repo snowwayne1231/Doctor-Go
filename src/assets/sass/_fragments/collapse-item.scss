@@ -1,0 +1,73 @@
+@import '../variable.scss';
+
+.collapse-item {
+    position: relative;
+    display: block;
+
+    &:last-child {
+        .collapse-footer {
+            border-top: none;
+        }
+    }
+    
+    .collapse-header {
+        border-bottom: 1px solid transparent;
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+        .fa {
+            font-size: 30px;
+            width: 40px;
+            text-align: center;
+            transform: rotateZ(0deg);
+            transition: transform 0.2s ease-in-out;
+
+            &:before {
+                vertical-align: middle;
+            }
+            &:after {
+                vertical-align: middle;
+                height: 100%;
+                content: '';
+                display: inline-block;
+            }
+        }
+
+        >div {
+            flex: 1;
+        }
+    }
+
+    .collapse-content {
+        max-height: 0px;
+        transition: max-height 0.5s ease;
+        overflow: auto;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    .collapse-footer {
+        border-top: 1px solid $color-line-grey;
+    }
+}
+
+.collapse-item.open {
+    .collapse-header {
+        border-bottom-color: $color-line-grey;
+        .fa {
+            transform: rotateZ(90deg);
+        }
+    }
+    .collapse-content {
+        max-height: 450px;
+    }
+}
+
+@media only screen and (min-width: 720px) {
+	.collapse-item {
+        
+    }
+}

@@ -1,0 +1,184 @@
+@import './variable.scss';
+@import './_components/*';
+@import './_fragments/*';
+@import './_panels/*';
+@import './pages/*';
+@import './pages/*/*';
+
+* {
+	user-select: none;
+}
+
+.meta-root {
+	font-size: 15px;
+
+	.navbar {
+		.title {
+			font-size: 1em;
+		}
+	}
+	
+	.navbar-inner {
+		background-color: #009c7e;
+		color: #fff;
+
+		.icon {
+			color: #fff;
+			font-size: 1.5em;
+		}
+	}
+
+	.toolbar {
+
+		.fa.icon {
+			font-size: 1.3em;
+		}
+	}
+	
+	.page {
+		background-color: #f2f2f2;
+
+		img {
+			max-width: 100%;
+		}
+	}
+
+	.link {
+		color: $color-link;
+
+		&.active-state {
+			color: $color-link-active;
+		}
+	}
+
+	.btn.blue {
+		color: #fff;
+		background-color: $blue;
+		
+	}
+
+	.inline-middle {
+		position: relative;
+
+		&:before {
+			content: '';
+			display: inline-block;
+			vertical-align: middle;
+			height: 100%;
+		}
+	}
+
+	.middle {
+		vertical-align: middle;
+	}
+
+	.nowrap {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.list {
+		font-size: 15px;
+		margin: 0px;
+
+		.active {
+			color: $green;
+		}
+	}
+
+	.hide {
+		display: none !important;
+	}
+
+	.background-image-cover {
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.background-image {
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+
+	.clear {
+		clear: both;
+
+		&:after {
+			content: '';
+			display: inline-block;
+		}
+	}
+
+	input, select, textarea {
+		font-size: 16px;
+	}
+
+	i, b {
+		font-style: normal;
+		font-weight: normal;
+	}
+
+	dd {
+		display: inline-block;
+		margin: 0px;
+		box-sizing: border-box;
+	}
+}
+
+.framework7-root {
+	.sheet-modal {
+		height: 50vh;
+		background-color: #fff;
+
+		.toolbar {
+			background-color: $color-title-background;
+
+			.link {
+				color: #fff;
+			}
+		}
+	}
+
+	.fa.middle:after {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+	}
+	
+	.page-content {
+		overflow-x: hidden;
+		overflow-y: auto;
+		max-width: 100%;
+	}
+}
+
+
+
+@media only screen and (min-width: 720px) {
+	.meta-root {
+		font-size: 20px;
+
+		.navbar {
+			font-size: 22px;
+			height: 60px;
+		}
+
+		.navbar ~ *:not(.no-navbar) .page-content {
+			padding-top: 60px;
+		}
+
+		.list {
+			font-size: 20px;
+		}
+	
+		input, select, textarea {
+			font-size: 20px;
+		}
+	}
+}
+
+

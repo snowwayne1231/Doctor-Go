@@ -1,0 +1,45 @@
+@import '../variable.scss';
+
+.fixed-button {
+    position: fixed;
+    bottom: 0px;
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 100%;
+    color: #fff;
+    background-color: #666;
+    text-align: center;
+    z-index: 2;
+    animation-name: fadeIn;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
+    transform: scale(0);
+
+    &.active-state {
+        color: $color-shine;
+        background-color: #545454;
+    }
+    
+    .inner {
+        height: 66px;
+        pointer-events: none;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@media only screen and (min-width: 720px) {
+	.fixed-button {
+        .inner {
+            height: 80px;
+        }
+    }
+}

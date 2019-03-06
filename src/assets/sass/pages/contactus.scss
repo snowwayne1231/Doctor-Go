@@ -1,0 +1,31 @@
+@import '../variable.scss';
+
+#contact-us {
+
+	.inner-content {
+		background-color: #fff;
+		padding: 10px;
+	}
+
+	.center {
+		text-align: center;
+	}
+
+	.inner-content {
+		padding: 15px;
+		
+		.icon {
+			height: 50px;
+			width: 50px;
+			border-radius: 50%;
+			border: 2px solid $light-blue;
+			color: $light-blue;
+			text-align: center;
+			font-size: 30px;
+			box-sizing: border-box;
+			padding-top: 5px;
+		}
+	}
+
+	
+}

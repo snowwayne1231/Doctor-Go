@@ -1,0 +1,51 @@
+@import '../variable.scss';
+
+.input-number {
+    display: inline-block;
+    width: 132px;
+    height: 36px;
+    position: relative;
+
+    div.inner {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        border: 1px solid $color-light-grey;
+        border-radius:6px;
+        overflow: hidden;
+        font-size: 20px;
+        box-sizing: border-box;
+
+        .i-n-c {
+            text-align: center;
+            display: inline-block;
+            border-right: 1px solid $color-light-grey;
+            box-sizing: border-box;
+            height: 100%;
+    
+            &:last-child {
+                border-right: none;
+                color: #fff;
+                background-color: $blue;
+            }
+        }
+    }
+
+    .fa {
+        flex: 3;
+        width: 30%;
+        padding-top: 5px;
+        max-width: 36px;
+    }
+
+    .fa-minus {
+        color: $color-light-grey;
+    }
+
+    .number {
+        flex: 4;
+        width: 40%;
+    }
+    
+}

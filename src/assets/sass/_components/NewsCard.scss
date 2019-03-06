@@ -1,0 +1,79 @@
+@import '../variable.scss';
+
+.news-card {
+    @include card;
+    display: inline-block;
+    color: $color-wording-dark;
+    background-color: #fff;
+    position: relative;
+    min-height: 40px;
+    height: 5vh;
+    white-space: nowrap;
+    overflow: hidden;
+
+    >div {
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+    }
+
+    .list {
+        margin: 0px;
+        width: 84%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .item {
+        position: absolute;
+        top: 100%;
+        margin: 0px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        text-align: left;
+        font-size: 0.9em;
+        padding: 3px 5px;
+        box-sizing: border-box;
+        transition: top 0.3s ease-in-out;
+
+        &.current {
+            top: 0%;
+        }
+
+        >dd {
+            margin: 0px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 3px;
+        }
+
+        .title { flex: 3; text-align: center; }
+        .type {
+            flex: 2;
+            >i {
+                background-color: #cc1f2d;
+                color: #fff;
+                border-radius: 6px;
+                padding: 4px;
+                text-align: center;
+            }
+        }
+        .headline { flex: 7; }
+    }
+
+    .more {
+        margin: 0px;
+        width: 15%;
+        text-align: right;
+
+        .link {
+            display: inline-block;
+            vertical-align: middle;
+            padding-right: 12px;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "allowSyntheticDefaultImports": false,
+        "baseUrl": "./",
+        "paths": {
+          "assets/*": ["src/assets/*"],
+          "static/*": ["src/static/*"],
+          "pages/*": ["src/assets/vue/pages/*"],
+          "src/*": ["src/*"],
+        }
+    },
+    "exclude": ["node_modules", "dist", "www", "webpack", "plugins", "hooks"],
+    "path-autocomplete.pathMappings": {
+        "/": "${folder}/src",
+        "$root": "${folder}/src",
+        "src": "${folder}/src"
+    }
+}

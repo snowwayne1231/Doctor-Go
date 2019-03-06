@@ -1,0 +1,59 @@
+@import '../variable.scss';
+
+#collective-buying {
+
+	.inner-content {
+		background-color: #fff;
+		padding: 10px;
+	}
+
+	.collective-filter {
+		margin-bottom: 10px;
+	}
+
+	.promoter {
+		width: auto;
+
+		.image-link {
+			border-radius: 50%;
+			min-width: 50px;
+			min-height: 50px;
+		}
+	}
+
+	.product {
+		position: relative;
+
+		.product-child {
+			display: inline-block;
+			vertical-align: middle;
+			width: 60%;
+		}
+
+		.image-link {
+			min-width: 40px;
+			background-size: contain;
+			width: 35%;
+		}
+	}
+
+	.search-bar {
+		color: $grey;
+
+		input {
+			color: $grey;
+		}
+
+		input::placeholder {
+			color: $grey;
+		}
+	}
+
+	.table-list {
+		tr {
+			>td {
+				padding: 10px 0px 5px;
+			}
+		}
+	}
+}

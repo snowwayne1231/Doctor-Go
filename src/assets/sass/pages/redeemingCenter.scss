@@ -1,0 +1,31 @@
+@import '../variable.scss';
+
+#redeeming-center {
+
+	.inner-content {
+		background-color: #fff;
+		padding: 0px;
+
+		.my-info {
+			padding: 5px 8px;
+		}
+
+		.products {
+			padding-top: 10px;
+			padding-left: 8px;
+
+			.title {
+				color: $grey;
+				line-height: 2;
+			}
+		}
+	}
+
+	.product-item {
+		width: 50%;
+
+		.product-image {
+			height: 24vh;
+		}
+	}	
+}

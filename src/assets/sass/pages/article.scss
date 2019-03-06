@@ -1,0 +1,15 @@
+@import '../variable.scss';
+
+#article {
+
+	.inner {
+		background-color: #fff;
+		padding: 10px;
+	}
+
+	.article-sub {
+		margin-top: 5px;
+		color: $grey;
+		font-size: 0.9em;
+	}
+}

@@ -1,0 +1,29 @@
+@import '../variable.scss';
+
+.flex-list {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    .flex-row {
+        justify-content: flex-start;
+        align-items: center;
+        align-content: center;
+        border-bottom: 1px solid $color-light-grey;
+
+        &:last-child {
+            border-bottom-width: 0px;
+        }
+    }
+
+    .flex-col {
+        
+    }
+}
+
+@media only screen and (min-width: 720px) {
+	.flex-list {
+        
+    }
+}

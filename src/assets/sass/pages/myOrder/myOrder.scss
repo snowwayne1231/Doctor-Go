@@ -1,0 +1,21 @@
+@import '../../variable.scss';
+
+#my-order {
+	position: relative;
+
+	.my-order-nav {
+		position: relative;
+
+		.link {
+			width: 25%;
+		}
+
+		.i18n {
+			font-size: 0.85em;
+		}
+	}
+
+	.swiper-container {
+		height: calc(100% - 48px);
+	}
+}

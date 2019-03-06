@@ -1,0 +1,162 @@
+@import 'assets/sass/variable.scss';
+
+$total-height: 54px;
+$header-nav-height: 48px;
+
+.tab-cart-content {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
+    .header-nav-bar {
+        .link {
+            color: #fff;
+            box-sizing: border-box;
+            width: 100%;
+        }
+    }
+
+    >.inner {
+        position: relative;
+        padding: 2px 1px;
+        overflow-y: auto;
+        max-height: calc(100% - #{$total-height + $header-nav-height});
+        box-sizing: border-box;
+
+        >.list {
+            margin: 6px;
+            // padding-bottom: $header-nav-height;
+            background-color: transparent;
+            @include card;
+        }
+    }
+
+    .input-check {
+        width: 24px;
+        height: 24px;
+        padding: 3px 5px;
+    }
+
+    .total {
+        display: flex;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        height: $total-height;
+        z-index: 2;
+        background-color: #fff;
+        border-top: 1px solid $color-line-grey;
+        
+        .selector {
+            flex: 20;
+            min-width: 80px;
+        }
+
+        .prices {
+            flex: 60;
+            font-size: 13px;
+            padding: 5px 2px;
+
+            .price {
+                color: $orange;
+                font-weight: bold;
+                font-size: 15px;
+            }
+        }
+
+        .btn {
+            flex: 20;
+            color: #fff;
+            background-color: $blue;
+        }
+    }
+}
+
+
+#tab-cart {
+    position: relative;
+    height: 100%;
+
+    .list-item {
+        position: relative;
+        height: 120px;
+        padding: 0px;
+        border-bottom: 1px solid $color-line-grey;
+        background-color: #fff;
+    }
+
+    .item-link {
+        padding-left: 5px;
+        height: 100%;
+
+        &.active-state {
+            background-color: transparent;
+        }
+    }
+
+    .item-media {
+        padding: 0px;
+        flex: 3;
+    }
+
+    .item-title {
+        width: 100%;
+        flex: 7;
+        text-align: left;
+        align-items: center;
+        padding: 10px 5px 0px;
+        box-sizing: border-box;
+        overflow-y: auto;
+
+        .item-header {
+            font-size: 15px;
+            min-height: 36px;
+        }
+
+        .item-description {
+            color: $color-line-grey;
+            font-size: 13px;
+            vertical-align: bottom;
+        }
+    }
+
+    .item-after {
+        flex: 4;
+        margin: 0px;
+        width: 100%;
+        position: relative;
+
+        .is-price {
+            color: $black;
+            max-width: 40%;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .input-number {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            height: 100%;
+            float: right;
+            max-width: 60%;
+        }
+    }
+    
+
+    .item-inner {
+        background: none;
+        padding-right: 5px;
+        flex: 7;
+        flex-direction: column;
+
+        &:after {
+            content: none;
+        }
+    }
+    .image {
+        max-width: 80%;
+        max-height: 110px;
+    }
+}

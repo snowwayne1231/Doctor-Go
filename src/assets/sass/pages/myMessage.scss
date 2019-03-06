@@ -1,0 +1,17 @@
+@import '../variable.scss';
+
+.my-message {
+
+	.inner-content {
+		background-color: #fff;
+	}
+
+	.table-list {
+
+		.type {
+			text-align: center;
+			color: $blue;
+			line-height: 40px;
+		}
+	}
+}

@@ -1,0 +1,32 @@
+.login {
+	.page-content {
+		background-color: #fff;
+	}
+	
+	.logo {
+		padding: 10% 0px 0px;
+		margin: 0px auto;
+		display: block;
+	}
+
+	.input-form-row {
+		input[type=text], input[type=password] {
+			padding-left: 20px;
+		}
+	}
+
+	.btns {
+		margin: 20px 20%;
+		position: relative;
+		text-align: center;
+		white-space: nowrap;
+
+		.link {
+			display: inline-block;
+			width: 50%;
+			padding: 5px;
+			
+		}
+	}
+	
+}

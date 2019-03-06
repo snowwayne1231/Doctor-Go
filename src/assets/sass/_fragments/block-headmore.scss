@@ -1,0 +1,27 @@
+@import '../variable.scss';
+
+.block-headmore {
+    position: relative;
+    clear: both;
+
+    .title {
+        padding: 2% 3%;
+        line-height: 1.5;
+        color: #777;
+        
+        .more {
+            font-size: 0.9em;
+            float: right;
+        }
+    }
+
+    .content {
+
+    }
+}
+
+@media only screen and (min-width: 720px) {
+	.block-headmore {
+        
+    }
+}

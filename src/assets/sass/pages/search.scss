@@ -1,0 +1,34 @@
+@import '../variable.scss';
+
+#search {
+
+	background-color: #fff;
+
+	.inner-content {
+		background-color: #fff;
+		padding: 10px;
+	}
+
+	.autocomplete-list {
+		.link {
+			display: block;
+			color: $grey;
+			border-bottom: 1px solid $color-light-grey;
+			line-height: 45px;
+		}
+	}
+
+	.product-filter {
+		position: relative;
+	}
+
+	.product-item {
+		width: 50%;
+
+		.product-image {
+			min-height: 180px;
+			height: 30vh;
+		}
+	}
+
+}

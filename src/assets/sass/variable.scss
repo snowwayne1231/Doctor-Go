@@ -1,0 +1,75 @@
+$orange: #ff8f19;
+$red: #ff0000;
+$grey: #999;
+$grey-drak: #666;
+$black: #121212;
+$blue: #027fad;
+$green: #10b793;
+$light-blue: #3dbfd9;
+
+$color-link: #2390b8;
+$color-link-active: #00ffc6;
+
+$color-line-grey: #bcbcbc;
+$color-light-grey: #dfdfdf;
+
+$color-shine: #ffff00;
+
+$color-title-background: #39977e;
+$color-light-background: #019d8b;
+$color-wording-dark: #121212;
+
+
+@mixin card() {
+    box-shadow: 1px 1px 5px #8e8e8e;
+    border-radius: 5px;
+}
+
+@mixin before($position: absolute, $content: '') {
+    &::before{
+        content: $content;
+        display: inline-block;
+        position: $position;
+        @content;
+    }
+}
+
+@keyframes fadeInBottom {
+    0% {
+        transform: translateY(20px);
+    }
+
+    40% {
+        transform: translateY(-4px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes fadeInTop {
+    0% {
+        transform: translateY(-20px);
+    }
+
+    40% {
+        transform: translateY(4px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes rotateRight {
+    0% {
+        // transform: rotateY(120deg);
+        transform: rotate3d(-0.02, 1, 0, 120deg);
+    }
+
+    100% {
+        // transform: rotateY(0deg);
+        transform: rotate3d(0, 0, 0, 120deg);
+    }
+}

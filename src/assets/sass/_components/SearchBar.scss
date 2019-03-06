@@ -1,0 +1,42 @@
+@import '../variable.scss';
+
+.search-bar {
+    color: #fff;
+    position: relative;
+
+    input {
+        color: #fff;
+    }
+
+    input::placeholder {
+        color: #fff;
+    }
+
+    .search-bar-input-wrap {
+        position: relative;
+        min-width: 160px;
+        border: 1px solid $color-light-grey;
+        border-radius: 22px;
+        font-size: 1.2em;
+        line-height: 1.5;
+        padding: 1px 5%;
+        white-space: nowrap;
+
+        >input {
+            display: inline-block;
+            vertical-align: middle;
+            width: 90%;
+            padding: 3px;
+        }
+
+        input[type=search]::-webkit-search-cancel-button {
+            display: none;
+        }
+
+        .fa-search {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 1.2em;
+        }
+    }
+}

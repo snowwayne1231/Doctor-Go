@@ -1,0 +1,52 @@
+@import 'assets/sass/variable.scss';
+
+.tab-catalog-content {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
+    .inner-content {
+        position: relative;
+        display: flex;
+        max-height: calc(100% - 50px);
+        overflow: auto;
+    }
+
+    .inner-left {
+        flex: 20;
+        padding: 10px 6px;
+        box-sizing: border-box;
+
+        .title {
+            display: block;
+            padding: 5% 2%;
+            text-align: center;
+        }
+
+        .list {
+            padding: 2%;
+        }
+
+        .link {
+            color: inherit;
+        }
+    }
+
+    .inner-right {
+        flex: 50;
+
+        .container-below {
+            padding: 5px;
+        }
+    }
+
+    .search-bar-wrapper {
+        .search-bar {
+            pointer-events: none;
+        }
+    }
+
+    .block-headmore {
+        padding-top: 10px;
+    }
+}

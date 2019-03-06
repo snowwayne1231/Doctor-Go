@@ -1,0 +1,137 @@
+@import 'assets/sass/variable.scss';
+
+.tab-my-content {
+    position: relative;
+
+    >.inner {
+        position: relative;
+
+    }
+
+    .my-header {
+        min-height: 175px;
+        max-height: 260px;
+        background-image: url('~static/images/background/img_nav_bg.png');
+
+        .tools {
+            display: flex;
+            padding: 10px;
+            justify-content: space-between;
+
+            .setting {
+                width: 32px;
+                height: 32px;
+                background-color: transparent;
+                background-image: url('~static/images/icons/icon_setting.png');
+            }
+        }
+
+        .info {
+            display: flex;
+            color: #fff;
+
+            >.left {
+                flex: 4;
+                text-align: right;
+                padding: 5px 10px;
+            }
+
+            >.right {
+                flex: 5;
+            }
+
+            .profile-wording {
+                vertical-align: middle;
+                min-width: 85px;
+
+                .point {
+                    // color: $color-link-active;
+                }
+            }
+            
+            .profile-img {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                overflow: hidden;
+                box-sizing: border-box;
+                border: 1px solid $grey-drak;
+            }
+
+            .logout {
+                display: block;
+                font-size: 0.8em;
+                padding: 4px 8px;
+                margin-top: 5px;
+                width: 70px;
+                color: $grey-drak;
+                background-color: #cbe4de;
+                border-radius: 8px;
+                text-align: center;
+            }
+        }
+    }
+
+    .my-content {
+        padding: 15px 10px;
+    }
+
+    .my-orders {
+        background-color: #fff;
+        margin-bottom: 15px;
+        @include card;
+
+        >.header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid $color-line-grey;
+            padding: 5px 10px;
+            white-space: nowrap;
+            .fa {
+                font-size: 1.5em;
+            }
+        }
+
+        >.content {
+            .table-list {
+                
+            }
+        }
+    }
+
+    .functions {
+        background-color: #fff;
+        @include card;
+    }
+
+    .table-list {
+        .i18n {
+            display: block;
+            color: $grey-drak;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .link {
+            display: block;
+        }
+
+        td {
+            // transition: background-color 0.5s ease;
+            // background-color: #fff;
+        }
+        td.active-state {
+            background-color: $color-light-grey;
+        }
+    }
+
+    .image-link {
+        display: block;
+        min-width: 40px;
+        width: 12vw;
+        margin: 0px auto;
+        background-size: contain;
+        pointer-events: none;
+    }
+}
+

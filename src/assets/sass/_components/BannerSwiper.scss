@@ -1,0 +1,23 @@
+@import '../variable.scss';
+
+.banner-swiper {
+    display: block;
+    color: #fff;
+    background-color: $color-title-background;
+    min-height: 120px; 
+
+    .swiper-slide {
+        height: 50vw;
+        text-align: center;
+
+        img {
+            height: 100%;
+        }
+    }
+
+    .swiper-pagination {
+        .swiper-pagination-bullet-active {
+            background-color: $color-light-grey;
+        }
+    }
+}

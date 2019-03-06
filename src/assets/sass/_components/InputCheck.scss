@@ -1,0 +1,36 @@
+@import '../variable.scss';
+
+$size: 32px;
+
+.input-check {
+    position: relative;
+    display: inline-block;
+    width: $size;
+    height: $size;
+    vertical-align: middle;
+
+    &.checked .inner{
+        background-color: $blue;
+    }
+    
+    .inner {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        font-size: 20px;
+        box-sizing: border-box;
+        border: 1px solid $color-light-grey;
+        overflow: hidden;
+        border-radius: 18px;
+    }
+
+    .fa {
+        display: flex;
+        color: #fff;
+        justify-content: center;
+        align-items: center;
+        min-width: 1em;
+    }
+    
+}
