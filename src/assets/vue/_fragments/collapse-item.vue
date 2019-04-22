@@ -23,7 +23,7 @@
             };
         },
         mounted() {
-            debug(this);
+            // debug(this);
         },
         computed: {
             noContent(self) {

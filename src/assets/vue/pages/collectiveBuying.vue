@@ -30,7 +30,7 @@
                             <i18n>結束時間</i18n>
                         </th>
                     </tr>
-                    <tr v-for="data in showList" :key="data.id" @click="onClickList(data)">
+                    <!-- <tr v-for="data in showList" :key="data.id" @click="onClickList(data)">
                         <td class="center promoter">
                             <ImageLink :image="data.promoterImage" />
                         </td>
@@ -40,7 +40,7 @@
                         <td>
                             <DateTime :value="data.endDate" />
                         </td>
-                    </tr>
+                    </tr> -->
                 </table-list>
             </div>
         </div>
@@ -69,6 +69,11 @@
             showList() {
                 return this.searchText.length > 0 ? this.matchedList : this.collecting;
             },
+        },
+        created() {
+            window.f7alert('尚未開放, 敬請期待', () => {
+                this.$f7router.back();
+            });
         },
 		methods: {
 			onSearchChange(value) {

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.beauty.godoctor.snow" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.psbeauty.doctorgo.snow" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="android-minSdkVersion" value="19" />
     <preference name="DisallowOverscroll" value="true" />
     <hook src="hooks/hookers.js" type="before_prepare" />
@@ -19,13 +19,22 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <platform name="browser">
+        <preference name="orientation" value="portrait" />
+        <preference name="SplashScreen" value="static/images/logo.jpg" />
+        <preference name="SplashScreenDelay" value="0" />
+        <preference name="AutoHideSplashScreen" value="true" />
+        <preference name="SplashScreenBackgroundColor" value="#10b793" />
+        <preference name="SplashScreenWidth" value="280" />
+        <preference name="SplashScreenHeight" value="105" />
+    </platform>
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/android/snow.png" />
         <icon density="mdpi" src="res/android/snow.png" />
         <preference name="orientation" value="portrait" />
         <preference name="SplashScreen" value="screen" />
-        <preference name="SplashScreenDelay" value="2500" />
+        <preference name="SplashScreenDelay" value="3000" />
         <preference name="AutoHideSplashScreen" value="true" />
         <splash src="res/screen/launch.png" />
     </platform>

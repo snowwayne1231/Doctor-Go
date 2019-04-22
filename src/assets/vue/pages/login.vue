@@ -4,12 +4,12 @@
             <i18n slot="title">登入</i18n>
         </header-nav-bar>
 
-        <img class="logo" src="../../images/zh_tw/logo.jpg" />
+        <img class="logo" src="static/images/logo.jpg" />
 
         <input-form :column="{ '2': [15, 85] }" @focus="onFocus" @blur="onBlur">
             <div>
                 <div><i18n>帳號</i18n></div>
-                <div><input v-model="account" :placeholder="i18n('用戶名/手機號碼')" type="text" /></div>
+                <div><input v-model="account" :placeholder="i18n('用戶Email/手機號碼')" type="text" /></div>
             </div>
             <div>
                 <div><i18n>密碼</i18n></div>
@@ -36,6 +36,7 @@
 <script>
     import { mapState, mapActions } from 'vuex';
     import i18n from 'assets/js/utils/i18n';
+    import axios from 'assets/js/utils/axios';
     
 
     export default {
@@ -51,24 +52,27 @@
 			user: state => { return state.user },
 		}),
 		methods: {
-			loginAction: function() {
-				this.$store.dispatch('USER_LOGIN', {
-                    id: 1,
-                    account: this.account,
-                    name: '測試用戶',
-                    firstName: '測試用戶',
-                    lastName: '姓測',
-                    token: 'qq123',
-                    unreadMsg: 1,
-                    point: Math.ceil(Math.random() * 2500),
+			loginAction() {
+
+                axios({
+                    uri: 'login',
+                    method: 'put',
+                    data: {
+                        account: this.account,
+                        password: this.password,
+                    },
+                    success: (data) => {
+                        this.$store.dispatch('USER_LOGIN', data);
+                        
+                        this.$f7router.navigate('/');
+                    },
                 });
-                this.$f7router.back();
+				
             },
             changePassword() {
                 this.openPassword = !this.openPassword;
             },
             onFocus(evt) {
-                debug('login', evt);
                 this.openButton = false;
             },
             onBlur(evt) {

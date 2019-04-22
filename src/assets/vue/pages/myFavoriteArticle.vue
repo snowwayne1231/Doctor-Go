@@ -4,56 +4,79 @@
             <i18n slot="title">文章收藏</i18n>
         </header-nav-bar>
 
-        <div class="inner-content">
+        <div class="inner-content" v-if="!loading && list.length > 0">
             <div class="tool-bar">
                 <i18n>編輯</i18n>
             </div>
             <flex-list>
-                <fr v-for="data in articles" :key="data.id">
+                <fr v-for="data in list" :key="data.id">
                     <fd class="line-checkbox">
-                        <InputCheck v-model="checkedId[data.id]"/>
+                        <InputCheck :value="isChecked(data.id)" @input="onChangeCheck(data.id)" />
                     </fd>
                     <fd class="line-image">
                         <ImageLink :image="data.image" />
                     </fd>
-                    <fd class="line-info" @click="gotoArticle">
+                    <fd class="line-info" @click="gotoArticle(data.id)">
                         <span>{{data.title}}</span>
                         <span class="info-content">{{data.content}}</span>
                     </fd>
                 </fr>
             </flex-list>
             <div class="editor-bar">
-                <btn class="blue"><i18n>刪除</i18n></btn>
+                <btn class="blue" @click="onClickDelete"><i18n>刪除</i18n></btn>
             </div>
         </div>
     </f7-page>
 </template>
 
 <script>
-    import { mapState, mapActions } from 'vuex';
+    import { mapState, mapGetters } from 'vuex';
     
     export default {
 		data () {
-            const articles = [
-                { id: 1, title: '皮秒鐳射及雙波長', content: '皮秒鐳射及雙波長皮秒Nd:YAG鐳射治療黑眼圈療效評估', price: 7500, image: 'static/images/articles/shutterstock_60149740.jpg' },
-                { id: 2, title: '皮秒鐳射及雙波長II', content: '皮秒鐳射及雙波長皮秒Nd:YAG鐳射治療黑眼圈療效評估', price: 27500, image: 'static/images/articles/shutterstock_60149740.jpg' },
-                { id: 3, title: '皮秒鐳射及雙波長III', content: '皮秒鐳射及雙波長皮秒Nd:YAG鐳射治療黑眼圈療效評估', price: 37500, image: 'static/images/articles/shutterstock_60149740.jpg' },
-            ];
-
-            const checkedId = {};
-
-            articles.map(e => {
-                checkedId[e.id] = false;
-            });
-
 			return {
-                articles, 
-                checkedId,
+                loading: true, 
+                checkedIds: [],
 			};
+        },
+        computed: {
+            ...mapState(['user', 'article']),
+            ...mapGetters(['articleChapters']),
+            list() {
+                return this.loading
+                    ? []
+                    : this.user.watchlist_articles.map(e => {
+                        const id = e.article_id;
+                        return this.articleChapters.find(a => a.id == id);
+                    }).filter(e => !!e);
+            },
+        },
+        mounted() {
+            this.$store.dispatch('ARTICLE_CHECK').then(() => {
+                this.loading = false;
+            });
         },
         methods: {
             gotoArticle() {
                 this.$f7router.navigate('/article/');
+            },
+            isChecked(id) {
+                return this.checkedIds.includes(id);
+            },
+            onChangeCheck(id) {
+                const idx = this.checkedIds.indexOf(id);
+                if (idx == -1) {
+                    this.checkedIds.push(id);
+                } else {
+                    this.checkedIds.splice(idx, 1);
+                }
+            },
+            onClickDelete() {
+                const promise = this.$store.dispatch('USER_REMOVE_WATCHLIST_ARTICLE', this.checkedIds);
+                promise.then(() => {
+                    this.checkedIds = [];
+                    window.f7alert('已移除收藏');
+                });
             },
         },
     };

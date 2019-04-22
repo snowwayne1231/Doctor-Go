@@ -1,11 +1,11 @@
 import {replaceObject} from 'assets/js/utils/formatHandlers';
+import axios from 'assets/js/utils/axios';
 
 export default {
     state: {
         id: 0,
         group_id: 0,
         store_id: 0,
-        account: '',
         token: '',
         avatar_url: 'static/images/face.jpg',
         firstName: '',
@@ -14,8 +14,11 @@ export default {
         fax: '',
         salt: '',
         point: 0,
-        name: '',
-        unreadMsg: 0,
+        doctor_clinic: '',
+        doctor_clinic_image_id: 0,
+        doctor_profile: '',
+        doctor_profile_image_id: 0,
+        email: '',
     },
 
     getters: {
@@ -33,6 +36,10 @@ export default {
         },
         USER_LOGOUT ({commit}) {
             localStorage.removeItem('user');
+            axios({
+                uri: 'logout',
+                method: 'put',
+            });
             commit('USER_CLEARN_STATE');
         },
     },
@@ -43,8 +50,13 @@ export default {
         },
         USER_CLEARN_STATE (state) {
             state.id = 0;
+            state.token = '';
+            state.telephone = '';
+            state.email = '';
+            state.avatar_url = 'static/images/face.jpg';
             state.point = 0;
-            state.name = '';
+            state.firstName = '';
+            state.lastName = '';
         },
     },
     

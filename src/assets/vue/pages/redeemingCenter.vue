@@ -10,12 +10,12 @@
                 <table-list>
                     <tr>
                         <td><i18n>我的點數</i18n></td>
-                        <td><num>{{user.point}}</num></td>
+                        <td><num :value="user.point"></num></td>
                     </tr>
                 </table-list>
             </div>
 
-            <BannerSwiper :banners="banners" />
+            <BannerSwiper :banners="ad.pointBanners" />
 
             <div class="products">
                 <div>
@@ -24,11 +24,12 @@
                 <div>
                     <ProductItem
                         v-for="data in redeemableProducts"
+                        :id="data.id"
                         :key="data.id"
                         :name="data.name"
                         :image="data.image"
                         :price="data.price"
-                        :reduced="data.reduced"
+                        :reduced="data.point_can_be_discount"
                     />
                 </div>
                 
@@ -47,17 +48,20 @@
 		data () {
 			return {
                 title: '點數中心',
-                banners: [
-                    'static/images/banners/45ef416c-8d78-43fd-a713-ed704a5a352c.jpg',
-                    'static/images/banners/45ef416c-8d78-43fd-a713-ed704a5a352c.jpg',
-                ],
 			};
         },
         computed: {
-            ...mapState(['product', 'user']),
+            ...mapState(['product', 'user', 'ad']),
             redeemableProducts() {
-                return this.product.summarylist.filter(e => e.reduced <= this.user.point);
+                return this.product.list.filter(e => {
+                    return e.status == 1 && e.point_can_be_discount && e.point_can_be_discount <= this.user.point;
+                });
             },
+        },
+        mounted() {
+            // debug(this.title, this.product);
+            this.$store.dispatch('PRODUCT_CHECK_LIST');
+            this.ad.pointBanners.length == 0 && this.$store.dispatch('AD_FETCH_POINT_BANNERS');
         },
 		methods: {
 			

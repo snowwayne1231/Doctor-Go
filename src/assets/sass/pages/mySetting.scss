@@ -8,6 +8,16 @@
 
 	.input-form {
 		padding-bottom: 70px;
+
+		input[readonly] {
+			color: $grey;
+			text-decoration: underline;
+		}
+
+		.server-image {
+			max-height: 48px;
+			padding-left: 20px;
+		}
 	}
 	
 	.input-form-col {

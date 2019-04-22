@@ -23,7 +23,8 @@
         methods: {
             navigateTo() {
                 if (true) {
-                    this.$f7router.navigate('/mymessage/');
+                    // this.$f7router.navigate('/mymessage/');
+                    this.$f7router.navigate('/myorder/tab-wait');
                 } else {
                     this.$f7router.navigate('/login/');
                 }

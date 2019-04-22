@@ -4,9 +4,13 @@
     background-color: #ccc;
 
     .percentage-bar {
-        width: 10%;
+        width: 0%;
         background-color: #00b9ff;
-        height: 1px;
-        transition: 0.5s width linear;
+        height: 2px;
+        transition: 0s width linear;
+        
+        &.loading {
+            transition-duration: 0.3s;
+        }
     }
 }

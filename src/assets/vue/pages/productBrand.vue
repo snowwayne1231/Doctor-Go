@@ -6,17 +6,17 @@
 
         <div class="inner-content">
 
-            <div class="brand-banner">
+            <!-- <div class="brand-banner">
                 <ImageLink class="banner" image="static/images/banners/179b6f07-421e-414d-92e5-1bb25148b27e.jpg" />
-            </div>
+            </div> -->
             
             <div class="brand-list">
-                <div v-for="brand in relation.brands"
+                <div v-for="brand in product.brands"
                     class="brand-item"
                     :key="brand.id"
-                    :title="brand.display"
+                    :title="brand.name"
                 >
-                    <ImageLink class="brand-image" :image="brand.image" :link="`/productbrand/${brand.name}`" />
+                    <ImageLink class="brand-image" :image="brand.image" :link="`/productbrand/${brand.id}`" />
                 </div>
             </div>
         </div>
@@ -37,9 +37,10 @@
 			};
         },
         computed: {
-            ...mapState(['relation']),
+            ...mapState(['product']),
         },
         mounted() {
+            this.$store.dispatch('PRODUCT_CHECK_LIST');
             // debug('productlistfilter', this, this.$f7route.params);
         },
         methods: {

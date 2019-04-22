@@ -18,6 +18,7 @@
 <script>
     export default {
         props: {
+            id: Number,
             image: String,
             name: String,
             price: Number,
@@ -31,7 +32,7 @@
         },
         methods: {
             showProduct() {
-                this.$f7router.navigate('/product/');
+                this.$f7router.navigate(`/product/${this.id}`);
             },
         },
     };

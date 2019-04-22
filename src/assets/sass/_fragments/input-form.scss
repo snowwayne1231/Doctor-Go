@@ -20,7 +20,7 @@
             // border-bottom: none;
         }
 
-        input[type=text], input[type=password], input[type=number], input[type=email] {
+        input[type=text], input[type=password], input[type=number], input[type=email], input[type=tel] {
             min-height: 48px;
             width: 100%;
 
@@ -33,6 +33,10 @@
             height: 24px;
             width: 24px;
             background-color: #fff;
+        }
+
+        .input-invalid + .item-input-error-message{
+            display: inline-block;
         }
     }
 

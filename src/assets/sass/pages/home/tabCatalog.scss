@@ -14,8 +14,10 @@
 
     .inner-left {
         flex: 20;
+        // min-width: 120px;
         padding: 10px 6px;
         box-sizing: border-box;
+        overflow: hidden;
 
         .title {
             display: block;
@@ -25,6 +27,42 @@
 
         .list {
             padding: 2%;
+            min-height: 420px;
+
+            .li-children {
+                color: $grey;
+                max-height: 0px;
+                overflow: hidden;
+                padding: 0px 5px 0px 15px;
+
+                &.show {
+                    
+                    animation-name: fadeInLeftList;
+                    animation-duration: 1s;
+                    animation-fill-mode: forwards;
+                }
+
+                &::after {
+                    display: none;
+                }
+
+                .li-children-li {
+                    text-align: right;
+                    padding: 2px;
+                    margin: 0px;
+                }
+            }
+
+            .fa {
+                
+                &::before {
+                    margin-right: 4px;
+                }
+            }
+        }
+
+        .back {
+            border-bottom: 1px solid $grey;
         }
 
         .link {
@@ -34,6 +72,7 @@
 
     .inner-right {
         flex: 50;
+        overflow: hidden;
 
         .container-below {
             padding: 5px;
@@ -48,5 +87,21 @@
 
     .block-headmore {
         padding-top: 10px;
+    }
+}
+
+
+
+@keyframes fadeInLeftList {
+    0% {
+        max-height: 0px;
+    }
+
+    40% {
+        max-height: 200px;
+    }
+
+    100% {
+        max-height: 1200px;
     }
 }

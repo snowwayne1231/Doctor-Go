@@ -8,6 +8,9 @@
 // Import Routes...
 import routes from './routes.js';
 import { settingDebug } from './assets/js/helper/debug';
+import i18n from './assets/js/utils/i18n';
+import store from './assets/vuex/storage';
+
 const homeRoute = routes.find(e => e.name == 'Home');
 
 export default {
@@ -18,6 +21,7 @@ export default {
                 theme: 'ios',
                 routes,
                 id: 'io.f7.snow.doctor',
+                initOnDeviceReady: true,
                 on: {
                     init() {
                         settingDebug({
@@ -25,6 +29,24 @@ export default {
                             device: window.device || {},
                         });
                         debug('INIT', this, window.device);
+
+                        // make global alert function
+                        window.f7alert = (txt, callback) => this.dialog.alert(i18n(txt), callback);
+
+                        // make global router function
+                        window.f7router = this.router;
+
+                        if (!store.state.user.id) {
+                            const localUser = localStorage.getItem('user');
+                            
+                            if (localUser) {
+                                const user = JSON.parse(localUser);
+                                if (user.token) {
+                                    store.dispatch('USER_FETCH_USER_INFO', user.token);
+                                }
+                                
+                            }
+                        }
                     },
                     routeChanged(newRoute, previousRoute, router) {
                         const firstHistory = router.history[0] || '/';
@@ -40,19 +62,16 @@ export default {
                         }
                     },
                 },
+                dialog: {
+                    title : i18n('系統提示'),
+                    buttonOk: i18n('確定'),
+                    buttonCancel: i18n('取消'),
+                }
             }
         }
     },
     mounted() {
         // debug('Main Mounted', this);
-        // alert('Main Mounted');
-        if (!this.$store.state.user.id) {
-            const localUser = localStorage.getItem('user');
-            // console.log(localUser);
-            if (localUser) {
-                this.$store.dispatch('USER_LOGIN', JSON.parse(localUser));
-            }
-        }
     },
 }
 </script>

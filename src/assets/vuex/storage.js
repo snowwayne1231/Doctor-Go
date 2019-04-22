@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import user from './fake/userModel';
+import user from './models/userModel';
 import relation from './fake/relationModel';
-import product from './fake/productModel';
-import article from './fake/articleModel';
-import cart from './fake/cartModel';
+import product from './models/productModel';
+import article from './models/articleModel';
+import cart from './models/cartModel';
+import axios from './models/axiosModel';
+import geo from './models/geoModel';
+import ad from './models/adModel';
 
 Vue.use(Vuex);
 
@@ -15,5 +18,8 @@ export default new Vuex.Store({
         product,
         article,
         cart,
+        axios,
+        geo,
+        ad,
     },
 });

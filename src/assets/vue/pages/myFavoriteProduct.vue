@@ -4,27 +4,27 @@
             <i18n slot="title">商品收藏</i18n>
         </header-nav-bar>
 
-        <div class="inner-content">
+        <div class="inner-content" v-if="!loading && list.length > 0">
             <div class="tool-bar">
                 <i18n>編輯</i18n>
             </div>
             <flex-list>
-                <fr v-for="data in products" :key="data.id">
+                <fr v-for="data in list" :key="data.id">
                     <fd class="line-checkbox">
-                        <InputCheck v-model="checkedId[data.id]"/>
+                        <InputCheck :value="isChecked(data.id)" @input="onChangeCheck(data.id)" />
                     </fd>
                     <fd class="line-image">
                         <ImageLink :image="data.image" />
                     </fd>
-                    <fd class="line-info" @click="gotoProduct">
+                    <fd class="line-info" @click="gotoProduct(data.id)">
                         <span>{{data.name}}</span>
-                        <span class="specification">{{data.format}}</span>
+                        <!-- <span class="specification">{{data.format}}</span> -->
                         <num :price="data.price" />
                     </fd>
                 </fr>
             </flex-list>
             <div class="editor-bar">
-                <btn class="blue"><i18n>刪除</i18n></btn>
+                <btn class="blue" @click="onClickDelete"><i18n>刪除</i18n></btn>
             </div>
         </div>
     </f7-page>
@@ -35,26 +35,48 @@
     
     export default {
 		data () {
-            const products = [
-                { id: 1, name: 'Ellanse STX', format: '1c.c', price: 7500, image: 'static/images/products/el-650x650.png' },
-                { id: 2, name: 'Ellanse STXII', format: '2c.c', price: 27500, image: 'static/images/products/el-650x650.png' },
-                { id: 3, name: 'Ellanse STXIII', format: '3c.c', price: 37500, image: 'static/images/products/el-650x650.png' },
-            ];
-
-            const checkedId = {};
-
-            products.map(e => {
-                checkedId[e.id] = false;
-            });
-
 			return {
-                products, 
-                checkedId,
+                loading: true, 
+                checkedIds: [],
 			};
         },
+        computed: {
+            ...mapState(['user', 'product']),
+            list() {
+                return this.loading
+                    ? []
+                    : this.user.watchlist_products.map(e => {
+                        const id = e.product_id;
+                        return this.product.list.find(p => p.id == id);
+                    }).filter(e => !!e);
+            },
+        },
+        mounted() {
+            this.$store.dispatch('PRODUCT_CHECK_LIST').then(() => {
+                this.loading = false;
+            });
+        },
         methods: {
-            gotoProduct() {
-                this.$f7router.navigate('/product/');
+            gotoProduct(id) {
+                this.$f7router.navigate(`/product/${id}`);
+            },
+            isChecked(id) {
+                return this.checkedIds.includes(id);
+            },
+            onChangeCheck(id) {
+                const idx = this.checkedIds.indexOf(id);
+                if (idx == -1) {
+                    this.checkedIds.push(id);
+                } else {
+                    this.checkedIds.splice(idx, 1);
+                }
+            },
+            onClickDelete() {
+                const promise = this.$store.dispatch('USER_REMOVE_WATCHLIST_PRODUCT', this.checkedIds);
+                promise.then(() => {
+                    this.checkedIds = [];
+                    window.f7alert('已移除收藏');
+                });
             },
         },
     };

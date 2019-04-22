@@ -2,6 +2,14 @@
 
 #article {
 
+	.header-nav-bar {
+		.right .fa {
+			font-size: 24px;
+			vertical-align: middle;
+			margin-right: 10px;
+		}
+	}
+
 	.inner {
 		background-color: #fff;
 		padding: 10px;
@@ -11,5 +19,9 @@
 		margin-top: 5px;
 		color: $grey;
 		font-size: 0.9em;
+	}
+
+	.article-image {
+		border-bottom: 1px solid $grey;
 	}
 }

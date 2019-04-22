@@ -1,4 +1,4 @@
-import {replaceObject} from 'assets/js/utils/formatHandlers';
+import { replaceObject } from 'assets/js/utils/formatHandlers';
 
 
 export default {

@@ -6,6 +6,11 @@
 		background-color: #fff;
 		padding: 10px;
 
+		&.no-data {
+			height: 0px;
+			padding: 0px;
+		}
+
 		.image-link {
 			min-width: 80px;
 			margin-top: 5px;

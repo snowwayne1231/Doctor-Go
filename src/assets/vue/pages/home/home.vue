@@ -1,6 +1,6 @@
 <template>
     <f7-page class="home" tabs keepAlive>
-        <f7-tabs class="home-tabs" routable>
+        <f7-tabs class="home-tabs custom-scroll" routable>
             <f7-tab id="tab-home">
                 
             </f7-tab>
@@ -37,8 +37,8 @@
                     <i18n class="tabbar-label">購物車</i18n>
                 </a>
                 <a href="/tab-article" class="tab-link" data-route-tab-id="tab-article">
-                    <f7-icon class="fa fa-coffee" />
-                    <i18n class="tabbar-label">PSA</i18n>
+                    <f7-icon class="fa fa-book" />
+                    <i18n class="tabbar-label">美醫指南</i18n>
                 </a>
                 <a :href="isLogin ? '/tab-my' : '/login/'" class="tab-link" data-route-tab-id="tab-my">
                     <f7-icon class="fa fa-user" />
@@ -67,12 +67,13 @@ export default {
     computed: {
         ...mapGetters(['isLogin']),
         ...mapState({
-            user: state => { return state.user },
+            user: state => { return state.user; },
+            isLoading: state => { return state.axios.isLoading; },
         }),
     },
     mounted() {
         debug('mounted HOME', this);
-        
+        this.$store.dispatch('PRODUCT_FETCH_LIST');
     },
     methods: {
         onClickTabMy(evt) {

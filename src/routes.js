@@ -71,12 +71,17 @@ export default [
         component: ContactUs,
     },
     {
-        path: '/product/',
+        path: '/product/:productId',
         // component: Prodcut,
         async: checkAuthrization(Prodcut),
     },
     {
         path: '/productlistfilter/:catalog',
+        // component: ProductListFilter,
+        async: checkAuthrization(ProductListFilter),
+    },
+    {
+        path: '/productevent/:event',
         // component: ProductListFilter,
         async: checkAuthrization(ProductListFilter),
     },
@@ -91,7 +96,7 @@ export default [
     },
     {
         path: '/articlepublication/:publication',
-        async: checkAuthrization(ArticlePublication),
+        component: ArticlePublication,
     },
     {
         path: '/article/:article',
@@ -148,7 +153,7 @@ export default [
     {
         path: '/mysetting/password',
         // component: MySettingPassword,
-        async: checkAuthrization(MySettingPassword),
+        async: checkAuthrization(ForgetPassword),
     },
     {
         path: '/mymessage/',

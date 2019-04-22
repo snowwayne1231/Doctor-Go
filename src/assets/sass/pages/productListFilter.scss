@@ -5,6 +5,9 @@
 	.inner-content {
 		position: relative;
 		background-color: #fff;
+		height: calc(100% - 48px);
+		overflow-x: hidden;
+		overflow-y: auto;
 
 		.infomation {
 			padding: 5px 10px;
@@ -14,6 +17,10 @@
 				float: left;
 				margin: 8px 15px 6px 5px;
 				@include card;
+			}
+
+			.info-div {
+				white-space: pre-wrap;
 			}
 		}
 
@@ -30,6 +37,12 @@
 		.product-list {
 			position: relative;
 			padding-left: 8px;
+			
+
+			&:not(:empty) {
+				border-top: 1px solid $color-light-grey;
+				padding-top: 12px;
+			}
 		}
 
 		.product-item {
@@ -42,5 +55,7 @@
 			height: 30vh;
 		}
 	}
+
+	
 }
 

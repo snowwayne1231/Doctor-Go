@@ -9,13 +9,20 @@
         props: {
             isPrice: Boolean,
             price: Number,
+            value: Number,
         },
         computed: {
             number() {
-                if (this.price) {
+                if (!isNaN(this.price)) {
                     return '$' + toThousandPlaced(this.price);
+                } else if (this.value) {
+                    return toThousandPlaced(this.value);
                 } else {
-                    return (this.isPrice ? '$' : '') + toThousandPlaced(this.$slots.default[0].text);
+                    const slot = this.$slots.default
+                        ? this.$slots.default[0] || {}
+                        : {};
+                    const text = slot.text || '';
+                    return (this.isPrice ? '$' : '') + toThousandPlaced(text);
                 }
             }
         }

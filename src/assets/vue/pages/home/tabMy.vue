@@ -4,11 +4,11 @@
             <div class="my-header background-image-cover">
                 <div class="tools">
                     <dd class="setting background-image" @click="linkToSetting" />
-                    <MessageBox :unread="user.unreadMsg"/>
+                    <!-- <MessageBox :unread="user.unreadMsg"/> -->
                 </div>
                 <div class="info">
                     <section class="left">
-                        <dd class="profile-img image-wrapper background-image-cover" :style="{backgroundImage: `url(${user.avatar_url})`}" />
+                        <Avatar class="profile-img" />
                     </section>
                     <section class="right inline-middle">
                         <dd class="profile-wording">
@@ -29,7 +29,7 @@
                         <i class="fa fa-angle-right" />
                     </div>
                     <div class="content">
-                        <table-list class="">
+                        <table-list class="my-order-icons">
                             <tr>
                                 <td v-for="(data, idx) in myOrderIcons" :key="idx">
                                     <f7-link :href="data.link">
@@ -68,9 +68,9 @@ export default {
                 image: 'static/images/face.jpg',
             },
             myOrderIcons: [
-                { text: '待付款', image: 'static/images/icons/icon_order.png', link: '/myorder/tab-before-pay' },
-                { text: '待發貨', image: 'static/images/icons/icon_send.png', link: '/myorder/tab-before-ship' },
-                { text: '待收貨', image: 'static/images/icons/icon_gat.png', link: '/myorder/tab-wait' },
+                // { text: '待付款', image: 'static/images/icons/icon_order.png', link: '/myorder/tab-before-pay' },
+                // { text: '待發貨', image: 'static/images/icons/icon_send.png', link: '/myorder/tab-before-ship' },
+                { text: '待洽詢', image: 'static/images/icons/icon_gat.png', link: '/myorder/tab-wait' },
                 { text: '已完成', image: 'static/images/icons/icon_finish.png', link: '/myorder/tab-finish' },
             ],
             myFunctions: [
@@ -84,6 +84,9 @@ export default {
     computed: {
         ...mapState(['user']),
         ...mapGetters(['isLogin']),
+    },
+    mounted() {
+        debug('My Tab User', this.user);
     },
     methods: {
         linkToSetting() {
@@ -100,7 +103,7 @@ export default {
             this.$f7router.navigate('/');
         },
         ComingSoon() {
-            this.$f7.dialog.alert('尚未開放', '系統提示');
+            window.f7alert('尚未開放');
         },
     },
 };

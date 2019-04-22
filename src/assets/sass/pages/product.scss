@@ -40,12 +40,13 @@
 		.price {
 			color: $grey;
 			font-size: 0.8em;
+			padding-right: 10%;
 		}
 
 		.special-price {
 			color: $orange;
 			font-weight: bold;
-			padding-left: 10%;
+			
 			.num {
 				font-size: 1.4em;
 			}
@@ -95,6 +96,23 @@
 
 	.tabs-swipeable-wrap {
 		height: calc(100vh - 48px);
+
+		.swiper-slide-item {
+			position: relative;
+
+			&:before {
+				content: '';
+				display: inline-block;
+				vertical-align: middle;
+				height: 100%;
+				width: 0%;
+			}
+
+			.img {
+				vertical-align: middle;
+				display: inline-block;
+			}
+		}
 	}
 
 	.modal-shadow {
@@ -143,6 +161,24 @@
 	}
 }
 
+#product-overview {
+	position: relative;
+	height: 100%;
+	overflow: hidden !important;
+
+	.product-overview-inner {
+		position: relative;
+		overflow-y: auto;
+		height: calc(100% - 48px);
+	}
+
+	.product.cart-btns {
+		position: absolute;
+		bottom: 0px;
+		width: 100%;
+	}
+}
+
 
 .product.cart-btns {
 	position: relative;
@@ -167,6 +203,10 @@
 
 		.fa {
 			pointer-events: none;
+		}
+
+		.fa-heart {
+			color: $red;
 		}
 	}
 
@@ -242,3 +282,22 @@
 	}
 }
 
+
+@media only screen and (min-width: 720px) {
+	#product-overview {
+	
+		.product-overview-inner {
+			height: calc(100% - 60px);
+		}
+
+
+	}
+
+	.product.cart-btns {
+		height: 60px;
+
+		>.btn {
+			
+		}
+	}
+}

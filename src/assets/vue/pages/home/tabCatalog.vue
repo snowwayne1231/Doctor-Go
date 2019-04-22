@@ -3,29 +3,38 @@
         <header-nav-bar>
             <div class="search-bar-wrapper" slot="title" @click="navigateToSearch" > <SearchBar /> </div>
         </header-nav-bar>
-        <div class="inner-content">
-            <div class="inner-left">
+        <div class="inner-content custom-scroll" :class="{loading: !selectedCatalog}">
+            <div class="inner-left" v-if="selectedCatalog">
                 <i18n class="title">為您推薦</i18n>
                 <list>
-                    <li v-if="hasParent || !showSibling" @click="onClickBack">
-                        <i18n>返回</i18n>
+                    <li v-if="hasParent" @click="onClickBack" class="back">
+                        <i class="fa fa-caret-left">{{selectedCatalog.parent.name}}</i>
                     </li>
                     <li v-for="(data) in catalogs" :key="data.id" :class="{active: data.id === selectedCatalog.id}">
                         <f7-link @click="onClickCatalog(data)">
-                            <i18n>{{data.display}}</i18n>
+                            <i18n :text="data.name"></i18n>
                         </f7-link>
+                        <ul class="li-children" :class="{show: data.id === selectedCatalog.id}">
+                            <li
+                                v-for="(d, idx) in selectedCatalog.childrenData"
+                                :key="idx"
+                                class="li-children-li nowrap"
+                                @click="onClickCatalog(d)"
+                            >{{d.name}}</li>
+                        </ul>
                     </li>
                 </list>
             </div>
-            <div class="inner-right">
-                <block-headmore :title="selectedCatalog.display" linkMore="/productlistfilter/hot">
+            <div class="inner-right" v-if="selectedCatalog">
+                <block-headmore v-if="selectedCatalog" :title="selectedCatalog.name" :linkMore="`/productlistfilter/${selectedCatalog.id}`">
                     <div class="hot-products">
                         <ProductItem
-                            v-for="idx in 6"
+                            v-for="(product, idx) in products"
                             :key="idx"
-                            name="123"
-                            image="static/images/products/el-650x650.png"
-                            :price="7500"
+                            :id="product.id"
+                            :name="product.name"
+                            :image="product.image"
+                            :price="product.price"
                         />
                     </div>
                 </block-headmore>
@@ -35,50 +44,68 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
     data() {
         return {
-            selectedCatalog: {},
-            showSibling: true,
+            selectedCatalog: null,
         };
     },
     computed: {
+        ...mapState(['product']),
+        ...mapGetters(['getPorductCategoriesByParentId']),
+        products(self) {
+            const ids = [self.selectedCatalog.id].concat(self.selectedCatalog.children);
+            return self.product.list.filter(e => ids.includes(e.category_id)).slice(0, 6);
+        },
         catalogs() {
-            return this.showSibling
-                ? this.getCatalogsByParentId(this.selectedCatalog.parent)
-                : this.getCatalogsByParentId(this.selectedCatalog.id);
+            return this.selectedCatalog.parent_id
+                ? this.getPorductCategoriesByParentId(this.selectedCatalog.parent_id)
+                : this.getPorductCategoriesByParentId(this.selectedCatalog.parent_id);
         },
         hasParent() {
-            return this.selectedCatalog.parent > 0;
+            return this.selectedCatalog
+                ? this.selectedCatalog.parent_id
+                : false;
         },
-        ...mapGetters(['getCatalogsByParentId']),
+        
     },
     mounted() {
-        this.selectedCatalog = this.$store.state.relation.catalogs.find(e => e.name == 'hot');
-        debug('mounted tab catalog', this);
+        
+        // debug('mounted tab catalog', this);
+        this.$store.dispatch('PRODUCT_CHECK_LIST').then(() => {
+            // waitting for data set
+            window.setTimeout(() => {
+                
+                this.setSelectedCatalog();
+            }, 250);
+        });
     },
     methods: {
+        setSelectedCatalog(id) {
+            let catalog = id
+                ? this.product.categories.find(e => e.id == id)
+                : this.product.categories[0];
+            if (catalog) {
+                catalog = {...catalog};
+                catalog.childrenData = catalog.children
+                    .map(cid => this.product.categories.find(e => e.id == cid))
+                    .filter(data => data.parent_id == catalog.id);
+            }
+            this.selectedCatalog = catalog;
+        },
         navigateToSearch() {
             this.$f7router.navigate('/search/');
         },
         onClickCatalog(catalog) {
             // debug('catalog', catalog);
-            this.selectedCatalog = catalog;
+            this.setSelectedCatalog(catalog.id);
 
-            const hasChildren = !!this.$store.state.relation.catalogs.find(e => e.parent === catalog.id);
-            
-            this.showSibling = !hasChildren;
-            
+            const hasChildren = catalog.children.length > 0;
         },
         onClickBack(evt) {
-            if (this.showSibling) {
-                this.selectedCatalog = this.$store.state.relation.catalogs.find(e => e.id === this.selectedCatalog.parent);
-                
-            } else {
-                this.showSibling = true;
-            }
+            this.setSelectedCatalog(this.selectedCatalog.parent_id);
         },
     },
 };

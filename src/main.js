@@ -29,7 +29,7 @@ import app from './main.vue';
 // Import Vuex Storage
 import store from './assets/vuex/storage.js';
 
-import configEnv from './comfig-env.js';
+import configEnv from './config-env.js';
 
 window.env = configEnv;
 

@@ -20,6 +20,7 @@
             <div class="product-filter" v-show="!shouldOpen">
                 <ProductItem
                     v-for="summary in matchedProductSummaries" :key="summary.id"
+                    :id="summary.id"
                     :name="summary.name"
                     :image="summary.image"
                     :price="summary.price"
@@ -43,9 +44,12 @@
 			};
         },
         mounted() {
-            debug('search page', this);
+            // debug('search page', this);
             // this.$refs.searchBar.focusInput();
             // this.onSearchChange(this.searchText);
+            if (this.product.list.length === 0) {
+                this.$store.dispatch('PRODUCT_FETCH_LIST');
+            }
         },
         computed: {
             ...mapState({
@@ -54,6 +58,9 @@
             shouldOpen() {
                 return this.openAutocomplete && this.searchText.length < 5;
             },
+            productList() {
+                return this.product.list.filter(e => e.status == 1);
+            },
         },
         methods: {
             onPageAfterIn() {
@@ -61,14 +68,15 @@
                 this.onSearchChange(this.searchText);
             },
             onSearchChange(value) {
+                const productlist = this.productList;
                 if (value.length > 0) {
-                    const summarylist = this.product.summarylist;
+                    
                     const regp = new RegExp(value, 'i');
-                    this.matchedProductSummaries = summarylist
+                    this.matchedProductSummaries = productlist
                         .filter(e => e.name.match(regp))
                         .slice(0, 12);
                 } else {
-                    this.matchedProductSummaries = this.product.summarylist.slice(0, 12);
+                    this.matchedProductSummaries = productlist.slice(0, 12);
                 } 
             },
             onSearchBlur(evt) {

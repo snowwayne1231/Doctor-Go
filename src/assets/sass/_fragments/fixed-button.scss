@@ -20,11 +20,24 @@
         color: $color-shine;
         background-color: #545454;
     }
+
+    &.loading {
+        pointer-events: none;
+        
+        .fa {
+            animation-name: rolling;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+    }
     
     .inner {
         height: 66px;
         pointer-events: none;
     }
+
+    
 }
 
 @keyframes fadeIn {

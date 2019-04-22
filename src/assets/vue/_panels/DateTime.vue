@@ -5,7 +5,7 @@
 </template>
 <script>
     export default {
-        props: ['value'],
+        props: ['value', 'format'],
         computed: {
             show() {
                 let date;
@@ -21,9 +21,24 @@
                         date = new Date();
                 }
                 // debug('DateTime', this.value, type, date);
-                return isNaN(date.getTime())
-                    ? '---'
-                    : `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                const day = date.getDate();
+                const hour = date.getHours();
+                const minute = date.getMinutes();
+
+                if (isNaN(date.getTime())) {
+                    return '---';
+                } else if (this.format) {
+                    return this.format
+                        .replace(/y+/i, year)
+                        .replace(/m+/i, month)
+                        .replace(/d+/i, day)
+                        .replace(/h+/i, hour);
+                } else {
+                    return `${year}/${month}/${day} ${hour}:${minute}`;
+                }
+                
             },
         },
     };

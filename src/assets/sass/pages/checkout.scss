@@ -3,17 +3,29 @@
 #checkout {
 
 	.inner-content {
-		background-color: #fff;
-		
+		height: calc(100% - 114px);
+		overflow-y: auto;
 	}
 
 	.table-list {
 		text-align: center;
+		background-color: #fff;
 
 		.total {
 			color: $orange;
+			font-size: 22px;
+		}
+
+		.discount {
+			color: $red;
+		}
+
+		td {
+			line-height: 32px;
 		}
 	}
 
-	
+	.my-point {
+		margin: 0px auto 15px;
+	}
 }

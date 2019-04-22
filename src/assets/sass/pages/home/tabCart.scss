@@ -63,6 +63,10 @@ $header-nav-height: 48px;
                 font-weight: bold;
                 font-size: 15px;
             }
+
+            .redeem .num{
+                color: $red;
+            }
         }
 
         .btn {
@@ -105,19 +109,21 @@ $header-nav-height: 48px;
         flex: 7;
         text-align: left;
         align-items: center;
-        padding: 10px 5px 0px;
+        padding: 5px 5px 0px;
         box-sizing: border-box;
-        overflow-y: auto;
+        
 
         .item-header {
             font-size: 15px;
-            min-height: 36px;
+            min-height: 24px;
         }
 
         .item-description {
             color: $color-line-grey;
             font-size: 13px;
             vertical-align: bottom;
+            overflow-y: auto;
+            max-height: 36px;
         }
     }
 

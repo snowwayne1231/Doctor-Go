@@ -4,9 +4,13 @@
     "description": "Brand new cordova project with framework7 - vue - webpack!",
     "scripts": {
         "default": "echo \"There is no scripts you can run with npm run command.\" && exit 1",
-        "dev": "set NODE_ENV=development;cordova run browser -- --live-reload",
-        "dev-android": "set NODE_ENV=development; cordova run android --lr",
-        "build": "set NODE_ENV=product "
+        "predev": "SET NODE_ENV=development",
+        "dev": "cordova run browser -- --lr",
+        "dev-p": "cordova run browser --release --lr",
+        "preandroid": "SET NODE_ENV=product",
+        "android": "cordova build android --release",
+        "prebuild": "SET NODE_ENV=product",
+        "build": "cordova build browser --release"
     },
     "keywords": [
         "ecosystem:cordova"
@@ -51,6 +55,7 @@
         "webpack-dev-server": "^3.1.14"
     },
     "dependencies": {
+        "axios": "^0.18.0",
         "cordova-android": "^7.1.4",
         "cordova-browser": "^5.0.4",
         "cordova-ios": "^4.5.5",

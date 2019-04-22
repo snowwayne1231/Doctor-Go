@@ -7,10 +7,11 @@
             <MessageBox />
         </div>
 
-        <div class="inner-content"  v-on:scroll="onHomeScrolling">
-            <BannerSwiper :banners="banners"/>
+        <div class="inner-content page-content custom-scroll"  v-on:scroll="onHomeScrolling">
+            
+            <BannerSwiper :banners="ad.banners" />
 
-            <NewsCard :list="newsCardList" ref="NewsCard"/>
+            <NewsCard ref="NewsCard"/>
 
             <div class="index-icons">
                 <template v-for="(ii, idx) in indexIcons">
@@ -24,19 +25,14 @@
                 </template>
             </div>
 
-            <block-headmore title="品牌專區" linkMore="/productbrand/">
+            <block-headmore title="品牌專區" linkMore="/productbrand/" v-if="productBrands.length > 0">
                 <div class="index-brands">
                     <table class="inner">
                         <tbody>
-                            <tr>
-                                <td class="brand"><ImageLink image="static/images/brands/img_brand01@2x.png" link="/productbrand/ellanse"/></td>
-                                <td class="brand"><ImageLink image="static/images/brands/img_brand02@2x.png" link="/productbrand/utims"/></td>
-                                <td class="brand"><ImageLink image="static/images/brands/img_brand03@2x.png" link="/productbrand/body-jet-evo"/></td>
-                            </tr>
-                            <tr>
-                                <td class="brand"><ImageLink image="static/images/brands/img_brand04@2x.png" link="/productbrand/re-o"/></td>
-                                <td class="brand"><ImageLink image="static/images/brands/img_brand05@2x.png" link="/productbrand/restylane"/></td>
-                                <td class="brand"><ImageLink image="static/images/brands/img_brand06@2x.png" link="/productbrand/juvederm"/></td>
+                            <tr v-for="(brands, idx) in productBrands" :key="idx">
+                                <td v-for="brand in brands" :key="brand.id" class="brand">
+                                    <ImageLink :image="brand.image" :link="`/productbrand/${brand.id}`"/>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -44,36 +40,51 @@
             </block-headmore>
 
             <div class="recommand-products" v-if="isLogin">
-                <block-headmore title="推薦商品" linkMore="/productlistfilter/hot">
+                <block-headmore title="推薦商品" linkMore="/productevent/recommend" v-if="productTwoRecommends.length > 0">
                     <div class="products">
                         <ProductItem
-                            v-for="idx in 2"
+                            v-for="(product, idx) in productTwoRecommends"
+                            :id="product.id"
                             :key="idx"
-                            name="123"
-                            image="static/images/products/el-650x650.png"
-                            :price="7500" />
+                            :name="product.name"
+                            :image="product.image"
+                            :price="product.price" />
                     </div>
                 </block-headmore>
 
-                <block-headmore title="醫美儀器設備" linkMore="/productlistfilter/equipment">
+                <block-headmore title="醫美儀器設備" linkMore="/productlistfilter/equipment" v-if="productTwoEquipment.length > 0">
                     <div class="products">
                         <ProductItem
-                            v-for="idx in 2"
+                            v-for="(product, idx) in productTwoEquipment"
+                            :id="product.id"
                             :key="idx"
-                            name="123"
-                            image="static/images/products/el-650x650.png"
-                            :price="700000" />
+                            :name="product.name"
+                            :image="product.image"
+                            :price="product.price" />
                     </div>
                 </block-headmore>
 
-                <block-headmore title="保養系列" linkMore="/productlistfilter/maintenance">
+                <block-headmore title="保養系列" linkMore="/productlistfilter/maintenance" v-if="productTwoMaintenance.length > 0">
                     <div class="products">
                         <ProductItem
-                            v-for="idx in 2"
+                            v-for="(product, idx) in productTwoMaintenance"
+                            :id="product.id"
                             :key="idx"
-                            name="123"
-                            image="static/images/products/el-650x650.png"
-                            :price="4900" />
+                            :name="product.name"
+                            :image="product.image"
+                            :price="product.price" />
+                    </div>
+                </block-headmore>
+
+                <block-headmore title="醫美耗材" linkMore="/productlistfilter/consumable" v-if="productTwoConsumable.length > 0">
+                    <div class="products">
+                        <ProductItem
+                            v-for="(product, idx) in productTwoConsumable"
+                            :id="product.id"
+                            :key="idx"
+                            :name="product.name"
+                            :image="product.image"
+                            :price="product.price" />
                     </div>
                 </block-headmore>
             </div>
@@ -88,16 +99,7 @@ export default {
     data() {
         return {
             topToolShowBackground: false,
-            banners: [
-                'static/images/banners/main_topBg@2x.png',
-                'static/images/banners/main_topBg@2x.png',
-                'static/images/banners/main_topBg@2x.png',
-            ],
-            newsCardList: [
-                { title: '美醫聯購', type: '頭條', headline: '2月滿額送好禮' },
-                { title: '美醫聯購', type: '頭條', headline: '四月滿額送好禮 歡樂送送' },
-                { title: '美醫聯購', type: '頭條', headline: '6月滿額送好禮 天天都免費 甚麼都可以免費帶走' },
-            ],
+            newsCardList: [],
             indexIcons: [
                 { word: '美醫指南', icon: 'static/images/icons/main_icon02@4x.png', link:'/tab-article' },
                 // { word: '關於我們', icon: 'static/images/icons/main_icon01@4x.png', link:'/aboutus/' },
@@ -111,10 +113,10 @@ export default {
                 { word: '兩岸獵才', icon: 'static/images/icons/main_icon03@4x.png', link: 'http://www.psbeauty.com.tw/job/' },
             ],
             imageLinks: [
-                { image: 'static/images/banners/banner_01@3x.png', link:'/productlistfilter/new' },
-                { image: 'static/images/banners/banner_02@3x.png', link:'/productlistfilter/discount' },
-                { image: 'static/images/banners/banner_03@3x.png', link:'/productlistfilter/primary' },
-                { image: 'static/images/banners/banner_04@3x.png', link:'/productlistfilter/event' },
+                { image: 'static/images/banners/banner_01@3x.png', link:'/productevent/new' },
+                { image: 'static/images/banners/banner_02@3x.png', link:'/productevent/discount' },
+                { image: 'static/images/banners/banner_03@3x.png', link:'/productevent/primary' },
+                { image: 'static/images/banners/banner_04@3x.png', link:'/productevent/event' },
                 // { image: 'static/images/banners/banner_05@3x.png', link:'/productlistfilter/equipment' },
                 // { image: 'static/images/banners/banner_06@3x.png', link:'/productlistfilter/second' },
             ],
@@ -122,12 +124,46 @@ export default {
     },
     computed: {
         ...mapGetters(['isLogin']),
-        ...mapState({
-            user: state => { return state.user },
-        }),
+        ...mapState(['user', 'ad', 'product']),
+        productBrands(self) {
+            const list = [];
+            const brands = self.product.brands;
+            list.push(brands.slice(0, 3));
+            if (brands.length >= 6) {
+                list.push(brands.slice(3, 6));
+            }
+            return list;
+        },
+        productTwoRecommends(self) {
+            const event = self.ad.events.find(e => e.key == 'recommend');
+            return event
+                ? self.product.list.filter(e => event.product_ids.includes(e.id)).slice(0, 2)
+                : [];
+        },
+        productTwoEquipment(self) {
+            const category = self.product.categories.find(e => e.key == 'equipment');
+            return category
+                ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
+                : [];
+        },
+        productTwoMaintenance(self) {
+            const category = self.product.categories.find(e => e.key == 'maintenance');
+            return category
+                ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
+                : [];
+        },
+        productTwoConsumable(self) {
+            const category = self.product.categories.find(e => e.key == 'consumable');
+            return category
+                ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
+                : [];
+        },
     },
     mounted() {
         debug('mounted tab home', this);
+
+        this.ad.banners.length === 0 && this.$store.dispatch('AD_FETCH_BANNERS');
+        this.ad.events.length === 0 && this.$store.dispatch('AD_FETCH_EVENTS');
         
         // const routeHome = this.$f7router.routes.find(e => e.name == 'Home');
         
@@ -170,6 +206,12 @@ export default {
         navigateToSearch() {
             this.$f7router.navigate('/search/');
         },
+        onPtr(evt) {
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+            
+        }
     },
 };
 

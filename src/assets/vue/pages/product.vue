@@ -2,61 +2,62 @@
     <f7-page id="product">
         <header-nav-bar back>
             <nav slot="title" class="product-nav">
-                <f7-link tab-link="#product-overview">
+                <f7-link tab-link="#product-overview" tab-link-active>
                     <i18n>商品</i18n>
                 </f7-link>
                 <f7-link tab-link="#product-detail">
                     <i18n>詳情</i18n>
                 </f7-link>
-                <f7-link tab-link="#product-comment">
+                <!-- <f7-link tab-link="#product-comment">
                     <i18n>評價</i18n>
-                </f7-link>
+                </f7-link> -->
             </nav>
         </header-nav-bar>
         
-        <f7-tabs swipeable v-if="!hideTabs">
+        <f7-tabs swipeable>
 
-            <f7-tab id="product-overview">
-                <f7-swiper class="product-images" pagination>
-                    <f7-swiper-slide><img src="static/images/products/el-650x650.png" /></f7-swiper-slide>
-                    <f7-swiper-slide><img src="static/images/products/el-650x650.png" /></f7-swiper-slide>
-                    <f7-swiper-slide><img src="static/images/products/el-650x650.png" /></f7-swiper-slide>
-                </f7-swiper>
-                <section class="info">
-                    <div class="name">Ellanse S</div>
-                    <div class="prices">
-                        <dd class="price">
-                            <i18n>原價</i18n><num isPrice>8500</num>
-                        </dd>
-                        <dd class="special-price">
-                            <i18n>優惠價</i18n><num isPrice>7500</num>
-                        </dd>
-                    </div>
-                </section>
-                <section class="operation">
-                    <btn right-arrow raised @click="sheetOpened = true">選擇規格型號</btn>
-                    
-                    <btn right-arrow @click="goToComment">
-                        <dd class="left">
-                            <StarRanking :score="4.6" />
-                        </dd>
-                        <dd class="right">
-                            {{comments.count}}
-                            <i18n>條評價</i18n>
-                        </dd>
-                    </btn>
-                </section>
-                <section class="review">
-                    <cms-html>
-                        <p>功效:恢復20歲凍齡肌膚</p>
-                        <p>全天然草本 說明....說明說明說明說明說明說明說明說明說明說明說明說明說明</p>
-                        <p>明說明說明說明說明說明說明</p>
-                    </cms-html>
-                </section>
+            <f7-tab id="product-overview" tab-active>
+                <div class="product-overview-inner" v-if="thisProduct">
+                    <f7-swiper v-if="thisProduct" class="product-images" pagination>
+                        <f7-swiper-slide class="swiper-slide-item" v-for="(image, idx) in thisProduct.image_detail" :key="idx">
+                            <img class="img" :src="image" />
+                        </f7-swiper-slide>
+                    </f7-swiper>
+                    <section class="info">
+                        <div class="name">{{thisProduct.name}}</div>
+                        <div class="prices">
+                            <dd class="price" v-if="thisProduct.price_forshow">
+                                <i18n>原價</i18n><num :price="thisProduct.price_forshow"></num>
+                            </dd>
+                            <dd class="special-price">
+                                <i18n>優惠價</i18n><num :price="thisProduct.price"></num>
+                            </dd>
+                        </div>
+                    </section>
+                    <section class="operation">
+                        <btn right-arrow raised @click="sheetOpened = true">選擇規格型號</btn>
+                        
+                        <!-- <btn right-arrow @click="goToComment">
+                            <dd class="left">
+                                <StarRanking :score="4.6" />
+                            </dd>
+                            <dd class="right">
+                                {{comments.count}}
+                                <i18n>條評價</i18n>
+                            </dd>
+                        </btn> -->
 
+                    </section>
+                    <section class="review" v-if="thisProduct">
+                        <cms-html :html="thisProduct.metaDescriptionHTML">
+                            
+                        </cms-html>
+                    </section>
+                </div>
+                
                 <section class="product cart-btns">
                     <dd class="adds icon inline-middle" @click="onClickAddFavorite">
-                        <f7-icon class="fa fa-heart-o" />
+                        <f7-icon class="fa" :class="{ 'fa-heart': isWatched, 'fa-heart-o': !isWatched }" />
                     </dd><dd class="adds icon inline-middle" @click="onClickNavigateToCart">
                         <f7-icon class="fa fa-shopping-cart" />
                     </dd>
@@ -71,52 +72,33 @@
 
 
             <f7-tab id="product-detail">
-                <table-list>
+                <table-list v-if="thisProduct">
                     <tr>
-                        <td class="list-left"><i18n>品名</i18n></td>
-                        <td>Ellanse S</td>
+                        <td class="list-left"><i18n>商品名</i18n></td>
+                        <td>{{thisProduct.name}}</td>
                     </tr>
                     <tr>
                         <td class="list-left"><i18n>品牌</i18n></td>
-                        <td>Honda</td>
-                    </tr>
-                    <tr>
-                        <td class="list-left"><i18n>規格</i18n></td>
-                        <td>TVV-Ti Vsss</td>
+                        <td>{{brand.name}}</td>
                     </tr>
                     <tr>
                         <td class="list-left"><i18n>庫存</i18n></td>
-                        <td><num>98774</num></td>
+                        <td><num :value="thisProduct.quantity"></num></td>
+                    </tr>
+                    <tr v-for="(detail, idx) in thisProduct.details" :key="idx">
+                        <td class="list-left">{{detail[0]}}</td>
+                        <td>{{detail[1]}}</td>
                     </tr>
                     <tr>
-                        <td class="list-left"><i18n>單位</i18n></td>
-                        <td>瓶</td>
-                    </tr>
-                    <tr>
-                        <td class="list-left"><i18n>包裝</i18n></td>
-                        <td>鈦合金</td>
-                    </tr>
-                    <tr>
-                        <td class="list-left"><i18n>生產企業名</i18n></td>
-                        <td>桃園幼幼幼國際股份有限公司</td>
-                    </tr>
-                    <tr>
-                        <td class="list-left"><i18n>證號</i18n></td>
-                        <td>準字 3165第89754-65213-5464657</td>
-                    </tr>
-                    <tr>
-                        <td class="list-left"><i18n>註冊有效日期</i18n></td>
-                        <td>2019-02-02</td>
-                    </tr>
-                    <tr>
-                        <td class="list-left"><i18n>其他</i18n></td>
-                        <td>保值10年;</td>
+                        <td colspan="2">
+                            <cms-html :html="thisProduct.descriptionHTML" />
+                        </td>
                     </tr>
                 </table-list>
             </f7-tab>
 
 
-            <f7-tab id="product-comment">
+            <!-- <f7-tab id="product-comment">
                 <table-list>
                     <tr>
                         <td>
@@ -145,19 +127,19 @@
                         </div>
                     </li>
                 </f7-list>
-            </f7-tab>
+            </f7-tab> -->
         </f7-tabs>
 
         <f7-sheet class="sheet" :opened="sheetOpened" @sheet:closed="sheetOpened = false">
-            <div class="product product-specification">
+            <div class="product product-specification" v-if="thisProduct">
                 <f7-row>
                     <f7-col class="product-name cart-col">
-                        Ellanse S QQQ 特別版
+                        {{thisProduct.name}}
                     </f7-col>
                 </f7-row>
                 <f7-row>
                     <f7-col class="product-price cart-col">
-                        <num isPrice>7500</num>
+                        <num :price="thisProduct.price"></num>
                     </f7-col>
                 </f7-row>
                 <f7-row>
@@ -186,7 +168,7 @@
 
 <script>
     import { mapState, mapActions } from 'vuex';
-    
+    import axios from 'assets/js/utils/axios';
 
     export default {
 		data () {
@@ -201,22 +183,29 @@
                 },
                 sheetOpened: false,
                 amount: 1,
-                hideTabs: false,
+                // hideTabs: false,
 			};
         },
         computed: {
-            ...mapState(['product']),
-            thisProduct() {
-                return this.product.summarylist.find(e => e.id == 1);
+            ...mapState(['product', 'user']),
+            id() {
+                return this.$f7route.params.productId;
             },
-            isCurrent() {
-                return this.$f7router.currentPageEl === this.$el;
+            thisProduct() {
+                return this.product.list.find(e => e.id == this.id);
+            },
+            brand() {
+                return this.product.brands.find(e => e.id === this.thisProduct.brand_id) || {};
+            },
+            isWatched() {
+                return this.user.watchlist_products.findIndex(e => e.product_id == this.id) >= 0;
             },
         },
         mounted() {
             debug('product page', this);
+            this.$store.dispatch('PRODUCT_FETCH_DATA_BY_ID', this.id);
             this.$f7.tab.show('#product-overview');
-            this.hideTabs = false;
+            // this.hideTabs = false;
         },
         methods: {
             closeSheet() {
@@ -228,17 +217,35 @@
             },
             onClickAddToCart() {
                 this.closeSheet();
-                this.$f7.dialog.alert('已成功加入購物車', '系統提示');
+                this.$store.dispatch('CART_ADD', {
+                    product: this.id,
+                    amount: this.amount,
+                }).then(e => {
+                    window.f7alert('已成功加入購物車');
+                });
+
             },
             onClickBuy() {
                 this.closeSheet();
-                this.hideTabs = true;
-                this.$destroy();
+                this.$store.dispatch('CART_ADD', {
+                    product: this.id,
+                    amount: this.amount,
+                });
                 
                 this.$f7router.navigate('/tab-cart');
             },
             onClickAddFavorite() {
-                this.$f7.dialog.alert('已成功將商品加入我的商品收藏', '系統提示');
+                if (this.isWatched) {
+                    const promise = this.$store.dispatch('USER_REMOVE_WATCHLIST_PRODUCT', this.id);
+                    promise.then(function(){
+                        window.f7alert('已移除收藏');
+                    });
+                } else {
+                    const promise = this.$store.dispatch('USER_STORE_WATCHLIST_PRODUCT', this.id);
+                    promise.then(function(){
+                        window.f7alert('已成功將商品加入我的商品收藏');
+                    });
+                }
             },
             onClickNavigateToCart() {
                 this.$f7router.navigate('/tab-cart');

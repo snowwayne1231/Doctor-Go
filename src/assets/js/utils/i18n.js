@@ -7,6 +7,10 @@ if (!locale || languages.indexOf(locale) < 0) {
     locale = languages[0];
 }
 
+export function getLanguageId() {
+    return 1;
+}
+
 function toSimp(txt){
 
     txt = txt.replace(/[^\x00-\xFF]/g, replaceFn);

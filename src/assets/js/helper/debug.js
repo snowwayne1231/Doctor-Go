@@ -1,6 +1,6 @@
 
 const logging = window.console.log;
-let debugMode = 0;
+let debugMode = process.env.NODE_ENV === 'development' ? 1 : 0;
 let debugBlock;
 let container;
 

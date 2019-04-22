@@ -18,9 +18,9 @@
         },
         computed: {
             backgroundObject() {
-                return {
+                return this.image ? {
                     backgroundImage: `url(${this.image})`,
-                }
+                } : {};
             },
         },
         methods: {

@@ -11,7 +11,7 @@
         padding: 10px 15px;
 
         .header-right {
-            color: $orange;
+            color: $grey;
         }
     }
     
@@ -25,6 +25,11 @@
     .collapse-item {
         background-color: #fff;
         margin-bottom: 5px;
+        border-top: 1px solid $color-light-grey;
+
+        .collapse-footer {
+            border-top: 1px solid $color-line-grey !important;
+        }
     }
 
     .table-list {

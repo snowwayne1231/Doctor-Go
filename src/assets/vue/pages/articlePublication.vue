@@ -5,10 +5,10 @@
             </i18n>
         </header-nav-bar>
 
-        <div class="inner-content" :class="{'no-data': this.articles.length === 0}">
+        <div class="inner-content" :class="{'no-data': this.chapters.length === 0}">
             <flex-list>
-                <fr v-for="data in articles" :key="data.id">
-                    <fd class="line-image">
+                <fr v-for="data in chapters" :key="data.id">
+                    <fd class="line-image" @click="gotoArticle(data)">
                         <ImageLink :image="data.image" />
                     </fd>
                     <fd class="line-info" @click="gotoArticle(data)">
@@ -35,14 +35,15 @@
         computed: {
             ...mapState(['article']),
             articleData() {
-                return this.article.publications.find(e => e.id == this.$f7route.params.publication);
+                return this.article.publications.find(e => e.id == this.$f7route.params.publication) || {};
             },
-            articles() {
-                return this.article.articles.filter(e => e.publication_id == this.$f7route.params.publication);
+            chapters() {
+                return this.articleData.chapters || [];
             },
         },
         mounted() {
             // debug('article publication', this);
+            this.$store.dispatch('ARTICLE_CHECK');
         },
         methods: {
             gotoArticle(data) {
