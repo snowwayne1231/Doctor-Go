@@ -85,6 +85,14 @@
                         <td class="list-left"><i18n>庫存</i18n></td>
                         <td><num :value="thisProduct.quantity"></num></td>
                     </tr>
+                    <tr>
+                        <td class="list-left"><i18n>點數可折抵</i18n></td>
+                        <td><num :price="thisProduct.point_can_be_discount"></num></td>
+                    </tr>
+                    <tr>
+                        <td class="list-left"><i18n>購買獲得紅利</i18n></td>
+                        <td><num :price="thisProduct.point"></num></td>
+                    </tr>
                     <tr v-for="(detail, idx) in thisProduct.details" :key="idx">
                         <td class="list-left">{{detail[0]}}</td>
                         <td>{{detail[1]}}</td>

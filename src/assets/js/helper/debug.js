@@ -1,5 +1,6 @@
 
 const logging = window.console.log;
+const notNetscape = window.navigator.appName != 'Netscape';
 let debugMode = process.env.NODE_ENV === 'development' ? 1 : 0;
 let debugBlock;
 let container;
@@ -7,7 +8,7 @@ let container;
 
 function debug() {
     // console.trace(1);
-    if (debugMode === 0) return;
+    if (debugMode === 0 && notNetscape) return;
     const nextArguments = foreach(arguments).map(e => {
         return Array.isArray(e)
             ? JSON.parse(JSON.stringify(e))
@@ -36,7 +37,7 @@ function debug() {
     const gap = '\r\n    ';
     let ary = stack.split(' at ').map(e => e.trim()).filter(e => !!e);
 
-    if (debugMode === 1) {
+    if (debugMode <= 1) {
         ary = ary.slice(0,1);
     }
     

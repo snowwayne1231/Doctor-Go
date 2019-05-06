@@ -63,10 +63,6 @@ import { mapState, mapGetters } from 'vuex';
 export default {
     data() {
         return {
-            profile: {
-                name: 'psbeauty',
-                image: 'static/images/face.jpg',
-            },
             myOrderIcons: [
                 // { text: '待付款', image: 'static/images/icons/icon_order.png', link: '/myorder/tab-before-pay' },
                 // { text: '待發貨', image: 'static/images/icons/icon_send.png', link: '/myorder/tab-before-ship' },

@@ -21,7 +21,7 @@
             </input-form>
         </div>
 
-        <fixed-button v-if="openButton" @click="onClickResetPassword">
+        <fixed-button :show="openButton" @click="onClickResetPassword">
             <i18n>確認重設密碼</i18n>
         </fixed-button>
 

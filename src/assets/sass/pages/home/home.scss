@@ -160,6 +160,14 @@
         position: fixed;
         bottom: 0px;
     }
+
+    .toolbar {
+        .fa {
+            &:before {
+                vertical-align: middle;
+            }
+        }
+    }
 }
 
 #tab-home {
@@ -174,7 +182,7 @@
         .inner-content {
             overflow: auto;
             position: relative;
-            height: 100%;
+            // height: 100%;
         }
     }
 }

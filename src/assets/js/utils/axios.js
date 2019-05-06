@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import store from 'assets/vuex/storage';
+import i18n from 'assets/js/utils/i18n';
 import config from 'src/config-env';
 
 const mainServer = config.mainServer;
@@ -57,9 +58,12 @@ function customAxios({uri, method, data, success, fail, final}) {
     }
 
     function remoteFail(error) {
+        const setting = this;
         let errorMsg;
         let errorRedirect;
         let errorLogout;
+        let refresh = false;
+        
         if (error.response && error.response.data) {
             errorMsg = typeof error.response.data.errors === 'string'
                 ? error.response.data.errors
@@ -68,6 +72,14 @@ function customAxios({uri, method, data, success, fail, final}) {
             errorLogout = !!error.response.data.logout;
         } else if (error.message) {
             errorMsg = error.message;
+            if (errorMsg.match(/timeout of/i)) {
+                errorMsg = i18n('連線逾時請稍後再試');
+                refresh = true;
+            } else if (errorMsg.match(/network error/i)) {
+                errorMsg = i18n('連線異常請稍後再試');
+                refresh = true;
+            }
+            
         } else {
             errorMsg = typeof error === 'string'
                 ? error
@@ -89,7 +101,10 @@ function customAxios({uri, method, data, success, fail, final}) {
                 store.dispatch('USER_LOGOUT');
             }
 
-            if (typeof errorRedirect === 'string') {
+            if (refresh) {
+                window.location.reload();
+                // console.log('refresh setting', setting);
+            } else if (typeof errorRedirect === 'string') {
                 window.f7router && window.f7router.navigate(errorRedirect);
             }
         }

@@ -7,7 +7,12 @@
             <MessageBox />
         </div>
 
-        <div class="inner-content page-content custom-scroll"  v-on:scroll="onHomeScrolling">
+        <div class="inner-content page-content custom-scroll ptr-content" v-on:scroll="onHomeScrolling" @ptr:refresh="onPtr">
+            
+            <div class="ptr-preloader">
+                <div class="preloader"></div>
+                <div class="ptr-arrow"></div>
+            </div>
             
             <BannerSwiper :banners="ad.banners" />
 

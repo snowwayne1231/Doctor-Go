@@ -83,6 +83,12 @@ export default {
                 this.$f7router.navigate('/login/');
             }
         },
+        onPtr(evt) {
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+            
+        },
     },
 };
 

@@ -7,13 +7,20 @@
 
     >.inner {
         position: relative;
-        max-height: calc(100% - 50px);
+        height: calc(100% - 50px);
+        overflow: hidden;
+    }
+
+    .custom-scroll {
         overflow: auto;
+        height: 100%;
     }
 }
 
 
 #tab-article {
+    height: 100%;
+
     .list {
         .item {
             padding: 8px;
@@ -79,5 +86,28 @@
             }
         }
     }
+
+    .ptr-content {
+        .ptr-preloader {
+            position: absolute;
+            display: none;
+        }
+
+        &.ptr-pull-up {
+            .ptr-preloader {
+                display: block;
+            }
+        }
+    }
     
+    
+}
+
+@media only screen and (min-width: 720px) {
+	.tab-article-content {
+    
+        >.inner {
+            height: calc(100% - 60px);
+        }
+    }
 }

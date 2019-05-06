@@ -29,6 +29,9 @@ export default {
             // return true;
             return !!state.token;
         },
+        isBrowser: () => {
+            return !(window.device && window.device.uuid);
+        },
     },
 
     actions: {

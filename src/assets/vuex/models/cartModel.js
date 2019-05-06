@@ -1,5 +1,6 @@
 import {replaceObject} from 'assets/js/utils/formatHandlers';
 import axios from 'assets/js/utils/axios';
+import { orderBy } from 'lodash';
 
 function parseListItem(ele) {
     return {
@@ -11,10 +12,17 @@ function parseListItem(ele) {
     };
 }
 
+function parsePromotionItem(ele) {
+    return {
+        selected: false,
+        ...ele,
+    };
+}
+
 export default {
     state: {
         list: [],
-        
+        promotions: [],
     },
 
     getters: {
@@ -50,6 +58,18 @@ export default {
                 },
             });
         },
+        CART_FETCH_PROMOTIONS({state, commit}) {
+            return axios({
+                uri: 'get/SettingPromotion/enable',
+                success: (data) => {
+                    if (Array.isArray(data)) {
+                        commit('CART_UPDATE_PROMOTIONS', data);
+                    } else {
+                        debug('fetchPromotions', data);
+                    }
+                },
+            });
+        },
         CART_CHECKOUT({state, commit}) {
             return axios({
                 uri: 'payment/order',
@@ -66,9 +86,11 @@ export default {
                                 };
                             })
                     ),
+                    promotion: (state.promotions.find(e => e.selected) || {id: 0}).id,
                 },
                 success: (data) => {
                     commit('CART_UPDATE_LIST', []);
+                    commit('CART_UPDATE_PROMOTIONS', []);
                     commit('USER_UPDATE_STATE', { point:data.customer.point });
                 },
             });
@@ -118,17 +140,26 @@ export default {
         },
         CART_TOGGLE_REDEEM(state, payload) {
             debug('CART_TOGGLE_REDEEM', payload, state.list);
-            const item = state.list.find((e, idx) => idx == payload.idx);
+            const item = state.list.filter(e => e.selected).find((e, idx) => idx == payload.idx);
             item.redeem = item.redeem
                 ? 0
                 : payload.amount;
         },
         CART_REMOVE_LIST_ITEM(state, payload) {
             if (Array.isArray(payload)) {
-                state.list = state.list.filter((e, idx) => !payload.includes(idx));
+                state.list = state.list.filter((e, idx) => payload.includes(idx));
             } else {
-                state.list = state.list.filter(e => e.selected);
+                state.list = state.list.filter(e => !e.selected);
             }
+        },
+        CART_UPDATE_PROMOTIONS(state, payload) {
+            state.promotions = orderBy(payload.map(e => parsePromotionItem(e)), ['redeem_point', 'condition'], ['asc', 'asc']);
+        },
+        CART_TOGGLE_REDEEM_PROMOTION(state, payload) {
+            debug('CART_TOGGLE_REDEEM_PROMOTION', payload, state.list);
+            state.promotions.map((e, idx) => {
+                e.selected = idx === payload.idx;
+            });
         },
     },
     

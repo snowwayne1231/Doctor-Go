@@ -84,7 +84,7 @@
             </div>
         </input-form>
 
-        <fixed-button v-if="openButton" @click="onClickSubmit">
+        <fixed-button :show="openButton" @click="onClickSubmit">
             <i18n>確認修改</i18n>
         </fixed-button>
     </f7-page>

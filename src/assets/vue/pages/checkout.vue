@@ -37,26 +37,43 @@
                         <num>{{data.amount}}</num>
                     </td>
                     <td>
-                        <inputCheck 
+                        <inputCheck
                             v-if="data.product.point_can_be_discount > 0"
                             :value="!!data.redeem" 
                             @input="onChangeRedeem(data, idx)"
                         />
                     </td>
                 </tr>
-                <tr>
+                <tr v-if="matchedPromotions.length > 0" class="promotion-h">
+                    <th>優惠活動</th>
+                    <th>消費額</th>
+                    <th>可折抵</th>
+                    <th>折抵</th>
+                </tr>
+                <tr v-for="(promo, idx) in matchedPromotions" :key="String(promo.id) + idx" class="promotion">
+                    <td>{{promo.name}}</td>
+                    <td><num :price="promo.condition" /></td>
+                    <td><num :price="promo.redeem_point" /></td>
+                    <td>
+                        <inputCheck 
+                            :value="promo.selected" 
+                            @input="onChangePromotionRedeem(promo, idx)"
+                        />
+                    </td>
+                </tr>
+                <tr class="result-h">
                     <th></th>
                     <th colspan="3"><i18n>總計</i18n></th>
                 </tr>
-                <tr>
+                <tr class="result">
                     <td></td>
                     <td colspan="3">
-                        <num class="total" :price="totalPrice" />
+                        <num class="total" :price="finalPrice" />
                     </td>
                 </tr>
             </table-list>
         </div>
-        <fixed-button @click="onClickCheckout" :loading="axios.isLoading">
+        <fixed-button @click="onClickCheckout" :loading="axios.isLoading" :show="true">
             <i18n>結帳</i18n>
         </fixed-button>
     </f7-page>
@@ -64,6 +81,7 @@
 
 <script>
     import { mapState, mapActions } from 'vuex';
+    import axios from 'assets/js/utils/axios';
     
 
     export default {
@@ -83,21 +101,35 @@
                     return {...e, product};
                 });
             },
-            totalPrice() {
-                return this.cartOrders.length > 0
-                    ? this.cartOrders.filter(e => e.selected).reduce((a, b) => a + (b.product.price * b.amount), 0) - this.totalDiscount
-                    : 0;
-            },
             totalDiscount() {
-                return this.cartOrders
+                const generalDiscount = this.cartOrders
                     .map(e => e.redeem
                         ? e.redeem * e.product.point_can_be_discount
                         : 0)
                     .reduce((a, b) => { return a + b }, 0);
+                const promotionDiscount = this.cart.promotions
+                    .filter(e => e.selected)
+                    .reduce((a, b) => {
+                        return a + b.redeem_point;
+                    }, 0);
+                return generalDiscount + promotionDiscount;
+            },
+            totalPrice() {
+                return this.cartOrders.length > 0
+                    ? this.cartOrders.filter(e => e.selected).reduce((a, b) => a + (b.product.price * b.amount), 0)
+                    : 0;
+            },
+            matchedPromotions() {
+                return this.cart.promotions.filter(e => e.condition <= this.totalPrice);
+            },
+            finalPrice() {
+                return this.totalPrice - this.totalDiscount;
             },
         },
         mounted() {
-            this.$store.dispatch('PRODUCT_FETCH_LIST');
+            this.$store.dispatch('PRODUCT_FETCH_LIST').then(() => {
+                this.fetchPromotions();
+            });
         },
         methods: {
             onClickCheckout() {
@@ -111,6 +143,14 @@
                     return window.f7alert(`${overQuantity.product.name} 存貨不足`);
                 }
 
+                if (this.finalPrice <= 0) {
+                    return window.f7alert('錯誤的價格');
+                }
+
+                if (this.totalDiscount > this.user.point ) {
+                    return window.f7alert('可用點數不足');
+                }
+
                 this.$store.dispatch('CART_CHECKOUT').then(() => {
                     window.f7alert('已收到您的結帳申請，請耐心等候我們會有專員聯絡您', () => {
                         this.$f7router.navigate('/tab-my');
@@ -122,6 +162,14 @@
                     idx,
                     amount: data.amount,
                 });
+            },
+            onChangePromotionRedeem(data, idx) {
+                this.$store.commit('CART_TOGGLE_REDEEM_PROMOTION', {
+                    idx,
+                });
+            },
+            fetchPromotions() {
+                this.$store.dispatch('CART_FETCH_PROMOTIONS');
             },
         },
     };

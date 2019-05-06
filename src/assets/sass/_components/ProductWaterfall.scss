@@ -1,0 +1,26 @@
+@import 'assets/sass/variable.scss';
+
+.product-waterfall {
+    position: relative;
+    
+    .pw-items {
+
+    }
+
+    .pw-loading {
+        text-align: center;
+        height: 48px;
+        overflow: hidden;
+
+        .fa {
+            color: $grey;
+            font-size: 24px;
+            animation-name: rolling;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+    }
+    
+}

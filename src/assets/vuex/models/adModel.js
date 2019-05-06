@@ -80,7 +80,7 @@ export default {
                 e.event_image = e.image;
                 e.product_ids = e.product_ids.map(id => {
                     return parseInt(id, 10);
-                });
+                }).filter(e => !!e);
                 return e;
             });
         },

@@ -57,10 +57,10 @@
                 searchText: '',
                 openAutocomplete: false,
                 collecting: [
-                    { id: 1, promoterId: 1, promoterName: '八爪博士', promoterImage: 'static/images/face.jpg', productId: 1, productName: '皮秒雷射儀', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
-                    { id: 2, promoterId: 2, promoterName: '孫升升', promoterImage: 'static/images/face.jpg', productId: 12, productName: '水龍捲皮膚氫淨機', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
-                    { id: 3, promoterId: 3, promoterName: '艾莉莎莎', promoterImage: 'static/images/face.jpg', productId: 13, productName: '修護抗老系列', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
-                    { id: 4, promoterId: 4, promoterName: '理科太大', promoterImage: 'static/images/face.jpg', productId: 14, productName: '法薇亞MC123逆齡三部曲臉部精華液', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
+                    { id: 1, promoterId: 1, promoterName: '八爪博士', promoterImage: 'static/images/face.png', productId: 1, productName: '皮秒雷射儀', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
+                    { id: 2, promoterId: 2, promoterName: '孫升升', promoterImage: 'static/images/face.png', productId: 12, productName: '水龍捲皮膚氫淨機', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
+                    { id: 3, promoterId: 3, promoterName: '艾莉莎莎', promoterImage: 'static/images/face.png', productId: 13, productName: '修護抗老系列', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
+                    { id: 4, promoterId: 4, promoterName: '理科太大', promoterImage: 'static/images/face.png', productId: 14, productName: '法薇亞MC123逆齡三部曲臉部精華液', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
                 ],
                 matchedList: [],
 			};

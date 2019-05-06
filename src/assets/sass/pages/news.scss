@@ -5,11 +5,38 @@
 	.inner-content {
 		background-color: #fff;
 		padding: 10px;
+		
 	}
 
-	.type {
-		color: $red;
+	.news-header {
+		position: relative;
+		display: flex;
+		align-items: center;
+
+		.type {
+			color: $red;
+			width: 14%;
+		}
+
+		.text {
+			width: 74%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.fa-external-link {
+			width: 8%;
+			text-align: right;
+			color: $blue;
+			padding: 3px;
+
+			&.active-state {
+				color: $light-blue;
+			}
+		}
 	}
+
+	
 
 	.collapse-header {
 		height: 45px;

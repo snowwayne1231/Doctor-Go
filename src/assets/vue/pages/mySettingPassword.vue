@@ -15,7 +15,7 @@
             </div>
         </input-form>
 
-        <fixed-button>
+        <fixed-button :show="true">
             <i18n>確認修改</i18n>
         </fixed-button>
     </f7-page>

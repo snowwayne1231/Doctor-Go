@@ -1,7 +1,7 @@
 <template>
     <div class="news-card">
         <div class="list" ref="list" :class="{loading: loading}">
-            <dl v-for="li in list" :key="li.id" class="item"> 
+            <dl v-for="li in list" :key="li.id" class="item" @click="onItemClick(li)"> 
                 <dd class="title" :title="li.title">{{li.title}}</dd>
                 <dd class="type"><i>{{li.type}}</i></dd>
                 <dd class="headline" :title="li.headline">{{li.headline}}</dd>
@@ -14,6 +14,7 @@
 </template>
 <script>
     import { mapState } from 'vuex';
+    import { getPathByNewsData } from 'assets/js/utils/navigateHandlers';
 
     export default {
         data() {
@@ -42,6 +43,11 @@
                     this._timer = setInterval(this.interval, 5000);
                     this.loading = false;
                 });
+            },
+            onItemClick(data) {
+                
+                const path = getPathByNewsData(data);
+                this.$f7router.navigate(path);
             },
             interval() {
                 if (!this.$refs || !this.$refs.list) {

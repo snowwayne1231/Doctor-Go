@@ -14,7 +14,7 @@
                 </div> -->
 
                 <div class="article-sub">
-                    <DateTime v-if="chapter.public_date" :value="chapter.public_date" class="article-datetime" />
+                    <DateTime v-if="chapter.public_date" :value="chapter.public_date" format="yyyy/mm/dd" class="article-datetime" />
                     <dd class="article-author"><i18n>發表者</i18n> {{chapter.author}}</dd>
                 </div>
 

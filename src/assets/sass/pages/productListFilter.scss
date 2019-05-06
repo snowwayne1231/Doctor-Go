@@ -10,8 +10,16 @@
 		overflow-y: auto;
 
 		.infomation {
+			position: relative;
 			padding: 5px 10px;
-			color: $grey-drak;
+			color: $grey-dark;
+
+			&:after {
+				content: '';
+				display: inline-block;
+				clear: both;
+				width: 100%;
+			}
 
 			.image-link {
 				float: left;
@@ -54,8 +62,36 @@
 			min-height: 180px;
 			height: 30vh;
 		}
-	}
 
-	
+		.sub-filter {
+			position: relative;
+			padding: 5px;
+
+			.sub-filter-item {
+				color: $blue;
+				border-radius: 10px;
+				border: 1px solid $blue;
+				min-width: 96px;
+				text-align: center;
+				margin: 2px;
+				line-height: 25px;
+				padding: 2px 15px;
+
+				&.active {
+					color: white;
+					background-color: $blue;
+					// font-weight: bold;
+				}
+
+				&.active-state {
+					color: $light-blue;
+				}
+
+				.i18n {
+					pointer-events: none;
+				}
+			}
+		}
+	}
 }
 

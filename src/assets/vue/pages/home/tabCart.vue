@@ -15,7 +15,7 @@
                         <div class="item-inner">
                             <div class="item-title">
                                 <div class="item-header" @click="naviToProductById(data.product.id)">{{data.product.name}}</div>
-                                <div class="item-description">
+                                <div class="item-description custom-scroll">
                                     <cms-html :html="data.product.metaDescriptionHTML" />
                                 </div>
                             </div>
@@ -116,7 +116,7 @@ export default {
             })
         },
         onClickClear() {
-            this.$f7.dialog.confirm('確定刪除未選擇的商品嗎?', '購物車編輯', (evt) => {
+            this.$f7.dialog.confirm('確定刪除選擇的商品嗎?', '購物車編輯', (evt) => {
                 this.$store.commit('CART_REMOVE_LIST_ITEM');
             });
         },

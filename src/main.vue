@@ -51,14 +51,20 @@ export default {
                     routeChanged(newRoute, previousRoute, router) {
                         const firstHistory = router.history[0] || '/';
                         const isWrongStart = homeRoute.tabs.findIndex(tab => tab.path === firstHistory) === -1;
-                        const isTwiceHome = router.history.filter(e => homeRoute.tabs.includes(e)).length >= 2;
+                        const hrs = homeRoute.tabs.map(t => t.path);
+                        const isTwiceHome = router.history.filter(e => hrs.includes(e)).length >= 2;
                         debug('router.history', router.history);
 
                         if (isWrongStart || isTwiceHome) {
                             
-                            debug('reloadAll', isWrongStart, isTwiceHome);
+                            debug('reloadAll', isWrongStart, isTwiceHome, hrs);
                             // router.navigate('/', { reloadAll: true });
                             router.clearPreviousHistory();
+
+                            if (router.history.indexOf('/') == -1 && isWrongStart) {
+                                router.history.unshift('/');
+                                debug('router.history', router.history);
+                            }
                         }
                     },
                 },

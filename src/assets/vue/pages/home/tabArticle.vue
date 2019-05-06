@@ -3,9 +3,14 @@
         <header-nav-bar>
             <i18n slot="title">PSA美醫指南</i18n>
         </header-nav-bar>
-        <div class="inner custom-scroll">
-            <div class="list">
-                <li v-for="data in article.publications" :key="data.id" class="item">
+        <div class="inner">
+            <div class="list ptr-content custom-scroll" @ptr:refresh="onPtr" @scroll="onScroll" ref="scrollzone">
+                <!-- <div class="ptr-preloader">
+                    <div class="preloader"></div>
+                    <div class="ptr-arrow"></div>
+                </div> -->
+                
+                <li v-for="data in publications" :key="data.id" class="item">
                     
                     <div class="inner">
                         <ImageLink class="item-image" :image="data.image" />
@@ -32,11 +37,17 @@ import { mapState } from 'vuex';
 export default {
     data() {
         return {
-            
-        }
+            max: 3,
+        };
     },
     computed: {
         ...mapState(['article']),
+        publications(self) {
+            return self.article.publications.filter((e,idx) => idx < self.max);
+        },
+        isOverflow(self) {
+            return self.max < self.article.publications.length;
+        },
     },
     mounted() {
         // debug(this.article);
@@ -45,6 +56,26 @@ export default {
     methods: {
         init() {
             this.$store.dispatch('ARTICLE_CHECK');
+        },
+        onPtr() {
+            this.$store.dispatch('ARTICLE_FETCH_MAGAZINES').then(() => {
+                this.$f7.ptr.done();
+            });
+        },
+        onScroll() {
+            if (this.isOverflow) {
+                const dom = this.$refs.scrollzone;
+
+                const clientHeight = dom.clientHeight;
+                const scrollTop = dom.scrollTop;
+                const scrollHeight = dom.scrollHeight;
+
+                // console.log([dom], clientHeight);
+
+                if (clientHeight + scrollTop > scrollHeight - 50) {
+                    this.max += 2;
+                }
+            }
         },
     },
 };

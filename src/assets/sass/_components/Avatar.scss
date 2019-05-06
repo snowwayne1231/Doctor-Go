@@ -11,11 +11,14 @@
 
     .fa-camera {
         position: absolute;
-        padding: 5px;
+        padding: 3px;
         font-size: 20px;
         color: #666;
-        bottom: 3px;
-        left: 10px;
+        bottom: 0px;
+        left: 50%;
+        margin-left: -14px;
         z-index: 2;
+        background-color: #fff;
+        border-radius: 50%;
     }
 }

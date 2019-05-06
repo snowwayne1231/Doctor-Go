@@ -13,7 +13,10 @@
                     </fd>
                     <fd class="line-info" @click="gotoArticle(data)">
                         <dd>{{data.title}}</dd>
-                        <dd class="info-content"><i18n>發表者</i18n> : {{data.author}}</dd>
+                        <dd class="info-content">
+                            <i18n>發表者</i18n> : {{data.author}}
+                        </dd>
+                        <dd><DateTime :value="data.public_date" format="yyyy/mm/dd" /></dd>
                     </fd>
                 </fr>
             </flex-list>
@@ -38,7 +41,8 @@
                 return this.article.publications.find(e => e.id == this.$f7route.params.publication) || {};
             },
             chapters() {
-                return this.articleData.chapters || [];
+                const now = new Date().getTime();
+                return (this.articleData.chapters || []).filter(e => new Date(e.public_date).getTime() <= now);
             },
         },
         mounted() {

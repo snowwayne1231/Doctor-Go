@@ -7,7 +7,7 @@ export default {
         group_id: 0,
         store_id: 0,
         token: '',
-        avatar_url: 'static/images/face.jpg',
+        avatar_url: 'static/images/face.png',
         firstName: '',
         lastName: '',
         telephone: '',
@@ -53,7 +53,7 @@ export default {
             state.token = '';
             state.telephone = '';
             state.email = '';
-            state.avatar_url = 'static/images/face.jpg';
+            state.avatar_url = 'static/images/face.png';
             state.point = 0;
             state.firstName = '';
             state.lastName = '';

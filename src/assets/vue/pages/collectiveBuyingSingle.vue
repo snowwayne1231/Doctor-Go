@@ -44,7 +44,7 @@
                 
             </div>
         </div>
-        <fixed-button>
+        <fixed-button :show="true">
             加入團購
         </fixed-button>
     </f7-page>
@@ -61,14 +61,14 @@
                 id: 2,
                 promoterId: 2,
                 promoterName: '孫升升',
-                promoterImage: 'static/images/face.jpg',
+                promoterImage: 'static/images/face.png',
                 productId: 12,
                 productName: '水龍捲皮膚氫淨機',
                 productImage: 'static/images/products/el-650x650.png',
                 startDate: '2019-03-04',
                 endDate: '2019-03-15',
                 participant: [
-                    { id: 1, name: '小朋友', image: 'static/images/face.jpg', }
+                    { id: 1, name: '小朋友', image: 'static/images/face.png', }
                 ],
 			};
         },

@@ -16,7 +16,7 @@
         display: flex;
         justify-content: center;
 
-        .fa {
+        .fa-angle-right {
             font-size: 30px;
             width: 40px;
             text-align: center;
@@ -57,7 +57,7 @@
 .collapse-item.open {
     .collapse-header {
         border-bottom-color: $color-line-grey;
-        .fa {
+        .fa-angle-right {
             transform: rotateZ(90deg);
         }
     }

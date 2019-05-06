@@ -198,6 +198,10 @@
 			background-color: rgba(50, 50, 50, 0.1); 
 		}
 	}
+
+	.ptr-preloader ~ .tabbar-labels {
+		position: absolute;
+	}
 }
 
 
@@ -224,6 +228,10 @@
 		input, select, textarea {
 			font-size: 20px;
 		}
+	}
+
+	.framework7-root {
+		
 	}
 }
 

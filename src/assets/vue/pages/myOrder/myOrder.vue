@@ -48,23 +48,7 @@
 			return {
                 loading: true,
                 maxShowOrder: 10,
-                beforePayOrders: [
-                    // { id: 123456, status: 1, date: '2019-01-05 19:12', total: 15000, products: [
-                    //     { id: 1, name: 'Ellanse SXT', price: 7500, amount: 1, image: 'static/images/products/el-650x650.png' },
-                    //     { id: 2, name: 'Ellanse SXT', price: 7500, amount: 1, image: 'static/images/products/el-650x650.png' },
-                    // ]},
-                    // { id: 1234598, status: 1, date: '2019-01-05 19:15', total: 22500, products: [
-                    //     { id: 4, name: 'Ellanse SXT', price: 7500, amount: 1, image: 'static/images/products/el-650x650.png' },
-                    //     { id: 5, name: 'Ellanse SXT', price: 7500, amount: 1, image: 'static/images/products/el-650x650.png' },
-                    //     { id: 6, name: 'Ellanse SXT', price: 7500, amount: 1, image: 'static/images/products/el-650x650.png' },
-                    // ]},
-                    // { id: 1234599, status: 1, date: '2019-01-05 19:18', total: 30000, products: [
-                    //     { id: 4, name: 'Ellanse SXT', price: 7500, amount: 1, image: 'static/images/products/el-650x650.png' },
-                    //     { id: 5, name: 'Ellanse SXT', price: 7500, amount: 1, image: 'static/images/products/el-650x650.png' },
-                    //     { id: 6, name: 'Ellanse SXT', price: 7500, amount: 1, image: 'static/images/products/el-650x650.png' },
-                    //     { id: 7, name: 'Ellanse SXT', price: 7500, amount: 1, image: 'static/images/products/el-650x650.png' },
-                    // ]},
-                ],
+                beforePayOrders: [],
                 beforeShipOrders: [],
                 waittingOrders: [],
                 finishOrders: [],

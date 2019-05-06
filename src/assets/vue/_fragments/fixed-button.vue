@@ -1,7 +1,7 @@
 <template functional>
     <div
         class="fixed-button"
-        :class="{loading: props.loading}"
+        :class="{loading: props.loading, show: props.show}"
         v-on="listeners"
         v-bind="data.attrs"
     >
@@ -15,6 +15,7 @@
     export default {
         props: {
             loading: Boolean,
+            show: Boolean,
         }
     };
 </script>

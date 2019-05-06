@@ -3,13 +3,13 @@
         <div class="item-inner">
             <div class="container-above">
                 <div class="product-image" :style="imageStyle" />
-                <i v-if="reduced" class="reduced">- <num isPrice>{{reduced}}</num></i>
+                <i v-if="reduced" class="reduced"><i18n>點數可抵</i18n>: <num :price="reduced"></num></i>
             </div>
             <div class="container-below">
                 <div class="name nowrap"><i18n>{{name}}</i18n></div>
                 <div class="price clear nowrap">
                     <i18n class="word">參考價格</i18n>
-                    <num :isPrice="true">{{price}}</num>
+                    <num :price="price"></num>
                 </div>
             </div>
         </div>

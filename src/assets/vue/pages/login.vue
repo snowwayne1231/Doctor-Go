@@ -21,11 +21,11 @@
         </input-form>
 
         <div class="btns">
-            <f7-link href="/registration/"><i18n>快速註冊</i18n></f7-link>
+            <f7-link href="/registration/"><i18n>註冊會員</i18n></f7-link>
             <f7-link href="/forgetpassword/"><i18n>忘記密碼</i18n></f7-link>
         </div>
         
-        <fixed-button  v-if="openButton" @click="loginAction">
+        <fixed-button :show="openButton" @click="loginAction">
             <i18n>登入</i18n>
         </fixed-button>
         

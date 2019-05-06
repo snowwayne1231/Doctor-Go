@@ -4,7 +4,7 @@
             <i18n slot="title" :text="titleName"></i18n>
         </header-nav-bar>
 
-        <div class="inner-content">
+        <div class="inner-content custom-scroll">
 
             <div class="infomation" v-if="brandInfomation">
                 <ImageLink :image="brandInfomation.image" />
@@ -15,16 +15,21 @@
                 <img :src="metaData.event_image" />
                 <!-- <ImageLink :image="metaData.event_image" /> -->
             </div>
-            
-            <div class="product-list">
-                <ProductItem v-for="product in products" :key="product.id"
-                    :id="product.id"
-                    :name="product.name"
-                    :price="product.price"
-                    :image="product.image"
-                >
-                </ProductItem>
+
+            <div class="sub-filter" v-if="childrenCatagoryData.length > 0">
+                <dd class="sub-filter-item" :class="{active: selectedSubCatagory === 0}" @click="onSubFilterItemClick(0)"><i18n text="全部" />
+                </dd><dd v-for="data in childrenCatagoryData"
+                    class="sub-filter-item"
+                    :class="{active: selectedSubCatagory === data.id}"
+                    @click="onSubFilterItemClick(data.id)"
+                    :key="data.id">
+                    <i18n :text="data.name" />
+                </dd>
             </div>
+            
+            <ProductWaterfall class="product-list" :items="products">
+                
+            </ProductWaterfall>
             
         </div>
         
@@ -41,6 +46,7 @@
 		data () {
 			return {
                 mode: null,
+                selectedSubCatagory: 0,
                 // catalog: null,
                 // brand: null,
 			};
@@ -72,12 +78,17 @@
             products(self) {
                 let list = [];
                 if (self.metaData) {
+                    
                     switch (self.mode) {
                         case 'brand':
                             list = self.product.list.filter(e => e.brand_id == self.metaData.id);
                         break;
                         case 'catalog':
-                            const catalogChildrenIds = [self.metaData.id].concat(self.metaData.children);
+                            const catalogChildrenIds = self.selectedSubCatagory
+                                ? [self.selectedSubCatagory].concat(
+                                    (self.product.categories.find(e => e.id === self.selectedSubCatagory) || {}).children || []
+                                )
+                                : [self.metaData.id].concat(self.metaData.children);
                             
                             list = self.product.list.filter(e => catalogChildrenIds.includes(e.category_id));
                         break;
@@ -100,6 +111,13 @@
                     ? self.metaData
                     : null;
             },
+            childrenCatagoryData(self) {
+                return (self.metaData && self.mode === 'catalog')
+                    ? self.metaData.children.map(e => {
+                        return self.product.categories.find(p => p.id == e) || {};
+                    })
+                    : [];
+            },
         },
         created() {
             const catalog = this.$f7route.params.catalog;
@@ -114,7 +132,6 @@
             }
 
             this.beforeInit();
-            
 
             // this.$f7router.navigate('/');
         },
@@ -128,6 +145,9 @@
             },
             init() {
                 
+            },
+            onSubFilterItemClick(catalogId) {
+                this.selectedSubCatagory = catalogId;
             },
         },
     };

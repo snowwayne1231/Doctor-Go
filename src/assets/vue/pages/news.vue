@@ -8,9 +8,10 @@
 
         <div class="inner-content">
             <collapse-item v-for="data in news" :key="data.id">
-                <div slot="header" class="inline-middle nowrap">
+                <div slot="header" class="inline-middle nowrap news-header">
                     <span class="type middle">{{data.type}}</span>
                     <span class="text middle">{{data.headline}}</span>
+                    <i class="fa fa-external-link" @click="onExternalLinkClick(data)"></i>
                 </div>
                 <div slot="content" v-if="data.content">
                     <textarea readonly v-model="data.content" class="content-textarea">
@@ -26,6 +27,7 @@
 
 <script>
     import { mapState, mapActions } from 'vuex';
+    import { getPathByNewsData } from 'assets/js/utils/navigateHandlers';
     
 
     export default {
@@ -44,7 +46,10 @@
             this.$store.dispatch('AD_FETCH_NEWS');
         },
         methods: {
-            
+            onExternalLinkClick(data) {
+                const path = getPathByNewsData(data);
+                this.$f7router.navigate(path);
+            },
         },
     };
 </script>

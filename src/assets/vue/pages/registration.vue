@@ -70,7 +70,7 @@
             </div>
         </input-form>
 
-        <fixed-button v-if="openButton" @click="register">
+        <fixed-button :show="openButton" :loading="loadingButton" @click="register">
             <i18n>送出註冊</i18n>
         </fixed-button>
     </f7-page>
@@ -87,6 +87,7 @@
 		data () {
 			return {
                 openButton: true,
+                loadingButton: false,
                 checkTerm: false,
                 formData: {
                     lastname: '',
@@ -131,6 +132,8 @@
                 Object.keys(this.formData).map((name) => {
                     formData.append(name, this.formData[name]);
                 });
+
+                this.loadingButton = true;
                 
                 axios({
                     uri: 'register',
@@ -138,9 +141,13 @@
                     data: formData,
                     success: (data) => {
                         debug('register success', data);
-                        this.$store.dispatch('USER_LOGIN', data);
+                        // this.$store.dispatch('USER_LOGIN', data);
+                        this.loadingButton = false;
 
-                        this.$f7router.navigate('/');
+                        window.f7alert('已收到您的會員註冊請求</br>請稍等待1~2個工作天為您激活', () => {
+                            this.$f7router.navigate('/');
+                        });
+
                     },
                 });
             },

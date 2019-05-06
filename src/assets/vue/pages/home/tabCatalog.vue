@@ -27,16 +27,10 @@
             </div>
             <div class="inner-right" v-if="selectedCatalog">
                 <block-headmore v-if="selectedCatalog" :title="selectedCatalog.name" :linkMore="`/productlistfilter/${selectedCatalog.id}`">
-                    <div class="hot-products">
-                        <ProductItem
-                            v-for="(product, idx) in products"
-                            :key="idx"
-                            :id="product.id"
-                            :name="product.name"
-                            :image="product.image"
-                            :price="product.price"
-                        />
-                    </div>
+                    
+                    <ProductWaterfall class="hot-products" :items="products">
+                    </ProductWaterfall>
+
                 </block-headmore>
             </div>
         </div>

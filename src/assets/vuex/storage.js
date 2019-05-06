@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import user from './models/userModel';
-import relation from './fake/relationModel';
+// import relation from './fake/relationModel';
 import product from './models/productModel';
 import article from './models/articleModel';
 import cart from './models/cartModel';
@@ -14,7 +14,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     modules: {
         user,
-        relation,
+        // relation,
         product,
         article,
         cart,
