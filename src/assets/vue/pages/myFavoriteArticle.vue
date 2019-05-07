@@ -57,8 +57,8 @@
             });
         },
         methods: {
-            gotoArticle() {
-                this.$f7router.navigate('/article/');
+            gotoArticle(id) {
+                this.$f7router.navigate(`/article/${id}`);
             },
             isChecked(id) {
                 return this.checkedIds.includes(id);

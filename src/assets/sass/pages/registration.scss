@@ -5,7 +5,7 @@
 	}
 
 	.logo {
-		padding: 10% 0px 0px;
+		padding: 22px 0px 0px;
 		margin: 0px auto;
 		display: block;
 	}
@@ -20,8 +20,16 @@
 		}
 	}
 
+	.inner-content {
+		position: relative;
+		overflow: auto;
+		height: calc(100% - 114px);
+	}
+
 	.input-form {
-		padding-bottom: 80px;
+		
+		
+		
 	}
 
 	.red {
@@ -45,5 +53,13 @@
 
 	.term >i {
 		font-size: 1em;
+	}
+}
+
+@media only screen and (min-width: 720px) {
+	.registration {
+		.inner-content {
+			height: calc(100% - 140px);
+		}
 	}
 }

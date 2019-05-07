@@ -66,12 +66,24 @@ $color-wording-dark: #121212;
 @keyframes rotateRight {
     0% {
         // transform: rotateY(120deg);
-        transform: rotate3d(-0.02, 1, 0, 120deg);
+        transform: rotate3d(0, 1, 0, 120deg);
+    }
+
+    25% {
+        transform: rotate3d(0, 1, 0, 90deg);
+    }
+
+    50% {
+        transform: rotate3d(0, 1, 0, 60deg);
+    }
+
+    75% {
+        transform: rotate3d(0, 1, 0, 30deg);
     }
 
     100% {
         // transform: rotateY(0deg);
-        transform: rotate3d(0, 0, 0, 120deg);
+        transform: rotate3d(0, 0, 0, 0deg);
     }
 }
 

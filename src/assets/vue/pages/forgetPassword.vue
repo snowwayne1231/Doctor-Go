@@ -70,7 +70,12 @@
                             telephone: telephone,
                             code: data.code,
                         });
-                        window.f7alert('已送出簡訊驗證碼');
+                        if (data.kmsgid === 0) {
+                            window.f7alert(`伺服器未設置電信服務 <br />請直接輸入 驗證碼: ${data.code}`);
+                            this.smsToken = data.code;
+                        } else {
+                            window.f7alert('已送出簡訊驗證碼');
+                        }
                     },
                 });
             },

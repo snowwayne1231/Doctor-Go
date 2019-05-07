@@ -7,7 +7,9 @@
 	}
 
 	.input-form {
-		padding-bottom: 70px;
+		height: calc(100% - 114px);
+		position: relative;
+		overflow: auto;
 
 		input[readonly] {
 			color: $grey;

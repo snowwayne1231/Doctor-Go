@@ -3,72 +3,74 @@
         <header-nav-bar back>
             <i18n slot="title">註冊</i18n>
         </header-nav-bar>
-        
-        <img class="logo" src="../../images/zh_tw/logo.jpg" />
 
-        <input-form :column="{ '2': [60, 40] }" @focus="onFocus" @blur="onBlur">
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入您的姓氏')" type="text" required validate name="lastName" v-model="formData.lastname" /></div>
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入您的名字')" type="text" required validate name="firstName" v-model="formData.firstname" /></div>
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入您的E-Mail')" type="email" required validate name="email" v-model="formData.email" /></div>
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入您的醫師執照編號')" type="text" required validate name="doctorProfile" v-model="formData.doctorProfile" /></div>
-            <div class="doctor-file-upload" @click="chooseDoctorFile">
-                <i class="red">*</i>
-                <span v-if="formData.doctorProfileImage" class="hasFile">{{formData.doctorProfileImage.name}}</span>
-                <i18n v-else>請輸入上傳您的醫師執照圖檔</i18n>
-                <input
-                    type="file"
-                    name="doctorProfileImage"
-                    accept="image/*"
-                    hidden
-                    @change="onDoctorFileChange"
-                />
-            </div>
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入您的診所開業執照編號')" type="text" required validate name="doctorClinic" v-model="formData.doctorClinic" /></div>
-            <div class="doctor-file-upload" @click="chooseDoctorFile">
-                <i class="red">*</i>
-                <span v-if="formData.doctorClinicImage" class="hasFile">{{formData.doctorClinicImage.name}}</span>
-                <i18n v-else>請輸入上傳您的診所開業執照圖檔</i18n>
-                <input
-                    type="file"
-                    name="doctorClinicImage"
-                    accept="image/*"
-                    hidden
-                    @change="onDoctorFileChange"
-                />
-            </div>
-            <div class="country-seletor">
-                <i class="red">*</i>
-                <select v-model="formData.country">
-                    <option default selected value="">請選擇國家</option>
-                    <option v-for="country in geo.countries" :key="country.id" :value="country.id">
-                        {{country.name}}
-                    </option>
-                </select>
-            </div>
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入郵遞區號')" type="number" required validate name="post_code" v-model="formData.postCode" /></div>
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入地區/鄉鎮/城市')" type="text" name="address_1" v-model="formData.address_1" /></div>
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入詳細地址')" type="text" name="address_2" v-model="formData.address_2" /></div>
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入您的手機號碼')" type="tel" name="phone" required validate v-model="formData.telephone" /></div>
-            <div>
-                <div><i class="red">*</i><input :placeholder="i18n('請輸入簡訊驗證碼')" type="text" name="smsToken" v-model="smsToken" /></div>
-                <div class="get-token"><btn @click="getSmsToken"><i18n>獲取驗證碼</i18n></btn></div>
-            </div>
-            <div><i class="red">*</i><input :placeholder="i18n('請輸入密碼')" type="password" required validate name="password" v-model="formData.password" /></div>
-            <div><i class="red">*</i><input :placeholder="i18n('請確認密碼')" type="password" required validate name="confirmPassword" v-model="confirmPassword" /></div>
-            <div class="term">
-                <one-line-table>
-                    <td>
-                        <f7-checkbox :checked="checkTerm" @change="changeCheckbox"/>
-                    </td>
-                    <td style="padding-left: 10px;">
-                        <i18n>註冊代表同意</i18n>
-                        <f7-link href="/term/user"><i18n>美醫用戶協議</i18n></f7-link>
-                        <!-- 、<f7-link><i18n>隱私聲明</i18n></f7-link>
-                        、<f7-link><i18n>法律聲明</i18n></f7-link> -->
-                    </td>
-                </one-line-table>
-            </div>
-        </input-form>
+        <div class="inner-content">
+            <img class="logo" src="../../images/zh_tw/logo.jpg" />
+
+            <input-form :column="{ '2': [60, 40] }" @focus="onFocus" @blur="onBlur">
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入您的姓氏')" type="text" required validate name="lastName" v-model="formData.lastname" /></div>
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入您的名字')" type="text" required validate name="firstName" v-model="formData.firstname" /></div>
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入您的E-Mail')" type="email" required validate name="email" v-model="formData.email" /></div>
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入您的醫師執照編號')" type="text" required validate name="doctorProfile" v-model="formData.doctorProfile" /></div>
+                <div class="doctor-file-upload" @click="chooseDoctorFile">
+                    <i class="red">*</i>
+                    <span v-if="formData.doctorProfileImage" class="hasFile">{{formData.doctorProfileImage.name}}</span>
+                    <i18n v-else>請輸入上傳您的醫師執照圖檔</i18n>
+                    <input
+                        type="file"
+                        name="doctorProfileImage"
+                        accept="image/*"
+                        hidden
+                        @change="onDoctorFileChange"
+                    />
+                </div>
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入您的診所開業執照編號')" type="text" required validate name="doctorClinic" v-model="formData.doctorClinic" /></div>
+                <div class="doctor-file-upload" @click="chooseDoctorFile">
+                    <i class="red">*</i>
+                    <span v-if="formData.doctorClinicImage" class="hasFile">{{formData.doctorClinicImage.name}}</span>
+                    <i18n v-else>請輸入上傳您的診所開業執照圖檔</i18n>
+                    <input
+                        type="file"
+                        name="doctorClinicImage"
+                        accept="image/*"
+                        hidden
+                        @change="onDoctorFileChange"
+                    />
+                </div>
+                <div class="country-seletor">
+                    <i class="red">*</i>
+                    <select v-model="formData.country">
+                        <option default selected value="">請選擇國家</option>
+                        <option v-for="country in geo.countries" :key="country.id" :value="country.id">
+                            {{country.name}}
+                        </option>
+                    </select>
+                </div>
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入郵遞區號')" type="number" required validate name="post_code" v-model="formData.postCode" /></div>
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入地區/鄉鎮/城市')" type="text" name="address_1" v-model="formData.address_1" /></div>
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入詳細地址')" type="text" name="address_2" v-model="formData.address_2" /></div>
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入您的手機號碼')" type="tel" name="phone" required validate v-model="formData.telephone" /></div>
+                <div>
+                    <div><i class="red">*</i><input :placeholder="i18n('請輸入簡訊驗證碼')" type="text" name="smsToken" v-model="smsToken" /></div>
+                    <div class="get-token"><btn @click="getSmsToken"><i18n>獲取驗證碼</i18n></btn></div>
+                </div>
+                <div><i class="red">*</i><input :placeholder="i18n('請輸入密碼')" type="password" required validate name="password" v-model="formData.password" /></div>
+                <div><i class="red">*</i><input :placeholder="i18n('請確認密碼')" type="password" required validate name="confirmPassword" v-model="confirmPassword" /></div>
+                <div class="term">
+                    <one-line-table>
+                        <td>
+                            <f7-checkbox :checked="checkTerm" @change="changeCheckbox"/>
+                        </td>
+                        <td style="padding-left: 10px;">
+                            <i18n>註冊代表同意</i18n>
+                            <f7-link href="/term/user"><i18n>美醫用戶協議</i18n></f7-link>
+                            <!-- 、<f7-link><i18n>隱私聲明</i18n></f7-link>
+                            、<f7-link><i18n>法律聲明</i18n></f7-link> -->
+                        </td>
+                    </one-line-table>
+                </div>
+            </input-form>
+        </div>
 
         <fixed-button :show="openButton" :loading="loadingButton" @click="register">
             <i18n>送出註冊</i18n>
@@ -142,12 +144,14 @@
                     success: (data) => {
                         debug('register success', data);
                         // this.$store.dispatch('USER_LOGIN', data);
-                        this.loadingButton = false;
-
+                        
                         window.f7alert('已收到您的會員註冊請求</br>請稍等待1~2個工作天為您激活', () => {
                             this.$f7router.navigate('/');
                         });
 
+                    },
+                    final: () => {
+                        this.loadingButton = false;
                     },
                 });
             },

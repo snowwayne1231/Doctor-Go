@@ -1,7 +1,7 @@
 @import '../variable.scss';
 
 .fixed-button {
-    position: fixed;
+    position: absolute;
     bottom: 0px;
     font-size: 1.2em;
     font-weight: bold;
@@ -15,12 +15,12 @@
     // animation-fill-mode: forwards;
     // animation-duration: 0.5s;
     // transform: scale(0);
-    transition: all 0.2s linear 0.5s; 
-    transform: translateY(120%);
+    transition: all 0.3s ease 0.5s; 
+    transform: translateX(120%);
     opacity: 0;
 
     &.show {
-        transform: translateY(0%);
+        transform: translateX(0%);
         opacity: 1;
     }
 
