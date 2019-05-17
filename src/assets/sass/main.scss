@@ -2,8 +2,8 @@
 @import './_components/*';
 @import './_fragments/*';
 @import './_panels/*';
-@import './pages/*';
-@import './pages/*/*';
+@import './pages/*scss';
+@import './pages/*/*scss';
 
 * {
 	user-select: none;

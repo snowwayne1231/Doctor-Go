@@ -67,7 +67,7 @@
                 const promise = this.$store.dispatch('PRODUCT_CHECK_LIST');
                 promise.then(e => {
                     axios({
-                        uri: 'authorization/get/paymentOrder,products/all',
+                        uri: 'authorization/get/PaymentOrder,products/all',
                         success: (data) => {
                             this.loading = false;
 
