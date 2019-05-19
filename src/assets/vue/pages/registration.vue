@@ -13,7 +13,7 @@
                 <div><i class="red">*</i><input :placeholder="i18n('請輸入您的E-Mail')" type="email" required validate name="email" v-model="formData.email" /></div>
                 <div><i class="red">*</i><input :placeholder="i18n('請輸入您的醫師執照編號')" type="text" required validate name="doctorProfile" v-model="formData.doctorProfile" /></div>
                 <div class="doctor-file-upload" @click="chooseDoctorFile">
-                    <i class="red">*</i>
+                    <!-- <i class="red">*</i> -->
                     <span v-if="formData.doctorProfileImage" class="hasFile">{{formData.doctorProfileImage.name}}</span>
                     <i18n v-else>請輸入上傳您的醫師執照圖檔</i18n>
                     <input
@@ -24,9 +24,11 @@
                         @change="onDoctorFileChange"
                     />
                 </div>
-                <div><i class="red">*</i><input :placeholder="i18n('請輸入您的診所開業執照編號')" type="text" required validate name="doctorClinic" v-model="formData.doctorClinic" /></div>
+                <div>
+                    <!-- <i class="red">*</i> -->
+                    <input :placeholder="i18n('請輸入您的診所開業執照編號')" type="text" required validate name="doctorClinic" v-model="formData.doctorClinic" /></div>
                 <div class="doctor-file-upload" @click="chooseDoctorFile">
-                    <i class="red">*</i>
+                    <!-- <i class="red">*</i> -->
                     <span v-if="formData.doctorClinicImage" class="hasFile">{{formData.doctorClinicImage.name}}</span>
                     <i18n v-else>請輸入上傳您的診所開業執照圖檔</i18n>
                     <input
