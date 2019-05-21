@@ -35,7 +35,7 @@
                         type="file"
                         name="doctorClinicImage"
                         accept="image/*"
-                        hidden
+                        
                         @change="onDoctorFileChange"
                     />
                 </div>
@@ -134,7 +134,9 @@
 
                 const formData = new FormData();
                 Object.keys(this.formData).map((name) => {
-                    formData.append(name, this.formData[name]);
+                    if (this.formData[name]) {
+                        formData.append(name, this.formData[name]);
+                    }
                 });
 
                 this.loadingButton = true;
@@ -191,13 +193,18 @@
                 this.openButton = true;
             },
             chooseDoctorFile(evt) {
-                const input = evt.target.closest('.doctor-file-upload').querySelector('input');
-                input && input.click(evt);
+                try {
+                    const input = evt.target.closest('.doctor-file-upload').querySelector('input');
+                    input && input.click(evt);
+                } catch(e) {
+                    window.f7alert(e.message);
+                }
+                
             },
             onDoctorFileChange(evt) {
                 const name = evt.target.name;
                 const file = evt.target.files[0];
-                // debug('onDoctorFileChange', name, file);
+                debug('onDoctorFileChange', name, file);
                 this.formData[name] = file;
             },
 			i18n,

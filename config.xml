@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.snow1231.psbeauty.doctorgo2019" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.snow1231.psbeauty.doctorgo20190520" version="1.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="android-minSdkVersion" value="19" />
     <preference name="DisallowOverscroll" value="true" />
     <hook src="hooks/hookers.js" type="before_prepare" />
@@ -42,6 +42,10 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <preference name="orientation" value="portrait" />
+        <preference name="FadeSplashScreen" value="false" />
+        <preference name="KeyboardDisplayRequiresUserAction" value="false" />
+        <preference name="KeyboardShrinksView" value="true" />
+        <preference name="DisableScrollingWhenKeyboardShrinksView" value="true" />
     </platform>
     <allow-navigation href="*" />
     <plugin name="cordova-plugin-whitelist" spec="1" />

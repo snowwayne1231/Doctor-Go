@@ -61,7 +61,7 @@ export default {
                             // router.navigate('/', { reloadAll: true });
                             router.clearPreviousHistory();
 
-                            if (router.history.indexOf('/') == -1 && isWrongStart) {
+                            if (router.history.indexOf('/') == -1) {
                                 router.history.unshift('/');
                                 debug('router.history', router.history);
                             }

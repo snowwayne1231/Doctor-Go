@@ -30,7 +30,9 @@
 	.input-form {
 		
 		
-		
+		input[type=file] {
+			border: 1px solid #000;
+		}
 	}
 
 	.red {
@@ -42,6 +44,10 @@
 
 	.doctor-file-upload {
 		color: $grey;
+		
+		.i18n {
+			border: 1px solid $grey;
+		}
 	}
 
 	.hasFile {

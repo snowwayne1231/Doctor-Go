@@ -1,11 +1,19 @@
 {
   "ios": {
+    "debug": {
+      "developmentTeam": "MX3MGM4JML",
+      "buildFlag": [
+        "-UseModernBuildSystem=0"
+      ]
+    },
     "release": {
+      "developmentTeam": "MX3MGM4JML",
       "buildFlag": [
         "-UseModernBuildSystem=0"
       ]
     },
     "development": {
+      "developmentTeam": "MX3MGM4JML",
       "buildFlag": [
         "-UseModernBuildSystem=0"
       ]
