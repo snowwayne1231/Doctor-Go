@@ -7,8 +7,10 @@
 	}
 
 	.input-form {
+		position: absolute;
 		height: calc(100% - 114px);
-		position: relative;
+		width: 100%;
+		
 		overflow: auto;
 
 		input[readonly] {

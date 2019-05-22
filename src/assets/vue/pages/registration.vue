@@ -12,30 +12,30 @@
                 <div><i class="red">*</i><input :placeholder="i18n('請輸入您的名字')" type="text" required validate name="firstName" v-model="formData.firstname" /></div>
                 <div><i class="red">*</i><input :placeholder="i18n('請輸入您的E-Mail')" type="email" required validate name="email" v-model="formData.email" /></div>
                 <div><i class="red">*</i><input :placeholder="i18n('請輸入您的醫師執照編號')" type="text" required validate name="doctorProfile" v-model="formData.doctorProfile" /></div>
-                <div class="doctor-file-upload" @click="chooseDoctorFile">
+                <div class="doctor-file-upload">
                     <!-- <i class="red">*</i> -->
                     <span v-if="formData.doctorProfileImage" class="hasFile">{{formData.doctorProfileImage.name}}</span>
-                    <i18n v-else>請輸入上傳您的醫師執照圖檔</i18n>
+                    <i18n v-else @click="chooseDoctorFile">請上傳您的醫師執照圖檔</i18n>
                     <input
                         type="file"
                         name="doctorProfileImage"
                         accept="image/*"
-                        hidden
+                        :class="{hide: !!formData.doctorProfileImage}"
                         @change="onDoctorFileChange"
                     />
                 </div>
                 <div>
                     <!-- <i class="red">*</i> -->
                     <input :placeholder="i18n('請輸入您的診所開業執照編號')" type="text" required validate name="doctorClinic" v-model="formData.doctorClinic" /></div>
-                <div class="doctor-file-upload" @click="chooseDoctorFile">
+                <div class="doctor-file-upload">
                     <!-- <i class="red">*</i> -->
                     <span v-if="formData.doctorClinicImage" class="hasFile">{{formData.doctorClinicImage.name}}</span>
-                    <i18n v-else>請輸入上傳您的診所開業執照圖檔</i18n>
+                    <i18n v-else @click="chooseDoctorFile">請上傳您的診所開業執照圖檔</i18n>
                     <input
                         type="file"
                         name="doctorClinicImage"
-                        accept="image/*"
-                        
+                        accept="*"
+                        :class="{hide: !!formData.doctorClinicImage}"
                         @change="onDoctorFileChange"
                     />
                 </div>
@@ -193,15 +193,18 @@
                 this.openButton = true;
             },
             chooseDoctorFile(evt) {
+                evt.stopPropagation();
                 try {
                     const input = evt.target.closest('.doctor-file-upload').querySelector('input');
-                    input && input.click(evt);
+                    input.click();
                 } catch(e) {
-                    window.f7alert(e.message);
+                    debug('chooseDoctorFile', evt, e.message);
                 }
                 
             },
             onDoctorFileChange(evt) {
+                // evt.preventDefault();
+                evt.stopPropagation();
                 const name = evt.target.name;
                 const file = evt.target.files[0];
                 debug('onDoctorFileChange', name, file);

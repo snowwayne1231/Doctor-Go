@@ -7,7 +7,7 @@
         <div class="inner-content custom-scroll">
 
             <div class="infomation" v-if="brandInfomation">
-                <ImageLink :image="brandInfomation.image" />
+                <img v-if="brandInfomation.image" class="inline-image" :src="brandInfomation.image" :style="{maxWidth:`${brandInfomation.logo_max_width || 120}px`}" />
                 <div class="info-div" readonly>{{brandInfomation.description}}</div>
             </div>
 
@@ -78,7 +78,7 @@
             products(self) {
                 let list = [];
                 if (self.metaData) {
-                    
+                    debug(self.metaData);
                     switch (self.mode) {
                         case 'brand':
                             list = self.product.list.filter(e => e.brand_id == self.metaData.id);

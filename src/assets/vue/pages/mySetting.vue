@@ -163,7 +163,7 @@
             getServerApiUploadedImage,
             chooseDoctorFile(evt) {
                 const input = evt.target.closest('.doctor-file-upload').querySelector('input');
-                input && input.click(evt);
+                input && input.click();
                 // this.$refs.doctorFile.click(evt);
             },
             onDoctorFileChange(evt) {
