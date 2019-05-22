@@ -10,7 +10,7 @@
             type="file"
             name="avatar"
             accept="image/*"
-            hidden
+            class="server-input-file"
             @change="onFileChange"
         />
     </div>

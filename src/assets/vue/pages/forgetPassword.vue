@@ -9,7 +9,7 @@
 			<input-form :column="{ '2': [60, 40] }" @focus="onFocus" @blur="onBlur">
                 <div v-show="!isLogin"><input :placeholder="i18n('請輸入您的手機號碼')" v-model="telephone" type="tel" /></div>
                 <div>
-                    <div><input :placeholder="i18n('請輸入簡訊驗證碼')" type="text" v-model="smsToken" /></div>
+                    <div><input :placeholder="i18n('請輸入簡訊驗證碼')" type="number" v-model="smsToken" /></div>
                     <div class="get-token"><btn @click="getSmsToken"><i18n>獲取驗證碼</i18n></btn></div>
                 </div>
                 <div>

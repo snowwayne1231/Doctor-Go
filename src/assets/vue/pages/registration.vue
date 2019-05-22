@@ -34,7 +34,7 @@
                     <input
                         type="file"
                         name="doctorClinicImage"
-                        accept="*"
+                        accept="image/*"
                         :class="{hide: !!formData.doctorClinicImage}"
                         @change="onDoctorFileChange"
                     />
@@ -53,7 +53,7 @@
                 <div><i class="red">*</i><input :placeholder="i18n('請輸入詳細地址')" type="text" name="address_2" v-model="formData.address_2" /></div>
                 <div><i class="red">*</i><input :placeholder="i18n('請輸入您的手機號碼')" type="tel" name="phone" required validate v-model="formData.telephone" /></div>
                 <div>
-                    <div><i class="red">*</i><input :placeholder="i18n('請輸入簡訊驗證碼')" type="text" name="smsToken" v-model="smsToken" /></div>
+                    <div><i class="red">*</i><input :placeholder="i18n('請輸入簡訊驗證碼')" type="number" name="smsToken" v-model="smsToken" /></div>
                     <div class="get-token"><btn @click="getSmsToken"><i18n>獲取驗證碼</i18n></btn></div>
                 </div>
                 <div><i class="red">*</i><input :placeholder="i18n('請輸入密碼')" type="password" required validate name="password" v-model="formData.password" /></div>

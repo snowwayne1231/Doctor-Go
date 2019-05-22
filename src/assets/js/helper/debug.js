@@ -1,7 +1,7 @@
 
 const logging = window.console.log;
 const notNetscape = window.navigator.appName != 'Netscape';
-let debugMode = process.env.NODE_ENV === 'development' ? 1 : 1;
+let debugMode = process.env.NODE_ENV === 'development' ? 1 : 0;
 let debugBlock;
 let container;
 

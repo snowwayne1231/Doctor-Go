@@ -43,21 +43,19 @@
                 <div><input name="doctorProfile" :placeholder="i18n('請輸入您的醫師執照編號')" type="text" v-model="user.doctor_profile" /></div>
             </div>
             <div class="doctor-file-upload">
-                <div><i18n>執照圖檔</i18n>
-                    <input
-                        type="file"
-                        name="doctor_profile_image"
-                        accept="image/*"
-                        hidden
-                        @change="onDoctorFileChange"
-                    />
-                </div>
+                <div><i18n>執照圖檔</i18n></div>
                 <div>
-                    <input v-if="doctor_profile_image" type="text" readonly :value="doctor_profile_image.name" />
-                    <img v-else
+                    <img v-if="user.doctor_profile_image_id && !doctor_profile_image"
                         class="server-image"
                         :src="getServerApiUploadedImage(user.doctor_profile_image_id)"
                         @click="chooseDoctorFile" />
+                    <input
+                        type="file"
+                        class="server-input-file"
+                        name="doctor_profile_image"
+                        accept="image/*"
+                        @change="onDoctorFileChange" />
+                    
                 </div>
             </div>
             <div>
@@ -65,21 +63,20 @@
                 <div><input name="doctorClinic" :placeholder="i18n('請輸入您的診所開業執照編號')" type="text" v-model="user.doctor_clinic" /></div>
             </div>
             <div class="doctor-file-upload">
-                <div><i18n>診所圖檔</i18n>
-                    <input
-                        type="file"
-                        name="doctor_clinic_image"
-                        accept="image/*"
-                        hidden
-                        @change="onDoctorFileChange"
-                    />
-                </div>
+                <div><i18n>診所圖檔</i18n></div>
                 <div>
-                    <input v-if="doctor_clinic_image" type="text" readonly :value="doctor_clinic_image.name" />
-                    <img v-else
+                    <img v-if="user.doctor_clinic_image_id && !doctor_clinic_image"
                         class="server-image"
                         :src="getServerApiUploadedImage(user.doctor_clinic_image_id)" 
                         @click="chooseDoctorFile"/>
+                    
+                    <input
+                        type="file"
+                        class="server-input-file"
+                        name="doctor_clinic_image"
+                        accept="image/*"
+                        @change="onDoctorFileChange" />
+                    
                 </div>
             </div>
         </input-form>
