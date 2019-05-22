@@ -81,7 +81,7 @@
             </div>
         </input-form>
 
-        <fixed-button :show="openButton" @click="onClickSubmit">
+        <fixed-button :show="openButton" @click="onClickSubmit" :loading="axios.isLoading">
             <i18n>確認修改</i18n>
         </fixed-button>
     </f7-page>
@@ -104,7 +104,7 @@
 			};
 		},
   	    computed: {
-            ...mapState(['user']),
+            ...mapState(['user', 'axios']),
             ...mapGetters(['isLogin']),
         },
         mounted() {

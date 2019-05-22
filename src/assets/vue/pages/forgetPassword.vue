@@ -21,7 +21,7 @@
             </input-form>
         </div>
 
-        <fixed-button :show="openButton" @click="onClickResetPassword">
+        <fixed-button :show="openButton" @click="onClickResetPassword" :loading="axios.isLoading">
             <i18n>確認重設密碼</i18n>
         </fixed-button>
 
@@ -47,7 +47,7 @@
 			};
         },
         computed: {
-            ...mapState(['user']),
+            ...mapState(['user', 'axios']),
             ...mapGetters(['isLogin']),
             title() {
                 return this.isLogin ? '重設密碼' : '忘記密碼';
