@@ -69,12 +69,13 @@ requireComponent.keys().forEach(path => {
     );
 });
 
-
-// Init Vue App
-export default new Vue({
-    // Root Element
+const vueApp = new Vue({
     el: '#app',
     store,
     render: c => c('app'),
     components: {app},
 });
+
+window.app = vueApp;
+// Init Vue App
+export default app;

@@ -26,10 +26,12 @@
 
 
             <f7-tab id="my-order-wait">
+                <div class="order-tab-title"><i18n>等待詢問訂單</i18n></div>
                 <OrderCollapse :orders="waittingOrders" :loading="loading" />
             </f7-tab>
 
             <f7-tab id="my-order-finish">
+                <div class="order-tab-title"><i18n>完成訂單</i18n></div>
                 <OrderCollapse :orders="finishOrders" :loading="loading" />
             </f7-tab>
 

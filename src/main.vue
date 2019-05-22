@@ -34,7 +34,7 @@ export default {
                         window.f7alert = (txt, callback) => this.dialog.alert(i18n(txt), callback);
 
                         // make global router function
-                        window.f7router = this.router;
+                        // window.f7router = this.router;
 
                         if (!store.state.user.id) {
                             const localUser = localStorage.getItem('user');

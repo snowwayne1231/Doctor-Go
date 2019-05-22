@@ -105,7 +105,7 @@ function customAxios({uri, method, data, success, fail, final}) {
                 window.location.reload();
                 // console.log('refresh setting', setting);
             } else if (typeof errorRedirect === 'string') {
-                window.f7router && window.f7router.navigate(errorRedirect);
+                window.app && window.app.$f7 && window.app.$f7.view.current.router.navigate(errorRedirect);
             }
         }
     }
