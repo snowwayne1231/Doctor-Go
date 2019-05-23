@@ -26,7 +26,7 @@
 
 
             <f7-tab id="my-order-wait">
-                <div class="order-tab-title"><i18n>等待詢問訂單</i18n></div>
+                <div class="order-tab-title"><i18n>洽詢處理中訂單</i18n></div>
                 <OrderCollapse :orders="waittingOrders" :loading="loading" />
             </f7-tab>
 
@@ -93,6 +93,7 @@
                         status: e.status,
                         date: e.created_at,
                         total: e.total,
+                        total_net: e.total_net,
                         products: e.products.map(ele => {
                             const productInfo = productList.find(pd => pd.id == ele.product_id) || {};
                             return {
@@ -101,6 +102,7 @@
                                 name: productInfo.name,
                                 amount: ele.quantity,
                                 total: ele.total,
+                                total_net: ele.total_net,
                             };
                         }),
                     };

@@ -91,7 +91,7 @@
                     </tr>
                     <tr>
                         <td class="list-left"><i18n>購買獲得紅利</i18n></td>
-                        <td><num :price="thisProduct.point"></num></td>
+                        <td><num :price="thisProduct.point_reward"></num></td>
                     </tr>
                     <tr v-for="(detail, idx) in thisProduct.details" :key="idx">
                         <td class="list-left">{{detail[0]}}</td>

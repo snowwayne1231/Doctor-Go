@@ -13,7 +13,7 @@
                         <td><ImageLink :image="item.image" /></td>
                         <td>{{item.name}}</td>
                         <td class="nowrap">x {{item.amount}}</td>
-                        <td class="nowrap"><num :price="item.total" /></td>
+                        <td class="nowrap"><num :price="item.total_net" /></td>
                     </tr>
                 </table-list>
             </div>
@@ -21,7 +21,7 @@
                 <one-line-table>
                     <td class="date">{{order.date}}</td>
                     <td><i18n>總金額</i18n></td>
-                    <td class="total"><num :price="order.total" /></td>
+                    <td class="total"><num :price="order.total_net" /></td>
                 </one-line-table>
             </div>
         </collapse-item>
@@ -36,7 +36,7 @@
         methods: {
             orderStatus(status) {
                 switch(status) {
-                    case 1: return '待洽';
+                    case 1: return '洽詢處理中';
                     case 2: return '待發貨';
                     case 3: return '待收貨';
                     case 4: return '失敗';
