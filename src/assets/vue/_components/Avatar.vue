@@ -80,32 +80,47 @@
             },
             getPicture() {
                 const uploadFn = this.upfile;
-                navigator.camera.getPicture(
-                    function success(imageURI){
-                        plugins.crop(function success(url) {
-                            url = url.split('?');
-                            uploadFn(url[0]);
-                        }, function fail(err) {
-                            debug(err);
-                        }, imageURI, {quality: 60});
-                    },
-                    function fail(message){
-                        navigator.notification.alert("操作失敗，原因：" + message, null, "警告");
+                // navigator.camera.getPicture(
+                //     function success(imageURI){
+                //         plugins.crop(function success(url) {
+                //             url = url.split('?');
+                //             uploadFn(url[0]);
+                //         }, function fail(err) {
+                //             debug(err);
+                //         }, imageURI, {quality: 60});
+                //     },
+                //     function fail(message){
+                //         navigator.notification.alert("操作失敗，原因：" + message, null, "警告");
+                //     },
+                //     {
+                //         //拍照
+                //         // destinationType: Camera.DestinationType.FILE_URI,
+
+                //         //相冊選圖
+                //         mediaType: Camera.MediaType.PICTURE,
+                //         // sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+                //         sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                //         quality: 50,
+                //         allowEdit: true,
+                //         encodingType: Camera.EncodingType.JPEG,
+                //     }
+                // );
+
+                window.imagePicker.getPictures(
+                    function(results) {
+                        for (var i = 0; i < results.length; i++) {
+                            var uri = results[i];
+                            console.log('Image URI: ' + results[i]);
+                            uploadFn(uri);
+                        }
+                    }, function (error) {
+                        console.log('Error: ' + error);
                     },
                     {
-                        //拍照
-                        // destinationType: Camera.DestinationType.FILE_URI,
-
-                        //相冊選圖
-                        mediaType: Camera.MediaType.PICTURE,
-                        // sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-                        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                        maximumImagesCount: 1,
                         quality: 50,
-                        allowEdit: true,
-                        encodingType: Camera.EncodingType.JPEG,
                     }
                 );
-
             },
             upfile(fileURL) {
                 const reader = new FileReader();
