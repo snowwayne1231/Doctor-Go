@@ -97,8 +97,12 @@
                         // destinationType: Camera.DestinationType.FILE_URI,
 
                         //相冊選圖
-                        // mediaType: Camera.MediaType.PICTURE,
-                        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+                        mediaType: Camera.MediaType.PICTURE,
+                        // sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+                        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                        quality: 50,
+                        allowEdit: true,
+                        encodingType: Camera.EncodingType.JPEG,
                     }
                 );
 
