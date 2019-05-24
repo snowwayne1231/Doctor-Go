@@ -19,7 +19,7 @@
             onClick() {
                 if (this.link) {
                     if (this.link.match(/^http/i)) {
-                        window.open(this.link);
+                        window.open(this.link, '_system');
                     } else {
                         this.$f7router.navigate(this.link);
                     }
