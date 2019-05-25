@@ -12,6 +12,9 @@
 .ios {
 	body {
 		position: fixed;
+		padding-bottom: constant(safe-area-inset-bottom); /* iOS 11.0 */
+		padding-bottom: env(safe-area-inset-bottom); /* iOS 11.2 */
+
 	}
 }
 
@@ -153,6 +156,7 @@
 }
 
 .framework7-root {
+	
 	.sheet-modal {
 		height: 50vh;
 		background-color: #fff;

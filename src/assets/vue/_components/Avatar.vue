@@ -10,6 +10,7 @@
             type="file"
             name="avatar"
             accept="image/*"
+            hidden
             class="server-input-file"
             @change="onFileChange"
         />
@@ -47,7 +48,7 @@
         methods: {
             onClickAvatar(evt) {
                 // 
-                if (this.isBrowser || true) {
+                if (this.isBrowser) {
                     this.$refs.input.click(evt);
                 } else {
                     this.getPicture();
@@ -58,10 +59,84 @@
                 const name = evt.target.name;
                 const file = evt.target.files[0];
                 if (!file) return;
-                // this.avatarFile = file;
+                this.upfile(file);
+            },
+            getPicture() {
+                const uploadFn = this.upfile;
+                navigator.camera.getPicture(
+                    function success(imageURI){
+                        // plugins.crop(function success(url) {
+                        //     url = url.split('?');
+                        
+                        // }, function fail(err) {
+                        //     debug(err);
+                        // }, imageURI, {quality: 60});
+
+                        window.resolveLocalFileSystemURL(imageURI, 
+                            function(fileEntry){
+                                debug("got image file entry: " , fileEntry);
+                                // uploadFn(fileEntry.file());
+                                readBinaryFile(fileEntry);
+                                function readBinaryFile(fileEntry) {
+
+                                    fileEntry.file(function (file) {
+                                        var reader = new FileReader();
+
+                                        reader.onloadend = function() {
+                                            // debug("Successful file write: " + this.result);
+                                            var blob = new Blob([new Uint8Array(this.result)], { type: "image/jpeg" });
+                                            uploadFn(blob);
+                                        };
+
+                                        reader.readAsArrayBuffer(file);
+                                    });
+                                }
+                                
+                            },
+                            function(){
+                                window.f7alert('上傳圖片錯誤');
+                            }
+                        );
+                    },
+                    function fail(message){
+                        navigator.notification.alert("操作失敗，原因：" + message, null, "警告");
+                    },
+                    {
+                        //拍照
+                        // destinationType: Camera.DestinationType.FILE_URI,
+
+                        //相冊選圖
+                        mediaType: Camera.MediaType.PICTURE,
+                        // sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+                        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                        quality: 50,
+                        allowEdit: true,
+                        encodingType: Camera.EncodingType.JPEG,
+                    }
+                );
+                return;
+                // window.imagePicker.getPictures(
+                //     function(results) {
+                //         for (var i = 0; i < results.length; i++) {
+                //             var uri = results[i];
+                            
+                //             // uploadFn(uri);
+                //         }
+                //     }, function (error) {
+                //         debug('Error: ' + error);
+                //     },
+                //     {
+                //         maximumImagesCount: 1,
+                //         quality: 50,
+                //     }
+                // );
+            },
+            upfile(file) {
+                debug('upfile file', file);
+                const user = this.user;
                 const data = {
-                    id: this.user.id,
-                    telephone: this.user.telephone,
+                    id: user.id,
+                    telephone: user.telephone,
                     avatar_image: file,
                 };
                 const formData = new FormData();
@@ -77,92 +152,6 @@
                         this.$store.commit('USER_UPDATE_STATE', data);
                     },
                 });
-            },
-            getPicture() {
-                const uploadFn = this.upfile;
-                // navigator.camera.getPicture(
-                //     function success(imageURI){
-                //         plugins.crop(function success(url) {
-                //             url = url.split('?');
-                //             uploadFn(url[0]);
-                //         }, function fail(err) {
-                //             debug(err);
-                //         }, imageURI, {quality: 60});
-                //     },
-                //     function fail(message){
-                //         navigator.notification.alert("操作失敗，原因：" + message, null, "警告");
-                //     },
-                //     {
-                //         //拍照
-                //         // destinationType: Camera.DestinationType.FILE_URI,
-
-                //         //相冊選圖
-                //         mediaType: Camera.MediaType.PICTURE,
-                //         // sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-                //         sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                //         quality: 50,
-                //         allowEdit: true,
-                //         encodingType: Camera.EncodingType.JPEG,
-                //     }
-                // );
-
-                window.imagePicker.getPictures(
-                    function(results) {
-                        for (var i = 0; i < results.length; i++) {
-                            var uri = results[i];
-                            console.log('Image URI: ' + results[i]);
-                            uploadFn(uri);
-                        }
-                    }, function (error) {
-                        console.log('Error: ' + error);
-                    },
-                    {
-                        maximumImagesCount: 1,
-                        quality: 50,
-                    }
-                );
-            },
-            upfile(fileURL) {
-                const reader = new FileReader();
-                debug('fileURL', fileURL);
-                reader.onloadend = function(evt) {
-                    debug('onloadend', evt);
-                };
-                reader.readAsDataURL(fileURL);
-            },
-            //上傳圖片
-            upFileTransfer( fileURL ) {
-                var uri = encodeURI(mainServerURL + "api/usersetting");    //服務器接收地址
-
-                var options = new FileUploadOptions();
-                options.params = {
-                    id: this.user.id,
-                    telephone: this.user.telephone,
-                };
-                options.fileKey="avatar_image";    //表單元素的名稱。默認爲file
-                options.fileName=fileURL.substr(fileURL.lastIndexOf('/')+1);    //在服務器上保存文件時要使用的文件名。默認爲image.jpg
-                // options.mimeType="text/plain";    //要上傳的數據的MIME類型。默認爲image/jpeg。
-                options.headers = {'X-Auth-Token': this.user.token};
-
-                var ft = new FileTransfer();
-                // 上傳進度
-                // ft.onprogress = function(progressEvent) {
-                //     if (progressEvent.lengthComputable) {
-                //         loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
-                //     } else {
-                //         loadingStatus.increment();
-                //     }
-                // };
-
-                // ft.upload(fileURL, uri,
-                //     function win(r) {
-                //         console.log('win', r);
-                //     },
-                //     function fail(error) {
-                //         window.f7alert("An error has occurred: Code = " + error.code);
-                //         debug('fail ft.upload', error);
-                //     }, options
-                // );
             },
         },
     };

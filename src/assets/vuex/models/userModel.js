@@ -123,7 +123,7 @@ export default {
             
             replaceObject(state, {
                 id: payload.id,
-                token: payload.token,
+                token: payload.token || state.token,
                 avatar_url: payload.avatar_url,
                 email: payload.email || payload.Email,
                 firstName: payload.firstname || payload.firstName,
