@@ -14,7 +14,7 @@
             </nav>
         </header-nav-bar>
 
-        <f7-tabs animated routable swipeable>
+        <f7-tabs animated routable>
 
             <!-- <f7-tab id="my-order-before-pay">
                 <OrderCollapse :orders="beforePayOrders"/>
