@@ -5,6 +5,7 @@ import i18n from 'assets/js/utils/i18n';
 import config from 'src/config-env';
 
 const mainServer = config.mainServer;
+let issueReasons = [];
 axios.defaults.timeout = 12000;
 
 function customAxios({uri, method, data, success, fail, final}) {
@@ -12,7 +13,7 @@ function customAxios({uri, method, data, success, fail, final}) {
     const deplicateUri = store.state.axios.fetching.find(e => e.uri === uri);
 
     if (deplicateUri) {
-        debug('AXIOS Duplicate', deplicateUri);
+        debug('AXIOS Duplicate Do Not Handle This.', deplicateUri);
         return deplicateUri.promise;
     }
     
@@ -41,6 +42,7 @@ function customAxios({uri, method, data, success, fail, final}) {
     promise.then(remote200.bind($this)).catch(remoteFail.bind($this)).finally(remoteFinally.bind($this));
     
     return promise;
+
     
 
     function remote200(response) {
@@ -58,7 +60,7 @@ function customAxios({uri, method, data, success, fail, final}) {
     }
 
     function remoteFail(error) {
-        const setting = this;
+        // const setting = this;
         let errorMsg;
         let errorRedirect;
         let errorLogout;
@@ -89,23 +91,37 @@ function customAxios({uri, method, data, success, fail, final}) {
         if (fail) {
             fail.call(this, errorMsg, this);
         } else {
-            // default fail;
-            window.f7alert && window.f7alert(errorMsg, callback);
+            if (issueReasons.indexOf(errorMsg) == -1) {
+                // default fail;
+                issueReasons.push(errorMsg);
+                window.f7alert && window.f7alert(errorMsg, callback.bind({
+                    setting: this,
+                    errorMsg,
+                    errorRedirect,
+                    errorLogout,
+                    refresh,
+                }));
+            }
         }
         debug('remoteFail', this, errorMsg, error);
         return this;
 
-        function callback(dialog) {
+        function callback() {
             // debug('callback', this);
-            if (errorLogout && store.getters.isLogin) {
+            if (this.errorLogout && store.getters.isLogin) {
                 store.dispatch('USER_LOGOUT');
             }
 
-            if (refresh) {
+            if (this.refresh) {
                 window.location.reload();
-                // console.log('refresh setting', setting);
-            } else if (typeof errorRedirect === 'string') {
-                window.app && window.app.$f7 && window.app.$f7.view.current.router.navigate(errorRedirect);
+            } else if (typeof this.errorRedirect === 'string') {
+                window.app && window.app.$f7 && window.app.$f7.view.current.router.navigate(this.errorRedirect);
+            }
+
+            let idx = issueReasons.indexOf(this.errorMsg);
+            while (idx >= 0) {
+                issueReasons.splice(idx, 1);
+                idx = issueReasons.indexOf(this.errorMsg);
             }
         }
     }
