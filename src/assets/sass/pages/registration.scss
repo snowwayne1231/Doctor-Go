@@ -26,6 +26,10 @@
 		overflow: auto;
 		height: calc(100% - 114px);
 		width: 100%;
+
+		&.full-heigt {
+			height: 100%;
+		}
 	}
 
 	.input-form {
@@ -64,6 +68,10 @@
 
 	.term >i {
 		font-size: 1em;
+	}
+
+	.input-form {
+		padding-bottom: 180px;
 	}
 }
 

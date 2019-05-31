@@ -4,7 +4,7 @@
             <i18n slot="title">註冊</i18n>
         </header-nav-bar>
 
-        <div class="inner-content">
+        <div class="inner-content" :class="{'full-heigt': !openButton}">
             <img class="logo" src="../../images/zh_tw/logo.jpg" />
 
             <input-form :column="{ '2': [60, 40] }" @focus="onFocus" @blur="onBlur">
@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <!-- <i class="red">*</i> -->
-                    <input :placeholder="i18n('請輸入您的診所開業執照編號')" type="text" required validate name="doctorClinic" v-model="formData.doctorClinic" /></div>
+                    <input :placeholder="i18n('請輸入您的診所開業執照編號')" type="text" name="doctorClinic" v-model="formData.doctorClinic" /></div>
                 <div class="doctor-file-upload">
                     <!-- <i class="red">*</i> -->
                     <span v-if="formData.doctorClinicImage" class="hasFile">{{formData.doctorClinicImage.name}}</span>
@@ -90,7 +90,7 @@
     export default {
 		data () {
 			return {
-                openButton: true,
+                openButton: false,
                 loadingButton: false,
                 checkTerm: false,
                 formData: {
@@ -190,6 +190,16 @@
                 this.openButton = false;
             },
             onBlur(evt) {
+                const inputs = this.$f7.$('input[required]');
+                // debug(inputs);
+                for (let i = 0; i < inputs.length; i++) {
+                    const loc = inputs[i];
+                    if (!loc.classList.contains('input-with-value')) {
+                        this.openButton = false;
+                        debug(loc);
+                        return;
+                    }
+                }
                 this.openButton = true;
             },
             chooseDoctorFile(evt) {
