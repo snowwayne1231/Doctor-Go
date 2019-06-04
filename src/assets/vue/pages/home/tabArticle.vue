@@ -4,7 +4,7 @@
             <i18n slot="title">PSA美醫指南</i18n>
         </header-nav-bar>
         <div class="inner">
-            <div class="list ptr-content custom-scroll" @ptr:refresh="onPtr" @scroll="onScroll" ref="scrollzone">
+            <div v-if="isLogin" class="list ptr-content custom-scroll" @ptr:refresh="onPtr" @scroll="onScroll" ref="scrollzone">
                 <!-- <div class="ptr-preloader">
                     <div class="preloader"></div>
                     <div class="ptr-arrow"></div>
@@ -28,12 +28,15 @@
                 
                 </li>
             </div>
+            <div v-else class="please-login">
+                <f7-link href="/login/"><i18n>登入即可觀看</i18n></f7-link>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 export default {
     data() {
         return {
@@ -41,7 +44,8 @@ export default {
         };
     },
     computed: {
-        ...mapState(['article']),
+        ...mapGetters(['isLogin']),
+        ...mapState(['article', 'user']),
         publications(self) {
             return self.article.publications.filter((e,idx) => idx < self.max);
         },

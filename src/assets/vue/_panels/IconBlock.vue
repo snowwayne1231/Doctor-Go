@@ -9,6 +9,8 @@
     </div>
 </template>
 <script>
+    import i18n from 'assets/js/utils/i18n';
+
     export default {
         props: {
             icon: String,
@@ -19,7 +21,7 @@
             onClick() {
                 if (this.link) {
                     if (this.link.match(/^http/i)) {
-                        window.open(this.link, '_system');
+                        window.open(this.link, '_blank', `location=yes,closebuttoncaption=${i18n('關閉')}`);
                     } else {
                         this.$f7router.navigate(this.link);
                     }

@@ -22,7 +22,7 @@
 	}
 
 	.inner-content {
-		position: absolute;
+		position: relative;
 		overflow: auto;
 		height: calc(100% - 114px);
 		width: 100%;
@@ -71,7 +71,7 @@
 	}
 
 	.input-form {
-		padding-bottom: 180px;
+		padding-bottom: 50vh;
 	}
 }
 

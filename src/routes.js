@@ -96,7 +96,8 @@ export default [
     },
     {
         path: '/articlepublication/:publication',
-        component: ArticlePublication,
+        // component: ArticlePublication,
+        async: checkAuthrization(ArticlePublication),
     },
     {
         path: '/article/:article',

@@ -36,7 +36,7 @@
                     <f7-icon class="fa fa-shopping-cart" />
                     <i18n class="tabbar-label">購物車</i18n>
                 </a>
-                <a href="/tab-article" class="tab-link" data-route-tab-id="tab-article">
+                <a :href="isLogin ? '/tab-article' : '/login/'" class="tab-link" data-route-tab-id="tab-article">
                     <f7-icon class="fa fa-book" />
                     <i18n class="tabbar-label">美醫指南</i18n>
                 </a>

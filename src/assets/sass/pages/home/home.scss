@@ -190,3 +190,12 @@
         }
     }
 }
+
+@media only screen and (min-width: 768px) {
+	.home {
+
+        .home-tabs {
+            height: calc(100% - 56px);
+        }
+    }
+}

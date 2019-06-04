@@ -40,6 +40,9 @@
                             </tr>
                         </table-list>
                     </div>
+                    <div class="my-cs">
+                        <i18n>如有任何問題，請聯繫客服信箱：</i18n><br />doctorgo168@gmail.com
+                    </div>
                 </div>
                 <div class="functions">
                     <table-list class="">

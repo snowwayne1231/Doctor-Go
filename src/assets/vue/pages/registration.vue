@@ -4,7 +4,7 @@
             <i18n slot="title">註冊</i18n>
         </header-nav-bar>
 
-        <div class="inner-content" :class="{'full-heigt': !openButton}">
+        <div class="inner-content" :class="{'full-heigt': isClosedBtn}">
             <img class="logo" src="../../images/zh_tw/logo.jpg" />
 
             <input-form :column="{ '2': [60, 40] }" @focus="onFocus" @blur="onBlur">
@@ -113,7 +113,12 @@
                 smsTokenCodes: '',
 			};
 		},
-  	    computed: mapState(['user', 'geo']),
+  	    computed: {
+            ...mapState(['user', 'geo']),
+            isClosedBtn() {
+                return !this.openButton;
+            },
+        },
         mounted() {
             if (this.geo.countries.length === 0) {
                 this.$store.dispatch('GEO_FETCH_COUNTRIES');
