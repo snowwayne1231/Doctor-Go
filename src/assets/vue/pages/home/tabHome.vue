@@ -45,10 +45,14 @@
             </block-headmore>
 
             <div class="recommand-products" v-if="isLogin">
-                <block-headmore title="推薦商品" linkMore="/productevent/recommend" v-if="productTwoRecommends.length > 0">
+                <block-headmore
+                    v-for="(val, ii) in getEventsShowIndex"
+                    :key="ii"
+                    :title="val.name"
+                    :linkMore="val.linkMore">
                     <div class="products">
                         <ProductItem
-                            v-for="(product, idx) in productTwoRecommends"
+                            v-for="(product, idx) in val.products"
                             :id="product.id"
                             :key="idx"
                             :name="product.name"
@@ -57,7 +61,7 @@
                     </div>
                 </block-headmore>
 
-                <block-headmore title="醫美儀器設備" linkMore="/productlistfilter/equipment" v-if="productTwoEquipment.length > 0">
+                <!-- <block-headmore title="醫美儀器設備" linkMore="/productevent/equipment" v-if="productTwoEquipment.length > 0">
                     <div class="products">
                         <ProductItem
                             v-for="(product, idx) in productTwoEquipment"
@@ -91,7 +95,7 @@
                             :image="product.image"
                             :price="product.price" />
                     </div>
-                </block-headmore>
+                </block-headmore> -->
             </div>
         </div>
     </div>
@@ -99,6 +103,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import { generalSortArray } from 'assets/js/utils/formatHandlers';
 
 export default {
     data() {
@@ -163,6 +168,21 @@ export default {
                 ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
                 : [];
         },
+        getEventsShowIndex() {
+            // debug('getEventsShowIndex', this.ad.events);
+            const self = this;
+            return self.ad.events.filter((e) => {
+                return !!e.show_index && e.product_ids.length > 0;
+            }).map((e) => {
+                e.linkMore = self.getLinkByEventKey(e.key);
+                e.products = generalSortArray(e.product_ids.map(
+                    (id) => self.product.list.find(
+                        (p) => p.id == id
+                    )
+                )).slice(0, 2);
+                return e;
+            });
+        },
     },
     mounted() {
         debug('mounted tab home', this);
@@ -216,7 +236,14 @@ export default {
                 window.location.reload();
             }, 500);
             
-        }
+        },
+        getLinkByEventKey(key) {
+            switch (key) {
+                case '': return '';
+                default: return '';
+            }
+            return null;
+        },
     },
 };
 

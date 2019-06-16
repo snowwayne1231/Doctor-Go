@@ -6,7 +6,7 @@ function parseListItem(ele) {
     return {
         product: 0,
         amount: 0,
-        redeem: 0,
+        redeem_point: 0,
         selected: true,
         ...ele,
     };
@@ -71,23 +71,25 @@ export default {
             });
         },
         CART_CHECKOUT({state, commit}) {
+            const data = {
+                json: JSON.stringify(
+                    state.list
+                        .filter((e) => e.selected)
+                        .map(e => {
+                            return {
+                                product: e.product,
+                                amount: e.amount,
+                                redeem: e.redeem_point,
+                            };
+                        })
+                ),
+                promotion: (state.promotions.find(e => e.selected) || {id: 0}).id,
+            };
+            // return debug('CART_CHECKOUT', data);
             return axios({
                 uri: 'payment/order',
                 method: 'post',
-                data: {
-                    json: JSON.stringify(
-                        state.list
-                            .filter((e) => e.selected)
-                            .map(e => {
-                                return {
-                                    product: e.product,
-                                    amount: e.amount,
-                                    redeem: e.redeem,
-                                };
-                            })
-                    ),
-                    promotion: (state.promotions.find(e => e.selected) || {id: 0}).id,
-                },
+                data: data,
                 success: (data) => {
                     commit('CART_UPDATE_LIST', []);
                     commit('CART_UPDATE_PROMOTIONS', []);
@@ -141,9 +143,9 @@ export default {
         CART_TOGGLE_REDEEM(state, payload) {
             debug('CART_TOGGLE_REDEEM', payload, state.list);
             const item = state.list.filter(e => e.selected).find((e, idx) => idx == payload.idx);
-            item.redeem = item.redeem
+            item.redeem_point = item.redeem_point
                 ? 0
-                : payload.amount;
+                : payload.redeem_point;
         },
         CART_REMOVE_LIST_ITEM(state, payload) {
             if (Array.isArray(payload)) {
@@ -158,7 +160,11 @@ export default {
         CART_TOGGLE_REDEEM_PROMOTION(state, payload) {
             debug('CART_TOGGLE_REDEEM_PROMOTION', payload, state.list);
             state.promotions.map((e, idx) => {
-                e.selected = idx === payload.idx;
+                if (idx === payload.idx) {
+                    e.selected = !e.selected;
+                } else {
+                    e.selected = false;
+                }
             });
         },
     },

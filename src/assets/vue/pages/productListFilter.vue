@@ -2,6 +2,7 @@
     <f7-page id="product-list-filter">
         <header-nav-bar back>
             <i18n slot="title" :text="titleName"></i18n>
+            <div slot="right" v-if="outsideLinkName" class="outside-link" @click="onClickOutsideLink"><span>{{outsideLinkName}}</span></div>
         </header-nav-bar>
 
         <div class="inner-content custom-scroll">
@@ -118,6 +119,14 @@
                     })
                     : [];
             },
+            outsideLinkName(self) {
+                if (self.mode === 'catalog' && self.metaData) {
+                    return self.metaData.outside_link_name && self.metaData.outside_link_name.trim
+                        ? self.metaData.outside_link_name.trim()
+                        : false
+                }
+                return false;
+            }
         },
         created() {
             const catalog = this.$f7route.params.catalog;
@@ -148,6 +157,9 @@
             },
             onSubFilterItemClick(catalogId) {
                 this.selectedSubCatagory = catalogId;
+            },
+            onClickOutsideLink() {
+                this.metaData.outside_link && window.open(this.metaData.outside_link, '_blank', `location=yes,closebuttoncaption=${i18n('關閉')}`);
             },
         },
     };

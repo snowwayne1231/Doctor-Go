@@ -10,36 +10,36 @@
             <table-list class="my-point">
                 <tr>
                     <th width="50%"><i18n>我的點數</i18n></th>
-                    <th width="50%"><i18n>商品折抵點數消費</i18n></th>
+                    <th width="50%"><i18n>商品最高折抵點數消費</i18n></th>
                 </tr>
                 <tr>
-                    <td><num :value="user.point" /></td>
-                    <td><num :value="totalDiscount" /></td>
+                    <td><num :value="user.point" /><span v-if="totalDiscount > 0" class="discount">(- <num :value="totalDiscount" />)</span></td>
+                    <td><num :value="theHighestDiscount" /></td>
                 </tr>
             </table-list>
 
             <table-list>
                 <tr>
                     <th width="40%"><i18n>商品</i18n></th>
-                    <th width="30%"><i18n>價格</i18n></th>
                     <th width="15%"><i18n>數量</i18n></th>
+                    <th width="30%"><i18n>小計</i18n></th>
                     <th width="15%"><i18n>折抵</i18n></th>
                 </tr>
                 <tr v-for="(data, idx) in cartOrders" :key="idx">
                     <td class="product">
                         {{data.product.name}}
                     </td>
-                    <td class="price">
-                        <num v-if="!!data.redeem" class="discount" :price="data.product.price - data.product.point_can_be_discount" />
-                        <num v-else :price="data.product.price" />
-                    </td>
                     <td class="amount">
                         <num>{{data.amount}}</num>
+                    </td>
+                    <td class="price">
+                        <num v-if="data.redeem_point" class="discount" :price="(data.product.price * data.amount) - data.redeem_point" />
+                        <num v-else :price="data.product.price * data.amount" />
                     </td>
                     <td>
                         <inputCheck
                             v-if="data.product.point_can_be_discount > 0"
-                            :value="!!data.redeem" 
+                            :value="!!data.redeem_point" 
                             @input="onChangeRedeem(data, idx)"
                         />
                     </td>
@@ -82,6 +82,7 @@
 <script>
     import { mapState, mapActions } from 'vuex';
     import axios from 'assets/js/utils/axios';
+    import i18n from 'assets/js/utils/i18n';
     
 
     export default {
@@ -103,9 +104,18 @@
             },
             totalDiscount() {
                 const generalDiscount = this.cartOrders
-                    .map(e => e.redeem
-                        ? e.redeem * e.product.point_can_be_discount
-                        : 0)
+                    .map(e => e.redeem_point)
+                    .reduce((a, b) => { return a + b }, 0);
+                const promotionDiscount = this.cart.promotions
+                    .filter(e => e.selected)
+                    .reduce((a, b) => {
+                        return a + b.redeem_point;
+                    }, 0);
+                return generalDiscount + promotionDiscount;
+            },
+            theHighestDiscount() {
+                const generalDiscount = this.cartOrders
+                    .map(e => e.product.point_can_be_discount * e.amount)
                     .reduce((a, b) => { return a + b }, 0);
                 const promotionDiscount = this.cart.promotions
                     .filter(e => e.selected)
@@ -150,7 +160,7 @@
                 if (this.totalDiscount > this.user.point ) {
                     return window.f7alert('可用點數不足');
                 }
-
+                
                 this.$store.dispatch('CART_CHECKOUT').then(() => {
                     window.f7alert('已收到您的結帳申請，請耐心等候我們會有專員聯絡您', () => {
                         this.$f7router.navigate('/tab-my');
@@ -158,18 +168,66 @@
                 });
             },
             onChangeRedeem(data, idx) {
-                this.$store.commit('CART_TOGGLE_REDEEM', {
-                    idx,
-                    amount: data.amount,
-                });
+                // console.log(this);
+                if (data.redeem_point > 0) {
+                    this.toggleRedeem(idx);
+                } else {
+                    const totalRedeemPoint = data.product.point_can_be_discount * data.amount;
+                    this.toggleRedeem(idx, totalRedeemPoint);
+                }
+                
             },
             onChangePromotionRedeem(data, idx) {
-                this.$store.commit('CART_TOGGLE_REDEEM_PROMOTION', {
-                    idx,
-                });
+                
+                if (data.selected || this.checkPoint(data.redeem_point + this.totalDiscount)) {
+                    this.$store.commit('CART_TOGGLE_REDEEM_PROMOTION', {
+                        idx,
+                    });
+                } else {
+                    window.f7alert('點數不足');
+                }
+            },
+            checkPoint(p) {
+                return this.user.point - p >= 0;
             },
             fetchPromotions() {
                 this.$store.dispatch('CART_FETCH_PROMOTIONS');
+            },
+            gettt() {
+
+            },
+            createPrompt(txt, callback) {
+                return this.$f7.dialog.create({
+                    title: i18n('系統提示'),
+                    text: i18n(txt),
+                    content: '<div class="dialog-input-field item-input"><div class="item-input-wrap"><input class="dialog-input dialog-input-number" type="number" placeholder="" required validate pattern="[0-9]*" /></div></div>',
+                    buttons: [{text: i18n('確定')}, {text: i18n('取消')}],
+                    onClick: (dialog, idx) => {
+                        const input = dialog.$el.find('.dialog-input-number');
+                        const number = input[0] ? input[0].valueAsNumber : NaN;
+                        
+                        idx == 0 && callback.apply(this, [number, dialog, idx]);
+                    },
+                    on: {
+                        open: (dialog) => {
+                            const input = dialog.$el.find('.dialog-input-number');
+                            input[0] && input[0].focus();
+                        },
+                    },
+                }).open();
+            },
+            toggleRedeem(idx, point = NaN) {
+                if (this.checkPoint(point + this.totalDiscount)) {
+                    
+                } else if (point > 0){
+                    return this.createPrompt(`點數不足 ${point}, <br />請輸入想要使用的點數 :`, (number, dialog) => {
+                        this.toggleRedeem(idx, number);
+                    });
+                }
+                this.$store.commit('CART_TOGGLE_REDEEM', {
+                    idx,
+                    redeem_point: point,
+                });
             },
         },
     };

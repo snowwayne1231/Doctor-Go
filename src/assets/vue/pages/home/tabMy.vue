@@ -13,7 +13,7 @@
                     <section class="right inline-middle">
                         <dd class="profile-wording">
                             <span>{{user.firstName}}</span><br />
-                            <num class="point" :price="user.point"></num>
+                            <i18n>紅利點數:</i18n><num class="point" :price="user.point"></num>
                             <span class="logout" @click="logout">
                                 <i18n>登出</i18n>
                                 <i class="fa fa-play" />
