@@ -179,7 +179,8 @@ export default {
                     (id) => self.product.list.find(
                         (p) => p.id == id
                     )
-                )).slice(0, 2);
+                ).filter(e => !!e)).slice(0, 2);
+                
                 return e;
             });
         },
