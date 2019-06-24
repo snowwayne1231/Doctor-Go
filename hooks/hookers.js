@@ -181,7 +181,7 @@ module.exports = function (ctx) {
 			exec(`"${wpPath}"` + (isRelease ? ' --env.release' : ''), { cwd: pRoot, maxBuffer: 1024 * 1024 * 5 }, (error, log) => {
 				if (error) {
 					console.error(`Error happened when webpack build: ${error}`);
-					defer.reject(new Error(`Error happened when webpack build: ${error}`))
+					// defer.reject(new Error(`Error happened when webpack build: ${error}`))
 				}
 
 				console.log(`Webpack log: ${log}`);

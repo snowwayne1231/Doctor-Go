@@ -33,6 +33,15 @@ import configEnv from './config-env.js';
 
 window.env = configEnv;
 
+function wErrorHandler(errorMsg, url, lineNumber) {
+    // alert("Error occured: " + errorMsg);//or any message
+    var app = document.getElementById('app');
+    if (app) app.innerHTML = app.innerHTML + `<br /> ${errorMsg} <br /> ${url} <br /> ${lineNumber} <br /> `;
+    return false;
+}
+
+window.onerror = wErrorHandler;
+
 
 // Different F7-Vue plugin initialization with f7 v3.0
 Framework7.use(Framework7Vue);

@@ -10,14 +10,6 @@
 </head>
 <body>
 <div id="app">app is not installed</div>
-<script>
-	window.onerror = function errorHandler(errorMsg, url, lineNumber) {
-		// alert("Error occured: " + errorMsg);//or any message
-		const app = document.getElementById('app');
-		app.innerHTML = app.innerHTML + `<br /> ${errorMsg} <br /> ${url} <br /> ${lineNumber} <br /> `;
-		return false;
-	}
-</script>
 <!-- built script files will be auto injected -->
 <% if (htmlWebpackPlugin.options.platform) { %>
 	<script type="text/javascript"
