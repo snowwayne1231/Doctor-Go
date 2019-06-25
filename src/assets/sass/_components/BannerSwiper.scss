@@ -4,13 +4,18 @@
     display: block;
     color: #fff;
     background-color: $color-title-background;
-    min-height: 120px; 
+    // min-height: 120px; 
 
     .swiper-slide {
         // height: 50vw;
         // max-height: 36vh;
         // min-height: 28vh;
+        height: auto;
         text-align: center;
+
+        a {
+            display: flex;
+        }
 
         img {
             width: 100%;
