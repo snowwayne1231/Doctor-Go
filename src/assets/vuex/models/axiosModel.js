@@ -1,3 +1,4 @@
+import axios from 'assets/js/utils/axios';
 
 export default {
     state: {
@@ -17,6 +18,17 @@ export default {
         },
         AXIOS_FETCHING_END ({commit}, {uri}) {
             uri && commit('AXIOS_REMOVE_FETCHING_QUEUE', { uri, timestamp: new Date().getTime() });
+        },
+        AXIOS_SEND_ERROR ({commit}, {msg, url, line}) {
+            return axios({
+                method: 'post',
+                uri: 'server/storage/error',
+                data: {
+                    msg,
+                    url,
+                    line,
+                }
+            });
         },
     },
 

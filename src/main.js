@@ -35,8 +35,15 @@ window.env = configEnv;
 
 function wErrorHandler(errorMsg, url, lineNumber) {
     // alert("Error occured: " + errorMsg);//or any message
-    var app = document.getElementById('app');
-    if (app) app.innerHTML = app.innerHTML + `<br /> ${errorMsg} <br /> ${url} <br /> ${lineNumber} <br /> `;
+    // var app = document.getElementById('app');
+    var data = {
+        msg: errorMsg,
+        url,
+        line: lineNumber, 
+    };
+    // if (app) app.innerHTML = app.innerHTML + `<br /> ${errorMsg} <br /> ${url} <br /> ${lineNumber} <br /> `;
+    store.dispatch('AXIOS_SEND_ERROR', data);
+    
     return false;
 }
 
