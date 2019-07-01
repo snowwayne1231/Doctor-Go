@@ -111,6 +111,17 @@ export default {
                 return window.f7alert('購物車為空');
             }
 
+            const notAllow = this.cartOrders.filter(e => e.product.status != 1);
+
+            if (notAllow.length > 0) {
+                let str = '';
+                debug('notAllow', notAllow);
+                notAllow.map(e => {
+                    str += `${e.product.name}  暫停銷售 \r\n`;
+                });
+                return window.f7alert(str);
+            }
+
             this.$store.dispatch('CART_SAVE').then(e => {
                 this.$f7router.navigate('/checkout/');
             })

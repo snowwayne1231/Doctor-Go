@@ -205,7 +205,7 @@
                     onClick: (dialog, idx) => {
                         const input = dialog.$el.find('.dialog-input-number');
                         const number = input[0] ? input[0].valueAsNumber : NaN;
-                        
+                        debug('createPrompt number', number);
                         idx == 0 && callback.apply(this, [number, dialog, idx]);
                     },
                     on: {

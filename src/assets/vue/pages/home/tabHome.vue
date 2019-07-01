@@ -47,6 +47,7 @@
             <div class="recommand-products" v-if="isLogin">
                 <block-headmore
                     v-for="(val, ii) in getEventsShowIndex"
+                    v-show="val.products.length > 0"
                     :key="ii"
                     :title="val.name"
                     :linkMore="val.linkMore">
@@ -144,30 +145,30 @@ export default {
             }
             return list;
         },
-        productTwoRecommends(self) {
-            const event = self.ad.events.find(e => e.key == 'recommend');
-            return event
-                ? self.product.list.filter(e => event.product_ids.includes(e.id)).slice(0, 2)
-                : [];
-        },
-        productTwoEquipment(self) {
-            const category = self.product.categories.find(e => e.key == 'equipment');
-            return category
-                ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
-                : [];
-        },
-        productTwoMaintenance(self) {
-            const category = self.product.categories.find(e => e.key == 'maintenance');
-            return category
-                ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
-                : [];
-        },
-        productTwoConsumable(self) {
-            const category = self.product.categories.find(e => e.key == 'consumable');
-            return category
-                ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
-                : [];
-        },
+        // productTwoRecommends(self) {
+        //     const event = self.ad.events.find(e => e.key == 'recommend');
+        //     return event
+        //         ? self.product.list.filter(e => event.product_ids.includes(e.id)).slice(0, 2)
+        //         : [];
+        // },
+        // productTwoEquipment(self) {
+        //     const category = self.product.categories.find(e => e.key == 'equipment');
+        //     return category
+        //         ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
+        //         : [];
+        // },
+        // productTwoMaintenance(self) {
+        //     const category = self.product.categories.find(e => e.key == 'maintenance');
+        //     return category
+        //         ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
+        //         : [];
+        // },
+        // productTwoConsumable(self) {
+        //     const category = self.product.categories.find(e => e.key == 'consumable');
+        //     return category
+        //         ? self.product.list.filter(e => e.category_id == category.id).slice(0, 2)
+        //         : [];
+        // },
         getEventsShowIndex() {
             // debug('getEventsShowIndex', this.ad.events);
             const self = this;
@@ -179,7 +180,7 @@ export default {
                     (id) => self.product.list.find(
                         (p) => p.id == id
                     )
-                ).filter(e => !!e)).slice(0, 2);
+                ).filter(e => e && e.status == 1)).slice(0, 2);
                 
                 return e;
             });

@@ -51,7 +51,7 @@ export default {
         ...mapGetters(['getPorductCategoriesByParentId']),
         products(self) {
             const ids = [self.selectedCatalog.id].concat(self.selectedCatalog.children);
-            return self.product.list.filter(e => ids.includes(e.category_id)).slice(0, 6);
+            return self.product.list.filter(e => ids.includes(e.category_id) && e.status == 1).slice(0, 6);
         },
         catalogs() {
             return this.selectedCatalog.parent_id
