@@ -47,51 +47,75 @@ function wErrorHandler(errorMsg, url, lineNumber) {
     return false;
 }
 
-window.onerror = wErrorHandler;
+function checkVersion() {
+    try {
+        window.console.log('CheckVersion!!');
+        if (
+            !window.console.error || 
+            typeof window.Promise === 'undefined'
+        ) {
+            return false;
+        }
+        var p = new Promise((a,b)=>{}).finally(e => e);
+    } catch (err) {
+        return false;
+    }
+    
+    return true;
+}
 
 
-// Different F7-Vue plugin initialization with f7 v3.0
-Framework7.use(Framework7Vue);
+if (checkVersion()) {
+    window.onerror = wErrorHandler;
 
-// import upperFirst from 'lodash/upperFirst';
+    // Different F7-Vue plugin initialization with f7 v3.0
+    Framework7.use(Framework7Vue);
 
-const requireHelper = require.context(
-    'assets/js/helper',
-    true,
-    /\.js.?$/i,
-);
+    // import upperFirst from 'lodash/upperFirst';
 
-requireHelper.keys().forEach(path => {
-    const fileName = path.split('/').pop().replace(/^(.*)\.\w+$/, '$1');
-    const config = requireHelper(path);
-    window[fileName] = config.default || config;
-});
-
-const requireComponent = require.context(
-    'assets/vue',
-    true,
-    /\/_[\/\\\w\-]+\.(vue|js)$/i,
-);
-
-requireComponent.keys().forEach(path => {
-    const componentConfig = requireComponent(path);
-    const fileName = path.split('/').pop();
-
-    const componentName = fileName.replace(/^(.*)\.\w+$/, '$1');
-
-    Vue.component(
-        componentName,
-        componentConfig.default || componentConfig,
+    const requireHelper = require.context(
+        'assets/js/helper',
+        true,
+        /\.js.?$/i,
     );
-});
 
-const vueApp = new Vue({
-    el: '#app',
-    store,
-    render: c => c('app'),
-    components: {app},
-});
+    requireHelper.keys().forEach(path => {
+        const fileName = path.split('/').pop().replace(/^(.*)\.\w+$/, '$1');
+        const config = requireHelper(path);
+        window[fileName] = config.default || config;
+    });
 
-window.app = vueApp;
+    const requireComponent = require.context(
+        'assets/vue',
+        true,
+        /\/_[\/\\\w\-]+\.(vue|js)$/i,
+    );
+
+    requireComponent.keys().forEach(path => {
+        const componentConfig = requireComponent(path);
+        const fileName = path.split('/').pop();
+
+        const componentName = fileName.replace(/^(.*)\.\w+$/, '$1');
+
+        Vue.component(
+            componentName,
+            componentConfig.default || componentConfig,
+        );
+    });
+
+    const vueApp = new Vue({
+        el: '#app',
+        store,
+        render: c => c('app'),
+        components: {app},
+    });
+
+    window.app = vueApp;
+} else {
+    window.alert('System Version Too Old.');
+    document.getElementById('app').innerHTML = 'Is Not Supported.';
+}
+
+
 // Init Vue App
 export default app;
