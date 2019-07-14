@@ -12,7 +12,7 @@
                     :change="onSearchChange"
                     @blur="onSearchBlur"
                     @focus="onSearchFocus"
-                    placeholder="輸入發起人名稱或產品名稱來搜尋"
+                    placeholder="輸入產品名稱來搜尋"
                     ref="searchBar">
                 </SearchBar>
             </div>
@@ -20,27 +20,36 @@
             <div class="collective-list">
                 <table-list>
                     <tr>
-                        <th width="15%">
-                            <i18n>發起人</i18n>
-                        </th>
-                        <th width="60%">
-                            <i18n>商品</i18n>
+                        <th width="45%">
+                            <i18n>團購商品</i18n>
                         </th>
                         <th width="25%">
-                            <i18n>結束時間</i18n>
+                            <i18n>當前單價</i18n>
+                        </th>
+                        <th width="30%">
+                            <i18n>剩餘時間</i18n>
                         </th>
                     </tr>
-                    <!-- <tr v-for="data in showList" :key="data.id" @click="onClickList(data)">
-                        <td class="center promoter">
-                            <ImageLink :image="data.promoterImage" />
-                        </td>
+                    <tr v-for="data in showList" :key="data.id" @click="onClickList(data)">
                         <td class="product">
-                            <ImageLink :image="data.productImage" class="product-child" /><span class="product-child">{{data.productName}}</span>
+                            <ImageLink :image="data.product.image" class="product-child" /><span class="product-child">{{data.product.name}}</span>
                         </td>
                         <td>
-                            <DateTime :value="data.endDate" />
+                            <div class="current-price">
+                                <num :price="data.now_price" />
+                            </div>
                         </td>
-                    </tr> -->
+                        <td>
+                            <div class="left-time">
+                                <div class="left-days" v-if="data.left_days > 0">
+                                    <num :value="data.left_days" /><i18n text="天"/>
+                                </div>
+                                <div class="left-minutes" v-else>
+                                    <num :value="data.left_minutes" /><i18n text="分鐘"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </table-list>
             </div>
         </div>
@@ -50,43 +59,38 @@
 
 
 <script>
+    import { mapState, mapGetters } from 'vuex';
+    import axios from 'assets/js/utils/axios';
+    import i18n from 'assets/js/utils/i18n';
 
     export default {
 		data () {
 			return {
                 searchText: '',
                 openAutocomplete: false,
-                collecting: [
-                    { id: 1, promoterId: 1, promoterName: '八爪博士', promoterImage: 'static/images/face.png', productId: 1, productName: '皮秒雷射儀', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
-                    { id: 2, promoterId: 2, promoterName: '孫升升', promoterImage: 'static/images/face.png', productId: 12, productName: '水龍捲皮膚氫淨機', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
-                    { id: 3, promoterId: 3, promoterName: '艾莉莎莎', promoterImage: 'static/images/face.png', productId: 13, productName: '修護抗老系列', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
-                    { id: 4, promoterId: 4, promoterName: '理科太大', promoterImage: 'static/images/face.png', productId: 14, productName: '法薇亞MC123逆齡三部曲臉部精華液', productImage: 'static/images/products/el-650x650.png', startDate: '2019-03-04', endDate: '2019-03-15'},
-                ],
-                matchedList: [],
 			};
         },
         computed: {
-            showList() {
-                return this.searchText.length > 0 ? this.matchedList : this.collecting;
+            ...mapState(['product', 'groupBuying']),
+            ...mapGetters(['groupBuyingList']),
+            showList(self) {
+                const regp = new RegExp(self.searchText, 'i');
+                return this.groupBuyingList.filter(e => e.product.name && e.product.name.match(regp)).sort((a,b) => a.left_mintes - b.left_minutes);
             },
         },
+        mounted() {
+            this.$store.dispatch('PRODUCT_CHECK_LIST');
+            this.nextNow();
+        },
         created() {
-            window.f7alert('尚未開放, 敬請期待', () => {
-                this.$f7router.back();
-            });
+            this.$store.dispatch('GROUPBUYING_FETCH');
+        },
+        beforeDestroy() {
+            window.clearTimeout(this._timer);
         },
 		methods: {
 			onSearchChange(value) {
-                if (value.length > 0) {
-                    const collecting = this.collecting;
-                    const regp = new RegExp(value, 'i');
-                    this.matchedList = collecting
-                        .filter(e => e.promoterName.match(regp) || e.productName.match(regp))
-                        .slice(0, 100);
-                } else {
-                    this.matchedList = this.collecting.slice(0, 100);
-                }
-                debug(this.matchedList);
+                
             },
             onSearchBlur(evt) {
                 // debug('OnSearchBlur', this.matchedProductSummaries);
@@ -98,6 +102,11 @@
             },
             onClickList(data) {
                 this.$f7router.navigate(`/collectivebuying/${data.id}`);
+            },
+            nextNow() {
+                const now = new Date().getTime();
+                this.$store.commit('GROUPBUYING:UPDATE', {now});
+                this._timer = window.setTimeout(this.nextNow, 60000);
             },
 		},
     };

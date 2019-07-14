@@ -8,6 +8,7 @@ import cart from './models/cartModel';
 import axios from './models/axiosModel';
 import geo from './models/geoModel';
 import ad from './models/adModel';
+import groupBuying from './models/groupBuyingModel';
 
 Vue.use(Vuex);
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
         axios,
         geo,
         ad,
+        groupBuying,
     },
 });

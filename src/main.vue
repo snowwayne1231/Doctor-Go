@@ -33,7 +33,11 @@ export default {
                         // make global alert function
                         window.f7alert = (txt, callback) => this.dialog.alert(i18n(txt), callback);
                         window.f7confirm = (txt, callback) => this.dialog.confirm(i18n(txt), callback);
-                        window.f7prompt = (txt, callback) => this.dialog.prompt(i18n(txt), callback);
+                        window.f7prompt = (txt, callback) => {
+                            const dialog = this.dialog.prompt(i18n(txt), callback);
+                            dialog.$el.find('input').focus();
+                            return dialog;
+                        };
 
                         // make global router function
                         // window.f7router = this.router;
