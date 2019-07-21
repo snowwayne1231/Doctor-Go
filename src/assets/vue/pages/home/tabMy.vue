@@ -70,6 +70,7 @@ export default {
                 // { text: '待付款', image: 'static/images/icons/icon_order.png', link: '/myorder/tab-before-pay' },
                 // { text: '待發貨', image: 'static/images/icons/icon_send.png', link: '/myorder/tab-before-ship' },
                 { text: '待洽詢', image: 'static/images/icons/icon_gat.png', link: '/myorder/tab-wait' },
+                { text: '團購中', image: 'static/images/icons/icon_gat.png', link: '/myorder/tab-group' },
                 { text: '已完成', image: 'static/images/icons/icon_finish.png', link: '/myorder/tab-finish' },
             ],
             myFunctions: [

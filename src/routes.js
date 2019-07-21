@@ -183,6 +183,10 @@ export default [
                 path: '/tab-finish',
                 id: 'my-order-finish',
             },
+            {
+                path: '/tab-group',
+                id: 'my-order-group',
+            },
         ],
     },
     {

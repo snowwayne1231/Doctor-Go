@@ -40,12 +40,12 @@
                                     <num :price="dis.price" />
                                     <num class="condition" :value="dis.condition_quantity"></num>
                                 </i>
-                                <dd class="overlay" :style="{width: `${detail.sum_quantity / max_quantity * 100}%`}" />
+                                <dd class="overlay" :style="{width: `${Math.min(100, detail.sum_quantity / max_quantity * 100)}%`}" />
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td><i18n>團購人數</i18n></td>
+                        <td><i18n>團購數</i18n></td>
                         <td><num :value="detail.sum_quantity"></num></td>
                     </tr>
                     <tr>
@@ -130,11 +130,13 @@
                     
                     const number = parseInt(value, 10);
 
-                    if (number > 0) {
+                    if (!isNaN(number) && number > 0) {
                         self.$store.dispatch('GROUPBUYING_BUY', {
                             id: parseInt(self.$f7route.params.id, 10),
                             quantity: number,
                         });
+                    } else {
+                        window.f7alert('錯誤的數量');
                     }
 
                 });

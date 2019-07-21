@@ -24,4 +24,23 @@
 	.swiper-container {
 		height: calc(100% - 48px);
 	}
+
+	.tabs-animated-wrap {
+		height: calc(100% - 48px);
+		box-sizing: border-box;
+
+		.tab {
+			height: 100%;
+			overflow: auto;
+		}
+	}
+}
+
+@media only screen and (min-width: 720px) {
+	#my-order {
+
+		.tabs-animated-wrap {
+			height: calc(100% - 60px);
+		}
+	}
 }

@@ -5,6 +5,7 @@ import { orderBy } from 'lodash';
 export default {
     state: {
         list: [],
+        orders: [],
         now: new Date().getTime(),
     },
 
@@ -75,6 +76,22 @@ export default {
                     commit('GROUPBUYING:UPDATE', {list: next});
                 },
             });
+        },
+        GROUPBUYING_FETCH_ORDER({state, commit, dispatch}) {
+            const now = new Date().getTime();
+            // return dispatch('GROUPBUYING_CHECK_LIST').then(() => {
+            return axios({
+                uri: 'authorization/get/PaymentGroupOrder/all',
+                success: (data) => {
+                    debug('PaymentGroupOrder', data);
+                    const orders = data.map(e => {
+                        e.total_net = e.total_net || 0;
+                        return e;
+                    });
+                    commit('GROUPBUYING:UPDATE', {orders, now});
+                },
+            });
+            // });
         },
     },
 

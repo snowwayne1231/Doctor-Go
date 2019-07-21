@@ -8,6 +8,8 @@
                     <i18n>待發貨</i18n>
                 </f7-link> --><f7-link tab-link="#my-order-wait">
                     <i18n>待洽詢</i18n>
+                </f7-link><f7-link tab-link="#my-order-group">
+                    <i18n>團購中</i18n>
                 </f7-link><f7-link tab-link="#my-order-finish">
                     <i18n>已完成</i18n>
                 </f7-link>
@@ -30,10 +32,17 @@
                 <OrderCollapse :orders="waittingOrders" :loading="loading" />
             </f7-tab>
 
+            <f7-tab id="my-order-group">
+                <div class="order-tab-title"><i18n>團購中</i18n></div>
+                <OrderCollapse :orders="groupPendingOrders" :loading="loading" :isGroup="true"/>
+            </f7-tab>
+
             <f7-tab id="my-order-finish">
                 <div class="order-tab-title"><i18n>完成訂單</i18n></div>
-                <OrderCollapse :orders="finishOrders" :loading="loading" />
+                <OrderCollapse :orders="allFinishedOrders" :loading="loading" />
             </f7-tab>
+
+            
 
         </f7-tabs>
     </f7-page>
@@ -49,7 +58,7 @@
 		data () {
 			return {
                 loading: true,
-                maxShowOrder: 10,
+                maxShowOrder: 30,
                 beforePayOrders: [],
                 beforeShipOrders: [],
                 waittingOrders: [],
@@ -57,7 +66,15 @@
 			};
         },
         computed: {
-            ...mapState(['product']),
+            ...mapState(['product', 'groupBuying']),
+            groupPendingOrders(self) {
+                return self.parseGroupOrders(self.groupBuying.orders.filter(e => e.status == 1));
+            },
+            allFinishedOrders(self) {
+                return this.finishOrders.concat(
+                    self.parseGroupOrders(self.groupBuying.orders.filter(e => e.status == 5)),
+                );
+            },
         },
         mounted() {
             debug('my-order page', this);
@@ -82,6 +99,8 @@
                             // debug('myorder', nextWattingOrders);
                         },
                     });
+                    // this.$store.dispatch('GROUPBUYING_CHECK_LIST');
+                    this.$store.dispatch('GROUPBUYING_FETCH_ORDER');
                 });
             },
             parseOrders(data) {
@@ -103,6 +122,33 @@
                                 amount: ele.quantity,
                                 total: ele.total,
                                 total_net: ele.total_net,
+                            };
+                        }),
+                    };
+                }).sort((a, b) => {
+                    return b.id - a.id;
+                }).slice(0, this.maxShowOrder);
+            },
+            parseGroupOrders(data) {
+                const productList = this.product.list;
+                // debug('parseGroupOrders', data);
+                return data.map(e => {
+                    return {
+                        isGroup: true,
+                        id: e.id,
+                        status: e.status,
+                        date: e.created_at,
+                        total: e.total_net,
+                        total_net: e.total_net,
+                        products: [e.product_id].map(id => {
+                            const productInfo = productList.find(pd => pd.id == id) || {};
+                            return {
+                                id: id,
+                                image: productInfo.image,
+                                name: productInfo.name,
+                                amount: e.quantity,
+                                total: e.total_net,
+                                total_net: e.total_net,
                             };
                         }),
                     };
