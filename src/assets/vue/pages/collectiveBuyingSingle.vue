@@ -134,6 +134,8 @@
                         self.$store.dispatch('GROUPBUYING_BUY', {
                             id: parseInt(self.$f7route.params.id, 10),
                             quantity: number,
+                        }).then(() => {
+                            self.$f7router.navigate('/myorder/tab-group');
                         });
                     } else {
                         window.f7alert('錯誤的數量');
