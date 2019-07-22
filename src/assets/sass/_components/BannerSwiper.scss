@@ -11,14 +11,19 @@
         // max-height: 36vh;
         // min-height: 28vh;
         height: auto;
-        text-align: center;
+        text-align: cesnter;
+        font-size: 0px;
 
         a {
-            display: flex;
+            display: inline-block;
+            margin: 0px;
+            padding: 0px;
         }
 
         img {
+            max-width: 100%;
             width: 100%;
+            height: auto;
         }
     }
 
