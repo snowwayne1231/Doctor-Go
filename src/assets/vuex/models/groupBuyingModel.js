@@ -43,9 +43,10 @@ export default {
                 success: (data) => {
                     
                     const list = data.filter(e => {
-                        const time_st = new Date(e.time_start).getTime();
-                        const time_ed = new Date(e.time_end).getTime();
-                        return now > time_st && now < time_ed;
+                        const time_st = e.time_start ? new Date(e.time_start.replace(/-/g, '/')).getTime() : 0;
+                        const time_ed = e.time_end ? new Date(e.time_end.replace(/-/g, '/')).getTime() : 0;
+                        
+                        return now > time_st && (time_ed == 0 || now < time_ed);
                     }).map(e => {
                         e.discount_json = e.discount_json.map(ed => {
                             ed.condition_quantity = parseInt(ed.condition_quantity, 10);
