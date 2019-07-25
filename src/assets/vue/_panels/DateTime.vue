@@ -12,7 +12,7 @@
                 const type = typeof this.value;
                 switch (type) {
                     case 'string': case 'number':
-                        date = new Date(this.value);
+                        date = this.value.match('/\d{4}.\d{1,2}.\d{1,2}.\d+/') ? new Date(this.value.replace('/-/g', '/')) : new Date(this.value);
                         break;
                     case 'object':
                         date = this.value instanceof Date ? this.value : new Date();

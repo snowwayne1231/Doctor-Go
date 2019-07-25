@@ -14,7 +14,7 @@ export default {
             const list = state.list.map(e => {
                 const discount = e.discount_json.find(d => d.condition_quantity <= e.sum_quantity);
                 const product = rootState.product.list.find(p => e.product_id == p.id) || {};
-                const left_time = new Date(e.time_end).getTime() - state.now;
+                const left_time = e.time_end ? new Date(e.time_end.replace(/-/g, '/')).getTime() - state.now : 0;
                 const left_minutes = Math.floor(left_time / 1000 / 60);
                 const left_days = Math.floor(left_minutes / 60 / 24);
                 return {
