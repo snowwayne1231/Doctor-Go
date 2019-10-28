@@ -38,7 +38,7 @@
                                         'background-color': `rgb(${Math.floor(idx * (100 / detail.discount_json.length) +150)}, 250, 160)`,
                                     }">
                                     <num :price="dis.price" />
-                                    <span class="condition"><num :value="detail.discount_json[idx +1] ? detail.discount_json[idx +1].condition_quantity : 1"></num>-<num :value="dis.condition_quantity"></num></span>
+                                    <span class="condition"><num :value="dis.condition_quantity"></num><span v-if="detail.discount_json[idx -1]">-<num :value="detail.discount_json[idx -1].condition_quantity -1"></num></span><span v-else>+</span></span>
                                 </i>
                                 <dd class="overlay" :style="{width: `${Math.min(100, detail.sum_quantity / max_quantity * 100)}%`}" />
                             </div>
