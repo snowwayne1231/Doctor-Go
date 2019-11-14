@@ -11,9 +11,12 @@
                 let date;
                 const type = typeof this.value;
                 switch (type) {
-                    case 'string': case 'number':
-                        date = this.value.match('/\d{4}.\d{1,2}.\d{1,2}.\d+/') ? new Date(this.value.replace('/-/g', '/')) : new Date(this.value);
+                    case 'string':
+                        date = this.value.match(/\d{4}.\d{1,2}.\d{1,2}.\d+/g) ? new Date(this.value.replace(/-/g, '/')) : new Date(this.value);
                         break;
+                    case 'number':
+                        date = new Date(this.value);
+                    break;
                     case 'object':
                         date = this.value instanceof Date ? this.value : new Date();
                         break;
@@ -28,7 +31,12 @@
                 const minute = date.getMinutes();
 
                 if (isNaN(date.getTime())) {
-                    return '---';
+                    if (type == 'string' && this.value.match(/\d{4}.\d{1,2}.\d{1,2}/)) {
+                        return this.value.replace(/\-/g, '/');
+                    } else {
+                        return '---';
+                    }
+                    
                 } else if (this.format) {
                     return this.format
                         .replace(/y+/i, year)
