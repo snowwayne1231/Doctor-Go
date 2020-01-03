@@ -25,11 +25,11 @@
                         <td><i18n>當前價格</i18n></td>
                         <td>
                             <num class="price" :price="detail.now_price" />
-                            <span v-if="!detail.now_discount">(尚未達到優惠人數)</span>
+                            <span v-if="!detail.now_discount">(尚未達到團購人數)</span>
                         </td>
                     </tr>
                     <tr>
-                        <td><i18n>團購優惠</i18n></td>
+                        <td><i18n>團購條件</i18n></td>
                         <td>
                             <div class="price-bar">
                                 <i v-for="(dis, idx) in detail.discount_json" :key="idx" class="gap" 

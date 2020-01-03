@@ -1,7 +1,7 @@
 <template>
     <div class="tab-cart-content">
         <header-nav-bar>
-            <i18n slot="title">購物車</i18n>
+            <i18n slot="title">需求清單</i18n>
             <f7-link slot="right" @click="onClickClear"><i18n>清除</i18n></f7-link>
         </header-nav-bar>
         <div class="inner custom-scroll">
@@ -108,7 +108,7 @@ export default {
         },
         onClickGoToCheckout() {
             if (this.cartOrders.length === 0) {
-                return window.f7alert('購物車為空');
+                return window.f7alert('需求清單為空');
             }
 
             const notAllow = this.cartOrders.filter(e => e.product.status != 1);
@@ -127,7 +127,7 @@ export default {
             })
         },
         onClickClear() {
-            this.$f7.dialog.confirm('確定刪除選擇的商品嗎?', '購物車編輯', (evt) => {
+            this.$f7.dialog.confirm('確定刪除選擇的商品嗎?', '需求清單編輯', (evt) => {
                 this.$store.commit('CART_REMOVE_LIST_ITEM');
             });
         },

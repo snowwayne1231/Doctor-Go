@@ -34,7 +34,7 @@
                 </a>
                 <a href="/tab-cart" class="tab-link" data-route-tab-id="tab-cart" :class="{ hide:!isLogin }">
                     <f7-icon class="fa fa-shopping-cart" />
-                    <i18n class="tabbar-label">購物車</i18n>
+                    <i18n class="tabbar-label">需求清單</i18n>
                 </a>
                 <a :href="isLogin ? '/tab-article' : '/login/'" class="tab-link" data-route-tab-id="tab-article">
                     <f7-icon class="fa fa-book" />

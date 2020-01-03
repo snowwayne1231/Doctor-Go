@@ -30,7 +30,7 @@
                                 <i18n>原價</i18n><num :price="thisProduct.price_forshow"></num>
                             </dd>
                             <dd class="special-price">
-                                <i18n>優惠價</i18n><num :price="thisProduct.price"></num>
+                                <i18n>參考價</i18n><num :price="thisProduct.price"></num>
                             </dd>
                         </div>
                     </section>
@@ -62,9 +62,9 @@
                         <f7-icon class="fa fa-shopping-cart" />
                     </dd>
                     <btn class="adds cart" @click="onClickAddToCart">
-                        <i18n>加入購物車</i18n>
+                        <i18n>加入清單</i18n>
                     </btn><btn class="adds buy" @click="onClickBuy">
-                        <i18n>立即購買</i18n>
+                        <i18n>我有需要</i18n>
                     </btn>
                 </section>
 
@@ -161,9 +161,9 @@
             </div>
             <div class="product cart-btns">
                 <btn class="adds cart" @click="onClickAddToCart">
-                    <i18n>加入購物車</i18n>
+                    <i18n>加入清單</i18n>
                 </btn><btn class="adds buy" @click="onClickBuy">
-                    <i18n>立即購買</i18n>
+                    <i18n>我有需要</i18n>
                 </btn>
             </div>
         </f7-sheet>
@@ -229,7 +229,7 @@
                     product: this.id,
                     amount: this.amount,
                 }).then(e => {
-                    window.f7alert('已成功加入購物車');
+                    window.f7alert('已成功加入清單');
                 });
 
             },
